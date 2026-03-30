@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for S'K One Tech Support Website */
+
+/* Additional utilities */
+.hover-lift {
+  transition: transform 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+}
+
+/* Custom glow effect */
+.glow {
+  text-shadow: 0 0 15px #3b82f6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .fade-in {
+    animation-duration: 0.5s;
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "one",
+  "version": "1.0.0",
+  "description": "A responsive business website for IT support and staffing services.",
+  "main": "index.js",
+  "scripts": {
+    "build-css": "tailwindcss -i ./main.css -o ./dist/output.css --watch",
+    "build-css-prod": "tailwindcss -i ./main.css -o ./dist/output.css --minify",
+    "dev": "tailwindcss -i ./main.css -o ./dist/output.css --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["website", "business", "it-support", "tailwindcss"],
+  "author": "S'K One Tech Support",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "tailwindcss": "^4.2.2"
+  }
+}
