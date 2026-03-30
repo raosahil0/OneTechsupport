@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 /* Custom styles for S'K One Tech Support Website */
 
@@ -13,10 +11,7 @@
   transform: translateY(-5px);
 }
 
-/* Custom glow effect */
-.glow {
-  text-shadow: 0 0 15px #3b82f6;
-}
+/* Glow effect removed for minimal professional look */
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
