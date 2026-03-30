@@ -7,7 +7,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   helperText?: string;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
-  size?: 'sm' | 'md' | 'lg';
+  inputSize?: 'sm' | 'md' | 'lg';
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -20,7 +20,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       helperText,
       leftIcon,
       rightIcon,
-      size = 'md',
+      inputSize = 'md',
       disabled,
       id,
       ...props
@@ -68,7 +68,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               error && 'border-error bg-red-50 focus:border-error focus:ring-error/20',
               leftIcon && 'pl-10',
               rightIcon && 'pr-10',
-              sizeStyles[size],
+              sizeStyles[inputSize],
               className
             )}
             ref={ref}

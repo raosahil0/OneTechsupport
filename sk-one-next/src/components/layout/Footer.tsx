@@ -1,14 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { Facebook, Twitter, Linkedin, Instagram, Mail } from 'lucide-react';
+import { Globe, Heart, Share2, User, Mail } from 'lucide-react';
 
 export interface FooterProps {
   columns?: {
     title: string;
     links: { label: string; href: string }[];
   }[];
-  socialLinks?: { platform: string; url: string }[];
+  socialLinks?: { platform: string; url: string; icon?: React.ReactNode }[];
   newsletter?: boolean;
   copyright?: string;
 }
@@ -20,18 +20,11 @@ export function Footer({
   copyright,
 }: FooterProps) {
   const defaultSocialLinks = [
-    { platform: 'linkedin', url: '#' },
-    { platform: 'twitter', url: '#' },
-    { platform: 'facebook', url: '#' },
-    { platform: 'instagram', url: '#' },
+    { platform: 'LinkedIn', url: '#', icon: <User className="h-5 w-5" /> },
+    { platform: 'Twitter', url: '#', icon: <Share2 className="h-5 w-5" /> },
+    { platform: 'Facebook', url: '#', icon: <Globe className="h-5 w-5" /> },
+    { platform: 'Instagram', url: '#', icon: <Heart className="h-5 w-5" /> },
   ];
-
-  const socialIcons: Record<string, React.ReactNode> = {
-    linkedin: <Linkedin className="h-5 w-5" />,
-    twitter: <Twitter className="h-5 w-5" />,
-    facebook: <Facebook className="h-5 w-5" />,
-    instagram: <Instagram className="h-5 w-5" />,
-  };
 
   const currentYear = new Date().getFullYear();
 
@@ -54,14 +47,14 @@ export function Footer({
             
             {/* Social Links */}
             <div className="flex gap-4">
-              {(socialLinks.length > 0 ? socialLinks : defaultSocialLinks).map((link) => (
+              {(socialLinks.length > 0 ? socialLinks : defaultSocialLinks).map((link, index) => (
                 <a
-                  key={link.platform}
+                  key={index}
                   href={link.url}
                   className="flex items-center justify-center w-10 h-10 bg-white/10 rounded-sm transition-all duration-fast hover:bg-brand-500 hover:-translate-y-0.5"
                   aria-label={link.platform}
                 >
-                  {socialIcons[link.platform] || link.platform}
+                  {link.icon || <Globe className="h-5 w-5" />}
                 </a>
               ))}
             </div>
