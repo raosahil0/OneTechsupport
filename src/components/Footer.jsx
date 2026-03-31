@@ -1,12 +1,28 @@
 import { Mail, Phone, MapPin, Share2, Send } from "lucide-react";
+import { useState } from "react";
+import { saveLead } from "../services/databaseService";
 
 const Footer = () => {
-  const handleNewsletterSubmit = (e) => {
-    e.preventDefault();
-    // Mock newsletter signup
-    alert("Thank you for subscribing! (Mock)");
-  };
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [newsletterMessage, setNewsletterMessage] = useState("");
 
+  const handleNewsletterSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setNewsletterMessage("");
+
+    try {
+      await saveLead({ email, source: "newsletter" });
+      setNewsletterMessage("Subscribed successfully! Thank you.");
+      setEmail("");
+    } catch (error) {
+      console.error("Failed to subscribe:", error);
+      setNewsletterMessage("Error subscribing. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <footer className="bg-gray-900 text-white">
       {/* Main Footer Content */}
@@ -156,17 +172,25 @@ const Footer = () => {
             >
               <input
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 className="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent"
                 required
               />
               <button
                 type="submit"
-                className="px-6 py-2 bg-brand-blue text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200"
+                disabled={isSubmitting}
+                className="px-6 py-2 bg-brand-blue text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Subscribe
+                {isSubmitting ? "Subscribing..." : "Subscribe"}
               </button>
             </form>
+            {newsletterMessage && (
+              <p className="mt-3 text-sm text-center text-gray-200">
+                {newsletterMessage}
+              </p>
+            )}
           </div>
         </div>
       </div>

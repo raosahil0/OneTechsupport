@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Star } from "lucide-react";
+import { saveFeedback } from "../services/databaseService";
 
 const FeedbackForm = () => {
   const [formData, setFormData] = useState({
@@ -8,19 +9,31 @@ const FeedbackForm = () => {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Store in localStorage
-    const feedbacks = JSON.parse(localStorage.getItem("feedbacks") || "[]");
-    feedbacks.push({ ...formData, id: Date.now() });
-    localStorage.setItem("feedbacks", JSON.stringify(feedbacks));
-    setSubmitted(true);
-    setFormData({ name: "", rating: "", message: "" });
+    setLoading(true);
+    setError("");
+
+    try {
+      await saveFeedback({
+        ...formData,
+        created_at: new Date().toISOString(),
+      });
+      setSubmitted(true);
+      setFormData({ name: "", rating: "", message: "" });
+    } catch (err) {
+      console.error(err);
+      setError(err.message || "Unable to save feedback. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (submitted) {
@@ -83,11 +96,15 @@ const FeedbackForm = () => {
           required
         ></textarea>
       </div>
+      {error && (
+        <p className="text-sm text-red-600 mb-2">{error}</p>
+      )}
       <button
         type="submit"
-        className="w-full bg-brand-blue text-white py-3 rounded-md hover:bg-blue-700 transition-colors font-medium"
+        disabled={loading}
+        className="w-full bg-brand-blue text-white py-3 rounded-md hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        Submit Review
+        {loading ? "Submitting..." : "Submit Review"}
       </button>
     </form>
   );

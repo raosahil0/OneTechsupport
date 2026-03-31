@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Phone, Mail, MapPin, Camera, MessageCircle } from "lucide-react";
+import { saveContact } from "../services/databaseService";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -10,25 +11,37 @@ const Contact = () => {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Store in localStorage
-    const contacts = JSON.parse(localStorage.getItem("contacts") || "[]");
-    contacts.push({ ...formData, id: Date.now() });
-    localStorage.setItem("contacts", JSON.stringify(contacts));
-    setSubmitted(true);
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      inquiryType: "",
-      message: "",
-    });
+    setLoading(true);
+    setError("");
+
+    try {
+      await saveContact({
+        ...formData,
+        created_at: new Date().toISOString(),
+      });
+      setSubmitted(true);
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        inquiryType: "",
+        message: "",
+      });
+    } catch (err) {
+      console.error(err);
+      setError(err.message || "Unable to save contact. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (submitted) {
@@ -171,11 +184,15 @@ const Contact = () => {
                     className="w-full p-3 rounded-lg bg-white border border-gray-300 focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 focus:outline-none text-gray-900 resize-vertical"
                   ></textarea>
                 </div>
+                {error && (
+                  <p className="text-sm text-red-600 mb-2">{error}</p>
+                )}
                 <button
                   type="submit"
-                  className="w-full bg-brand-blue py-3 rounded-lg hover:bg-blue-700 transition-all font-semibold text-white"
+                  disabled={loading}
+                  className="w-full bg-brand-blue py-3 rounded-lg hover:bg-blue-700 transition-all font-semibold text-white disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Send Message
+                  {loading ? "Sending..." : "Send Message"}
                 </button>
               </form>
             </div>
