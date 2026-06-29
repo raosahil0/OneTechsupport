@@ -6,6 +6,9 @@ const Home = () => {
     <div className="font-sans text-slate-800 bg-slate-50 min-h-screen">
       {/* Hero Section - Premium Dark Gradient & Interactive Highlight */}
       <section className="relative text-center py-32 px-6 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 overflow-hidden">
+        {/* Background Image Overlay */}
+        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15 mix-blend-overlay pointer-events-none" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80')" }}></div>
+        
         {/* Glow Effects */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none"></div>
         
