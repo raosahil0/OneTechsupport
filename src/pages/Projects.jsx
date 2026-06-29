@@ -18,9 +18,11 @@ const Projects = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           <div className="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-            <div className="h-48 bg-gradient-to-br from-brand-blue to-slate-600 flex items-center justify-center">
-              <Monitor className="w-12 h-12 text-white" />
-            </div>
+            <img 
+              src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80" 
+              alt="Network Infrastructure Setup" 
+              className="w-full h-48 object-cover"
+            />
             <div className="p-6">
               <h3 className="text-xl font-bold mb-2 text-gray-800">
                 Network Infrastructure Setup
@@ -39,9 +41,11 @@ const Projects = () => {
           </div>
 
           <div className="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-            <div className="h-48 bg-gradient-to-br from-green-600 to-brand-blue flex items-center justify-center">
-              <Users className="w-12 h-12 text-white" />
-            </div>
+            <img 
+              src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80" 
+              alt="Manpower Backup Solution" 
+              className="w-full h-48 object-cover"
+            />
             <div className="p-6">
               <h3 className="text-xl font-bold mb-2 text-gray-800">
                 Manpower Backup Solution
@@ -58,9 +62,11 @@ const Projects = () => {
           </div>
 
           <div className="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-            <div className="h-48 bg-gradient-to-br from-slate-600 to-brand-blue flex items-center justify-center">
-              <Search className="w-12 h-12 text-white" />
-            </div>
+            <img 
+              src="https://images.unsplash.com/photo-1573497491208-6b1acb260507?auto=format&fit=crop&w=800&q=80" 
+              alt="IT Talent Recruitment" 
+              className="w-full h-48 object-cover"
+            />
             <div className="p-6">
               <h3 className="text-xl font-bold mb-2 text-gray-800">
                 IT Talent Recruitment
@@ -79,9 +85,11 @@ const Projects = () => {
           </div>
 
           <div className="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-            <div className="h-48 bg-gradient-to-br from-orange-600 to-slate-700 flex items-center justify-center">
-              <Shield className="w-12 h-12 text-white" />
-            </div>
+            <img 
+              src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80" 
+              alt="Cybersecurity Implementation" 
+              className="w-full h-48 object-cover"
+            />
             <div className="p-6">
               <h3 className="text-xl font-bold mb-2 text-gray-800">
                 Cybersecurity Implementation
@@ -98,9 +106,11 @@ const Projects = () => {
           </div>
 
           <div className="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-            <div className="h-48 bg-gradient-to-br from-teal-600 to-brand-blue flex items-center justify-center">
-              <Cloud className="w-12 h-12 text-white" />
-            </div>
+            <img 
+              src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80" 
+              alt="Cloud Migration" 
+              className="w-full h-48 object-cover"
+            />
             <div className="p-6">
               <h3 className="text-xl font-bold mb-2 text-gray-800">
                 Cloud Migration
@@ -119,9 +129,11 @@ const Projects = () => {
           </div>
 
           <div className="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-            <div className="h-48 bg-gradient-to-br from-indigo-600 to-slate-700 flex items-center justify-center">
-              <BarChart className="w-12 h-12 text-white" />
-            </div>
+            <img 
+              src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" 
+              alt="Data Analytics Setup" 
+              className="w-full h-48 object-cover"
+            />
             <div className="p-6">
               <h3 className="text-xl font-bold mb-2 text-gray-800">
                 Data Analytics Setup
