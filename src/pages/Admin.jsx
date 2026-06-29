@@ -790,11 +790,13 @@ const Admin = () => {
                   Cancel
                 </button>
                 <a
-                  href={`mailto:${selectedInquiry.email}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`}
+                  href={`https://mail.google.com/mail/?view=cm&fs=1&to=${selectedInquiry.email}&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setReplyModalOpen(false)}
                   className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-blue hover:bg-blue-600 text-white text-sm font-bold rounded-xl transition-colors"
                 >
-                  Open in Mail Client
+                  Open in Gmail
                   <Send className="w-4 h-4" />
                 </a>
               </div>
