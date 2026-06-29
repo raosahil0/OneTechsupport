@@ -1,93 +1,225 @@
-# S'K One Tech Support Website
+# 🌐 S'K One Tech Support Web Application
 
-## Phase 1 - Core Website
+[![React](https://img.shields.io/badge/React-19.0.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-8.0.3-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vite.dev/)
+[![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.0-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Supabase](https://img.shields.io/badge/Supabase-Database-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com/)
+[![Vercel](https://img.shields.io/badge/Vercel-Deployment-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
 
-A responsive business website for IT support and staffing services.
+A premium, interactive business portal for **S'K One Tech Support**. The application delivers a high-performance web experience for client inquiries, feedback gathering, and interactive staffing/IT operations management, backed by a robust serverless architecture with offline resilience.
 
-### Features
-- **Home Page**: Hero section, services overview, testimonials, about, contact
-- **Services Page**: Detailed service offerings
-- **Projects Page**: Portfolio of completed projects
-- **About Page**: Company information and team
-- **Contact Page**: Contact form with local storage
-- **Feedback System**: External feedback collection
+---
 
-### Technologies Used
-- **HTML5** (semantic structure)
-- **TailwindCSS** (via CDN + custom config for future builds)
-- **Vanilla JavaScript** (ES6+ with class-based architecture)
-- **Local Storage** (for contact forms - Phase 1)
+## 🗺️ System Architecture
 
-### TailwindCSS Setup
-- **CDN Version**: Currently using `https://cdn.tailwindcss.com` for immediate development
-- **Config File**: `tailwind.config.js` with custom animations and colors
-- **Source CSS**: `main.css` with Tailwind directives and custom styles
-- **Build Ready**: Scripts configured for production CSS compilation
+Below is a diagram of the application's client-serverless architecture and automatic fallback mechanism:
 
-### Build Commands
-```bash
-npm run dev          # Watch mode for development
-npm run build-css-prod  # Production build with minification
+```mermaid
+graph TD
+    User([User Client]) --> App[React Application]
+    App --> Navigation[React Router v7]
+    
+    subgraph Pages & Views
+        Navigation --> Home[Home / Hero & Testimonials]
+        Navigation --> About[About / Team & Values]
+        Navigation --> Services[Services / Pricing & Tech Stack]
+        Navigation --> Projects[Projects / Portfolio Gallery]
+        Navigation --> Clients[Clients / Portals]
+        Navigation --> Contact[Contact Form]
+        Navigation --> Admin[Admin Control Center]
+    end
+
+    subgraph Operations Hub
+        Contact --> DbService[Database Service]
+        Admin --> DbService
+    end
+
+    subgraph Data Layer
+        DbService --> ConnectionCheck{Supabase Configured?}
+        ConnectionCheck -- "Yes (Online)" --> Supabase[(Supabase PostgreSQL)]
+        ConnectionCheck -- "No (Failover)" --> LocalStorage[(Browser localStorage)]
+    end
+
+    subgraph Email Service
+        Contact --> EmailJS[EmailJS Client API]
+    end
+
+    classDef tech fill:#0f172a,stroke:#1e40af,stroke-width:2px,color:#f8fafc;
+    classDef fallback fill:#7f1d1d,stroke:#b91c1c,stroke-width:1px,color:#fecaca;
+    class DbService,Supabase,EmailJS tech;
+    class LocalStorage fallback;
 ```
 
-### Architecture
-- **Separation of Concerns**: CSS in `app.css`, JS in `index.js`
-- **Modular JavaScript**: Class-based App structure with separate modules
-- **Responsive Design**: Mobile-first with TailwindCSS
-- **Progressive Enhancement**: Works without JavaScript, enhanced with it
+---
 
-### JavaScript Features
-- **Form Validation**: Client-side validation with user feedback
-- **Async Operations**: Simulated async for future API integration
-- **Intersection Observer**: Smooth scroll animations
-- **Error Handling**: Graceful error messages
-- **Loading States**: User feedback during form submission
+## 🛠️ Tech Stack & Key Integrations
+
+| Technology | Purpose | Key Benefit |
+| :--- | :--- | :--- |
+| **React 19** | Component Architecture | High performance rendering, declarative state management. |
+| **Vite 8** | Build & Dev Server | Sub-second Hot Module Replacement (HMR) and optimized builds. |
+| **Tailwind CSS v4** | Style Engine | Contemporary layout design, built with modern CSS themes. |
+| **Supabase JS** | Serverless Backend | Live PostgreSQL database synchronization with zero server config. |
+| **EmailJS** | Notification Routing | Automatic client auto-reply and dispatching directly to inbox. |
+| **Lucide Icons** | Visual Assets | Consistent, modern vector iconography. |
+
+---
+
+## 📁 Repository Structure
+
 ```
 /
-├── index.html          # Home page
-├── services.html       # Services page
-├── projects.html       # Projects portfolio
-├── about.html          # About us page
-├── contact.html        # Contact page
-├── main.css            # Tailwind CSS source with directives
-├── app.css             # Custom styles (animations, utilities)
-├── tailwind.config.js  # Tailwind configuration
-├── package.json        # Node.js dependencies and scripts
-├── index.js            # Main app logic (class-based, modular)
-├── README.md           # Documentation
-├── dist/               # Build output directory
-├── assets/
-│   └── logo.png        # Company logo
-└── components/
-    └── Pages/
-        ├── feedback.html   # Feedback form
-        └── thankyou.html   # Thank you page
+├── .env                    # Environment variables (Supabase & EmailJS keys)
+├── index.html              # Vite entry template
+├── package.json            # Script commands & package definitions
+├── tailwind.config.js      # Tailwind source path settings
+├── vercel.json             # Deployment settings (SPA redirects)
+├── vite.config.js          # Vite config & React plugin configuration
+└── src/
+    ├── App.jsx             # Router definition & global layouts
+    ├── main.jsx            # React root mount point
+    ├── main.css            # Custom CSS utilities & Tailwind directives
+    ├── assets/
+    │   └── logo.png        # Corporate brand identity
+    ├── components/
+    │   ├── Header.jsx      # Navigation bar with active link markers
+    │   ├── Footer.jsx      # Footer with responsive email lead signup
+    │   └── FeedbackForm.jsx# Interactive floating rating & slide-over form
+    ├── pages/
+    │   ├── Home.jsx        # Landing page with animated hero, services & testimonials
+    │   ├── About.jsx       # Mission statement, corporate milestones & teams
+    │   ├── Services.jsx    # Managed services catalogue & features lists
+    │   ├── Projects.jsx    # Categorized filterable client engagement gallery
+    │   ├── Clients.jsx     # Onboarding guidelines and credentials
+    │   ├── Contact.jsx     # Email & lead intake forms with validation rules
+    │   └── Admin.jsx       # Admin portal with metrics graphs, filters & database logs
+    └── services/
+        ├── supabaseClient.js  # Supabase client wrapper
+        └── databaseService.js # Unified query controller with local fallback
 ```
 
-### How to Run
-1. Open any `.html` file in your web browser
-2. Navigate through the pages using the top menu
-3. Fill out the contact form (data stored locally)
-4. Use the feedback form for reviews
+---
 
-### JavaScript Integration
-- All pages load `index.js` for consistent functionality
-- Smooth scrolling, animations, and form handling work across all pages
-- Contact form validation and local storage work on contact.html
+## ⚙️ Environment Configuration
 
-### Development Notes
-- **Phase 1**: Frontend complete with local storage
-- **Phase 2**: Will integrate SQLite database
-- Mobile-first responsive design
-- Modern UI with dark theme
+To set up the database and messaging integrations, add a `.env` file in the project root:
 
-### Contact Form
-- Stores submissions in browser localStorage
-- Form validation included
-- Success message displayed
+```ini
+# Supabase Configuration
+VITE_SUPABASE_URL=https://your-project-id.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-public-key
 
-### Next Steps (Phase 2)
-- Set up Node.js server
-- Integrate SQLite database
-- Replace localStorage with database storage
-- Add admin panel for managing contacts/feedback
+# EmailJS Configuration (Optional)
+VITE_EMAILJS_SERVICE_ID=your_service_id
+VITE_EMAILJS_TEMPLATE_ID=your_template_id
+VITE_EMAILJS_PUBLIC_KEY=your_public_key
+```
+
+---
+
+## 🚀 Running Locally
+
+Follow these quick commands to spin up the project:
+
+### 1. Installation
+```bash
+npm install
+```
+
+### 2. Launch Dev Server
+```bash
+npm run dev
+```
+
+### 3. Production Compilation & Testing
+```bash
+npm run build      # Build optimized application files inside /dist
+npm run preview    # Serve and test the local production build
+```
+
+---
+
+## 🗄️ Database Setup (Supabase)
+
+> [!TIP]
+> This application automatically detects if Supabase credentials are missing and falls back to browser-level `localStorage` storing so that the app remains fully functional under any configuration.
+
+If configuring Supabase, open your **Supabase SQL Editor** and execute the following schema script to configure tables and Row Level Security (RLS) policies:
+
+<details>
+<summary><b>📐 Click to Expand SQL Schema Script</b></summary>
+
+```sql
+-- -------------------------------------------------------------
+-- 1. Table Declarations
+-- -------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS contacts (
+  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL,
+  name text NOT NULL,
+  email text NOT NULL,
+  phone text,
+  "inquiryType" text NOT NULL,
+  message text NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS feedbacks (
+  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL,
+  name text NOT NULL,
+  rating numeric NOT NULL CHECK (rating >= 1 AND rating <= 5),
+  message text NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS leads (
+  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL,
+  email text NOT NULL,
+  source text DEFAULT 'website'::text NOT NULL
+);
+
+-- -------------------------------------------------------------
+-- 2. Security Setup (Row Level Security)
+-- -------------------------------------------------------------
+
+ALTER TABLE contacts ENABLE ROW LEVEL SECURITY;
+ALTER TABLE feedbacks ENABLE ROW LEVEL SECURITY;
+ALTER TABLE leads ENABLE ROW LEVEL SECURITY;
+
+-- -------------------------------------------------------------
+-- 3. Public Accessibility Policies
+-- -------------------------------------------------------------
+
+-- Contacts Policies
+CREATE POLICY "Allow public insert contacts" ON contacts FOR INSERT TO public WITH CHECK (true);
+CREATE POLICY "Allow public read contacts" ON contacts FOR SELECT TO public USING (true);
+CREATE POLICY "Allow public delete contacts" ON contacts FOR DELETE TO public USING (true);
+
+-- Feedbacks Policies
+CREATE POLICY "Allow public insert feedbacks" ON feedbacks FOR INSERT TO public WITH CHECK (true);
+CREATE POLICY "Allow public read feedbacks" ON feedbacks FOR SELECT TO public USING (true);
+CREATE POLICY "Allow public delete feedbacks" ON feedbacks FOR DELETE TO public USING (true);
+
+-- Leads Policies
+CREATE POLICY "Allow public insert leads" ON leads FOR INSERT TO public WITH CHECK (true);
+CREATE POLICY "Allow public read leads" ON leads FOR SELECT TO public USING (true);
+CREATE POLICY "Allow public delete leads" ON leads FOR DELETE TO public USING (true);
+```
+</details>
+
+---
+
+## ✨ Features & User Experience
+
+- **⚡ Instant Feedback Slider**: Floating widget accessible across all pages allowing visitors to quickly rate services and log testimonials.
+- **🛡️ Full-Featured Admin Center**: Access at `/admin` displaying inquiry tables, feedback logs, newsletter leads, stats cards, filtering/search tools, and item-deletion controls.
+- **📱 Responsive by Design**: Built from the ground up for screens of all sizes, featuring professional dark highlights and modern layout assets.
+
+---
+
+## 👥 Authors
+
+- **Sahil Yadav**
+  - GitHub: [@raosahil0](https://github.com/raosahil0)
+  - GitHub Backup/Secondary: [@sahilyadav-01](https://github.com/sahilyadav-01)
