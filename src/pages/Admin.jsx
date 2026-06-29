@@ -52,6 +52,7 @@ const Admin = () => {
   const [selectedInquiry, setSelectedInquiry] = useState(null);
   const [emailSubject, setEmailSubject] = useState("");
   const [emailBody, setEmailBody] = useState("");
+  const [copiedText, setCopiedText] = useState(""); // Track copy success state
   
   // Delete confirmation
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
@@ -94,6 +95,14 @@ const Admin = () => {
       loadDashboardData();
     }
   }, [isAuthenticated]);
+
+  // ─── COPY TO CLIPBOARD ───────────────────────────────────────────────────
+  const copyToClipboard = (text, type) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopiedText(type);
+      setTimeout(() => setCopiedText(""), 2000);
+    });
+  };
 
   // ─── CSV EXPORTER ──────────────────────────────────────────────────────────
   const handleExportCSV = () => {
@@ -156,6 +165,7 @@ const Admin = () => {
   // ─── QUICK REPLY SYSTEM ───────────────────────────────────────────────────
   const openReplyModal = (inquiry) => {
     setSelectedInquiry(inquiry);
+    setCopiedText("");
     setEmailSubject(`Response from S'K One Tech Support`);
     setEmailBody(
       `Hello ${inquiry.name},\n\nThank you for reaching out to S'K One Tech Support. We received your inquiry regarding "${inquiry.inquiryType || "IT Support"}".\n\n[Write your response here]\n\nBest regards,\nSahil Yadav\nFounder & CEO\nS'K One Tech Support`
@@ -723,7 +733,15 @@ const Admin = () => {
 
             {/* Email Subject */}
             <div className="mb-4">
-              <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Subject</label>
+              <div className="flex justify-between items-center mb-2">
+                <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider">Subject</label>
+                <button
+                  onClick={() => copyToClipboard(emailSubject, "subject")}
+                  className="text-xs text-brand-blue hover:underline font-bold"
+                >
+                  {copiedText === "subject" ? "Copied!" : "Copy Subject"}
+                </button>
+              </div>
               <input
                 type="text"
                 value={emailSubject}
@@ -736,7 +754,15 @@ const Admin = () => {
 
             {/* Email Body */}
             <div className="mb-6">
-              <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Email Body</label>
+              <div className="flex justify-between items-center mb-2">
+                <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider">Email Body</label>
+                <button
+                  onClick={() => copyToClipboard(emailBody, "body")}
+                  className="text-xs text-brand-blue hover:underline font-bold"
+                >
+                  {copiedText === "body" ? "Copied!" : "Copy Body"}
+                </button>
+              </div>
               <textarea
                 value={emailBody}
                 onChange={(e) => setEmailBody(e.target.value)}
@@ -748,21 +774,30 @@ const Admin = () => {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex justify-end gap-3 pt-4 border-t border-slate-800">
+            <div className="flex justify-between items-center pt-4 border-t border-slate-800">
               <button
-                onClick={() => setReplyModalOpen(false)}
-                className="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-sm font-semibold rounded-xl transition-colors"
+                onClick={() => copyToClipboard(selectedInquiry.email, "email")}
+                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-xs font-bold rounded-lg transition-colors"
               >
-                Cancel
+                {copiedText === "email" ? "Email Copied!" : "Copy Client Email"}
               </button>
-              <a
-                href={`mailto:${selectedInquiry.email}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`}
-                onClick={() => setReplyModalOpen(false)}
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-blue hover:bg-blue-600 text-white text-sm font-bold rounded-xl transition-colors"
-              >
-                Open in Mail Client
-                <Send className="w-4 h-4" />
-              </a>
+              
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setReplyModalOpen(false)}
+                  className="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-sm font-semibold rounded-xl transition-colors"
+                >
+                  Cancel
+                </button>
+                <a
+                  href={`mailto:${selectedInquiry.email}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`}
+                  onClick={() => setReplyModalOpen(false)}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-blue hover:bg-blue-600 text-white text-sm font-bold rounded-xl transition-colors"
+                >
+                  Open in Mail Client
+                  <Send className="w-4 h-4" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
