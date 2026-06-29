@@ -31,7 +31,8 @@
     "vite": "^8.0.3"
   },
   "dependencies": {
-    "lucide-react": "^1.7.0",
-    "@supabase/supabase-js": "^2.35.0"
+    "@emailjs/browser": "^4.4.1",
+    "@supabase/supabase-js": "^2.35.0",
+    "lucide-react": "^1.7.0"
   }
 }

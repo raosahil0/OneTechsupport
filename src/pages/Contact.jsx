@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Phone, Mail, MapPin, Camera, MessageCircle, Send, CheckCircle2 } from "lucide-react";
 import { saveContact } from "../services/databaseService";
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -24,10 +25,32 @@ const Contact = () => {
     setError("");
 
     try {
+      // 1. Save to Supabase Database
       await saveContact({
         ...formData,
         created_at: new Date().toISOString(),
       });
+
+      // 2. Send Auto-Reply Email via EmailJS (if credentials are set in .env)
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+      if (serviceId && templateId && publicKey) {
+        await emailjs.send(
+          serviceId,
+          templateId,
+          {
+            to_name: formData.name,
+            to_email: formData.email,
+            inquiry_type: formData.inquiryType,
+            message: formData.message,
+            reply_to: "skonetechsupport@gmail.com",
+          },
+          publicKey
+        );
+      }
+
       setSubmitted(true);
       setFormData({
         name: "",
