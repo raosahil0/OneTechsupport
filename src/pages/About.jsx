@@ -160,12 +160,8 @@ const About = () => {
         <h2 className="text-4xl text-gray-800 mb-12 font-bold">Our Leadership Team</h2>
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           <div className="bg-white border border-gray-150 p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow group">
-            <div className="w-28 h-28 rounded-full mx-auto mb-4 overflow-hidden border-2 border-brand-blue/20 group-hover:border-brand-blue transition-colors">
-              <img
-                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=300&q=80"
-                alt="Sahil Yadav"
-                className="w-full h-full object-cover"
-              />
+            <div className="w-20 h-20 bg-brand-blue/10 text-brand-blue rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold group-hover:bg-brand-blue group-hover:text-white transition-colors duration-300">
+              SY
             </div>
             <h3 className="font-bold text-xl mb-1 text-gray-800">Sahil Yadav</h3>
             <p className="text-brand-blue font-semibold text-sm mb-3">Founder & CEO</p>
@@ -175,12 +171,8 @@ const About = () => {
           </div>
 
           <div className="bg-white border border-gray-150 p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow group">
-            <div className="w-28 h-28 rounded-full mx-auto mb-4 overflow-hidden border-2 border-brand-blue/20 group-hover:border-brand-blue transition-colors">
-              <img
-                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80"
-                alt="Kapil Sharma"
-                className="w-full h-full object-cover"
-              />
+            <div className="w-20 h-20 bg-brand-blue/10 text-brand-blue rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold group-hover:bg-brand-blue group-hover:text-white transition-colors duration-300">
+              KS
             </div>
             <h3 className="font-bold text-xl mb-1 text-gray-800">Kapil Sharma</h3>
             <p className="text-brand-blue font-semibold text-sm mb-3">Technical Lead</p>
@@ -190,14 +182,10 @@ const About = () => {
           </div>
 
           <div className="bg-white border border-gray-150 p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow group">
-            <div className="w-28 h-28 rounded-full mx-auto mb-4 overflow-hidden border-2 border-brand-blue/20 group-hover:border-brand-blue transition-colors">
-              <img
-                src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=300&q=80"
-                alt="Neha Rajput"
-                className="w-full h-full object-cover"
-              />
+            <div className="w-20 h-20 bg-brand-blue/10 text-brand-blue rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold group-hover:bg-brand-blue group-hover:text-white transition-colors duration-300">
+              HR
             </div>
-            <h3 className="font-bold text-xl mb-1 text-gray-800">Neha Rajput</h3>
+            <h3 className="font-bold text-xl mb-1 text-gray-800">HR</h3>
             <p className="text-brand-blue font-semibold text-sm mb-3">HR Manager</p>
             <p className="text-gray-600 text-sm">
               Specialized in IT recruitment, talent vetting, client coordination, and resource scheduling.
