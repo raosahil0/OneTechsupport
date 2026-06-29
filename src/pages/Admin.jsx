@@ -21,8 +21,6 @@ import {
   Award,
   Download,
   Trash2,
-  Sun,
-  Moon,
   Send,
   X,
   FileSpreadsheet,
@@ -31,11 +29,10 @@ import {
 } from "lucide-react";
 
 const Admin = () => {
-  // Authentication & Theme
+  // Authentication
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [darkMode, setDarkMode] = useState(true); // Default to dark dashboard for premium look
 
   // Database Records
   const [contacts, setContacts] = useState([]);
@@ -256,23 +253,15 @@ const Admin = () => {
 
   if (!isAuthenticated) {
     return (
-      <div className={`min-h-[80vh] flex items-center justify-center px-6 py-12 transition-colors duration-300 ${darkMode ? "bg-slate-950" : "bg-slate-50"}`}>
-        <div className={`max-w-md w-full border rounded-3xl shadow-2xl p-8 text-center transition-all duration-300 transform scale-100 ${darkMode ? "bg-slate-900/90 border-slate-800/80 backdrop-blur-md" : "bg-white/90 border-gray-150 backdrop-blur-md"}`}>
-          <div className="flex justify-end mb-2">
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              className={`p-2.5 rounded-xl transition-all ${darkMode ? "bg-slate-800 hover:bg-slate-750 text-yellow-400" : "bg-slate-100 hover:bg-slate-200 text-gray-600"}`}
-            >
-              {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </button>
-          </div>
+      <div className="min-h-[80vh] flex items-center justify-center px-6 py-12 bg-slate-50">
+        <div className="max-w-md w-full border rounded-3xl shadow-2xl p-8 text-center bg-white/90 border-gray-150 backdrop-blur-md">
           <div className="inline-flex p-4 bg-gradient-to-tr from-brand-blue to-blue-600 text-white rounded-2xl shadow-md mb-6">
-            <Lock className="w-8 h-8 animate-pulse" />
+            <Lock className="w-8 h-8" />
           </div>
-          <h2 className={`text-3xl font-black mb-2 tracking-tight ${darkMode ? "text-white" : "text-gray-950"}`}>
+          <h2 className="text-3xl font-black mb-2 tracking-tight text-gray-955">
             Admin Portal
           </h2>
-          <p className={`text-sm mb-6 ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
+          <p className="text-sm mb-6 text-gray-550">
             Please enter your password to access the submission database.
           </p>
 
@@ -284,11 +273,7 @@ const Admin = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter admin password"
                 required
-                className={`w-full p-4 rounded-xl border focus:ring-4 focus:outline-none transition-all text-center text-lg tracking-widest font-mono ${
-                  darkMode
-                    ? "bg-slate-950/50 border-slate-800 focus:border-brand-blue focus:ring-brand-blue/20 text-white"
-                    : "bg-slate-50 border-gray-250 focus:border-brand-blue focus:ring-brand-blue/15 text-gray-900"
-                }`}
+                className="w-full p-4 rounded-xl border focus:ring-4 focus:outline-none transition-all text-center text-lg tracking-widest font-mono bg-slate-50 border-gray-250 focus:border-brand-blue focus:ring-brand-blue/15 text-gray-900"
               />
             </div>
             {error && <p className="text-sm font-semibold text-red-500 animate-bounce">{error}</p>}
@@ -305,46 +290,29 @@ const Admin = () => {
   }
 
   return (
-    <div className={`min-h-screen py-10 px-6 transition-colors duration-350 ${darkMode ? "bg-slate-950 text-slate-100" : "bg-slate-50 text-slate-900"}`}>
+    <div className="min-h-screen py-10 px-6 bg-slate-50 text-slate-900">
       <div className="max-w-7xl mx-auto">
         
         {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-12">
           <div>
             <div className="flex items-center gap-2 mb-2.5">
-              <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-green-500 bg-green-500/10 px-3 py-1 rounded-full border border-green-500/20">
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full border border-green-200">
                 <Unlock className="w-3.5 h-3.5" />
                 Authorized Access
               </span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-black tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent">
+            <h2 className="text-4xl md:text-5xl font-black tracking-tight text-gray-900">
               Database Dashboard
             </h2>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            {/* Theme Toggle */}
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              className={`p-3 rounded-xl border transition-all hover:scale-105 active:scale-95 ${
-                darkMode
-                  ? "bg-slate-900 border-slate-800/80 hover:bg-slate-800 text-yellow-400"
-                  : "bg-white border-gray-200 hover:bg-slate-50 text-gray-600"
-              }`}
-              title="Toggle Theme"
-            >
-              {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </button>
-
             {/* Refresh */}
             <button
               onClick={loadDashboardData}
               disabled={loading}
-              className={`inline-flex items-center justify-center gap-2 px-5 py-3 border rounded-xl text-sm font-bold transition-all shadow-sm active:scale-95 disabled:opacity-50 ${
-                darkMode
-                  ? "bg-slate-900 border-slate-800 hover:bg-slate-800 text-white"
-                  : "bg-white border-gray-200 hover:bg-slate-50 text-gray-750"
-              }`}
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 border rounded-xl text-sm font-bold transition-all shadow-sm active:scale-95 disabled:opacity-50 bg-white border-gray-200 hover:bg-slate-50 text-gray-750"
             >
               <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
               Refresh
@@ -365,7 +333,7 @@ const Admin = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
           
           {/* Card 1: Inquiry Categories */}
-          <div className={`border p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 ${darkMode ? "bg-slate-900/60 border-slate-800/85 backdrop-blur-sm" : "bg-white border-gray-150"}`}>
+          <div className="border p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 bg-white border-gray-150">
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-5 flex items-center gap-2">
               <BarChart2 className="w-4.5 h-4.5 text-brand-blue" />
               Inquiry Categories
@@ -382,7 +350,7 @@ const Admin = () => {
                         <span className="capitalize">{type.replace("-", " ")}</span>
                         <span className="text-brand-blue">{count} ({percentage}%)</span>
                       </div>
-                      <div className={`h-2 w-full rounded-full overflow-hidden ${darkMode ? "bg-slate-950" : "bg-slate-100"}`}>
+                      <div className="h-2 w-full rounded-full overflow-hidden bg-slate-100">
                         <div
                           className="h-2 rounded-full bg-gradient-to-r from-brand-blue to-blue-500 transition-all duration-500"
                           style={{ width: `${percentage}%` }}
@@ -396,7 +364,7 @@ const Admin = () => {
           </div>
 
           {/* Card 2: Star Rating Distribution */}
-          <div className={`border p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 ${darkMode ? "bg-slate-900/60 border-slate-800/85 backdrop-blur-sm" : "bg-white border-gray-150"}`}>
+          <div className="border p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 bg-white border-gray-150">
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-5 flex items-center gap-2">
               <Award className="w-4.5 h-4.5 text-amber-400" />
               Rating Distribution
@@ -407,7 +375,7 @@ const Admin = () => {
                 return (
                   <div key={rating} className="flex items-center gap-3 text-xs font-bold">
                     <span className="w-4 text-right">{rating}★</span>
-                    <div className={`h-2 flex-1 rounded-full overflow-hidden ${darkMode ? "bg-slate-950" : "bg-slate-100"}`}>
+                    <div className="h-2 flex-1 rounded-full overflow-hidden bg-slate-100">
                       <div
                         className="h-2 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 transition-all duration-500"
                         style={{ width: `${percentage}%` }}
@@ -422,7 +390,7 @@ const Admin = () => {
 
           {/* Card 3: Metrics Summary */}
           <div className="grid grid-rows-3 gap-4">
-            <div className={`border p-5 rounded-2xl shadow-sm flex items-center gap-4 hover:shadow-md transition-all duration-300 ${darkMode ? "bg-slate-900/60 border-slate-800/85" : "bg-white border-gray-150"}`}>
+            <div className="border p-5 rounded-2xl shadow-sm flex items-center gap-4 hover:shadow-md transition-all duration-300 bg-white border-gray-150">
               <div className="p-3.5 bg-blue-500/10 text-brand-blue rounded-xl">
                 <Inbox className="w-5.5 h-5.5" />
               </div>
@@ -432,7 +400,7 @@ const Admin = () => {
               </div>
             </div>
 
-            <div className={`border p-5 rounded-2xl shadow-sm flex items-center gap-4 hover:shadow-md transition-all duration-300 ${darkMode ? "bg-slate-900/60 border-slate-800/85" : "bg-white border-gray-150"}`}>
+            <div className="border p-5 rounded-2xl shadow-sm flex items-center gap-4 hover:shadow-md transition-all duration-300 bg-white border-gray-150">
               <div className="p-3.5 bg-amber-500/10 text-amber-400 rounded-xl">
                 <Star className="w-5.5 h-5.5" />
               </div>
@@ -442,7 +410,7 @@ const Admin = () => {
               </div>
             </div>
 
-            <div className={`border p-5 rounded-2xl shadow-sm flex items-center gap-4 hover:shadow-md transition-all duration-300 ${darkMode ? "bg-slate-900/60 border-slate-800/85" : "bg-white border-gray-150"}`}>
+            <div className="border p-5 rounded-2xl shadow-sm flex items-center gap-4 hover:shadow-md transition-all duration-300 bg-white border-gray-150">
               <div className="p-3.5 bg-purple-500/10 text-purple-500 rounded-xl">
                 <Users className="w-5.5 h-5.5" />
               </div>
@@ -455,14 +423,14 @@ const Admin = () => {
         </div>
 
         {/* Tab Controls & Search */}
-        <div className={`border rounded-2xl shadow-sm p-4 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-colors ${darkMode ? "bg-slate-900/60 border-slate-800/85" : "bg-white border-gray-150"}`}>
-          <div className={`flex p-1.5 rounded-xl gap-1.5 ${darkMode ? "bg-slate-950" : "bg-slate-100"}`}>
+        <div className="border rounded-2xl shadow-sm p-4 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white border-gray-150">
+          <div className="flex p-1.5 rounded-xl gap-1.5 bg-slate-100">
             <button
               onClick={() => setActiveTab("inquiries")}
               className={`px-5 py-2.5 rounded-lg text-sm font-bold transition-all ${
                 activeTab === "inquiries"
                   ? "bg-brand-blue text-white shadow-sm"
-                  : "text-gray-400 hover:text-slate-250"
+                  : "text-gray-500 hover:text-gray-900"
               }`}
             >
               Inquiries ({contacts.length})
@@ -472,7 +440,7 @@ const Admin = () => {
               className={`px-5 py-2.5 rounded-lg text-sm font-bold transition-all ${
                 activeTab === "reviews"
                   ? "bg-brand-blue text-white shadow-sm"
-                  : "text-gray-400 hover:text-slate-250"
+                  : "text-gray-500 hover:text-gray-900"
               }`}
             >
               Reviews ({feedbacks.length})
@@ -482,7 +450,7 @@ const Admin = () => {
               className={`px-5 py-2.5 rounded-lg text-sm font-bold transition-all ${
                 activeTab === "leads"
                   ? "bg-brand-blue text-white shadow-sm"
-                  : "text-gray-400 hover:text-slate-250"
+                  : "text-gray-500 hover:text-gray-900"
               }`}
             >
               Leads ({leads.length})
@@ -496,17 +464,13 @@ const Admin = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder={`Search ${activeTab}...`}
-              className={`w-full pl-11 pr-4 py-3.5 rounded-xl border focus:ring-4 focus:outline-none text-sm transition-all ${
-                darkMode
-                  ? "bg-slate-950 border-slate-800 focus:border-brand-blue focus:ring-brand-blue/20 text-white"
-                  : "bg-slate-50 border-gray-250 focus:border-brand-blue focus:ring-brand-blue/15 text-gray-900"
-              }`}
+              className="w-full pl-11 pr-4 py-3.5 rounded-xl border focus:ring-4 focus:outline-none text-sm transition-all bg-slate-50 border-gray-250 focus:border-brand-blue focus:ring-brand-blue/15 text-gray-900"
             />
           </div>
         </div>
 
         {/* Data Container Grid */}
-        <div className={`border rounded-2xl shadow-sm overflow-hidden transition-colors ${darkMode ? "bg-slate-900/60 border-slate-800/85" : "bg-white border-gray-150"}`}>
+        <div className="border rounded-2xl shadow-sm overflow-hidden bg-white border-gray-150">
           {loading ? (
             <div className="py-24 text-center text-gray-500">
               <RefreshCw className="w-10 h-10 animate-spin mx-auto mb-4 text-brand-blue" />
@@ -522,16 +486,16 @@ const Admin = () => {
                   ) : (
                     <table className="w-full text-left border-collapse">
                       <thead>
-                        <tr className={`border-b text-xs font-bold uppercase tracking-wider ${darkMode ? "bg-slate-950/60 border-slate-800 text-gray-400" : "bg-slate-50 border-gray-150 text-gray-500"}`}>
+                        <tr className="border-b text-xs font-bold uppercase tracking-wider bg-slate-50 border-gray-150 text-gray-500">
                           <th className="p-5">Client Info</th>
                           <th className="p-5">Inquiry Type</th>
                           <th className="p-5">Message</th>
                           <th className="p-5 text-right">Actions</th>
                         </tr>
                       </thead>
-                      <tbody className={`divide-y ${darkMode ? "divide-slate-800" : "divide-gray-100"}`}>
+                      <tbody className="divide-y divide-gray-100">
                         {filteredContacts.map((c) => (
-                          <tr key={c.id} className={`transition-colors duration-200 ${darkMode ? "hover:bg-slate-800/10" : "hover:bg-slate-50/50"}`}>
+                          <tr key={c.id} className="transition-colors duration-200 hover:bg-slate-50/50">
                             <td className="p-5">
                               <p className="font-bold text-base">{c.name}</p>
                               <div className="flex items-center gap-2 text-xs text-gray-400 mt-1.5">
@@ -551,7 +515,7 @@ const Admin = () => {
                               </span>
                             </td>
                             <td className="p-5 max-w-md">
-                              <p className={`text-sm leading-relaxed whitespace-pre-line ${darkMode ? "text-slate-200" : "text-gray-650"}`}>
+                              <p className="text-sm leading-relaxed whitespace-pre-line text-gray-655">
                                 {c.message}
                               </p>
                               <span className="block text-[10px] text-gray-400 mt-3">
@@ -592,16 +556,16 @@ const Admin = () => {
                   ) : (
                     <table className="w-full text-left border-collapse">
                       <thead>
-                        <tr className={`border-b text-xs font-bold uppercase tracking-wider ${darkMode ? "bg-slate-950/60 border-slate-800 text-gray-400" : "bg-slate-50 border-gray-150 text-gray-500"}`}>
+                        <tr className="border-b text-xs font-bold uppercase tracking-wider bg-slate-50 border-gray-150 text-gray-500">
                           <th className="p-5">Reviewer</th>
                           <th className="p-5">Rating</th>
                           <th className="p-5">Message</th>
                           <th className="p-5 text-right">Actions</th>
                         </tr>
                       </thead>
-                      <tbody className={`divide-y ${darkMode ? "divide-slate-800" : "divide-gray-100"}`}>
+                      <tbody className="divide-y divide-gray-100">
                         {filteredFeedbacks.map((f) => (
-                          <tr key={f.id} className={`transition-colors duration-200 ${darkMode ? "hover:bg-slate-800/10" : "hover:bg-slate-50/50"}`}>
+                          <tr key={f.id} className="transition-colors duration-200 hover:bg-slate-50/50">
                             <td className="p-5">
                               <p className="font-bold text-base">{f.name}</p>
                               <span className="block text-[10px] text-gray-400 mt-1.5">
@@ -616,14 +580,14 @@ const Admin = () => {
                                     className={`w-4.5 h-4.5 ${
                                       i < f.rating
                                         ? "fill-amber-400 text-amber-400"
-                                        : "text-slate-700 fill-slate-800"
+                                        : "text-slate-200 fill-slate-300"
                                     }`}
                                   />
                                 ))}
                               </div>
                             </td>
                             <td className="p-5 max-w-md">
-                              <p className={`text-sm leading-relaxed ${darkMode ? "text-slate-200" : "text-gray-650"}`}>
+                              <p className="text-sm leading-relaxed text-gray-655">
                                 {f.message}
                               </p>
                             </td>
@@ -652,16 +616,16 @@ const Admin = () => {
                   ) : (
                     <table className="w-full text-left border-collapse">
                       <thead>
-                        <tr className={`border-b text-xs font-bold uppercase tracking-wider ${darkMode ? "bg-slate-950/60 border-slate-800 text-gray-400" : "bg-slate-50 border-gray-150 text-gray-500"}`}>
+                        <tr className="border-b text-xs font-bold uppercase tracking-wider bg-slate-50 border-gray-150 text-gray-500">
                           <th className="p-5">Subscriber Email</th>
                           <th className="p-5">Source</th>
                           <th className="p-5">Subscribed At</th>
                           <th className="p-5 text-right">Actions</th>
                         </tr>
                       </thead>
-                      <tbody className={`divide-y ${darkMode ? "divide-slate-800" : "divide-gray-100"}`}>
+                      <tbody className="divide-y divide-gray-100">
                         {filteredLeads.map((l) => (
-                          <tr key={l.id} className={`transition-colors duration-200 ${darkMode ? "hover:bg-slate-800/10" : "hover:bg-slate-50/50"}`}>
+                          <tr key={l.id} className="transition-colors duration-200 hover:bg-slate-50/50">
                             <td className="p-5 font-semibold text-base">
                               <a href={`mailto:${l.email}`} className="hover:underline hover:text-brand-blue transition-colors flex items-center gap-2">
                                 <Mail className="w-4 h-4 text-gray-500" />
@@ -699,16 +663,16 @@ const Admin = () => {
 
       {/* ✉️ QUICK REPLY COMPOSER MODAL */}
       {replyModalOpen && selectedInquiry && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4 transition-all duration-300 animate-fadeIn">
-          <div className={`max-w-2xl w-full rounded-3xl shadow-2xl p-6 md:p-8 border transform scale-100 transition-transform duration-300 animate-scaleIn ${darkMode ? "bg-slate-900 border-slate-800/80 text-white" : "bg-white border-gray-100 text-gray-900"}`}>
-            <div className="flex justify-between items-center pb-4 border-b border-slate-800 mb-6">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-all duration-300 animate-fadeIn">
+          <div className="max-w-2xl w-full rounded-3xl shadow-2xl p-6 md:p-8 border transform scale-100 transition-transform duration-300 animate-scaleIn bg-white border-gray-100 text-gray-900">
+            <div className="flex justify-between items-center pb-4 border-b border-gray-100 mb-6">
               <h3 className="text-xl md:text-2xl font-black flex items-center gap-2.5">
                 <Mail className="w-6 h-6 text-brand-blue" />
                 Draft Response
               </h3>
               <button
                 onClick={() => setReplyModalOpen(false)}
-                className="p-1.5 rounded-lg hover:bg-slate-800 transition-colors"
+                className="p-1.5 rounded-lg hover:bg-slate-100 transition-colors"
               >
                 <X className="w-6 h-6 text-gray-400" />
               </button>
@@ -748,9 +712,7 @@ const Admin = () => {
                 type="text"
                 value={emailSubject}
                 onChange={(e) => setEmailSubject(e.target.value)}
-                className={`w-full p-3.5 rounded-xl border focus:ring-4 focus:outline-none text-sm ${
-                  darkMode ? "bg-slate-950 border-slate-800 text-white focus:ring-brand-blue/20" : "bg-slate-50 border-gray-205 focus:ring-brand-blue/15"
-                }`}
+                className="w-full p-3.5 rounded-xl border focus:ring-4 focus:outline-none text-sm bg-slate-50 border-gray-205 focus:ring-brand-blue/15"
               />
             </div>
 
@@ -769,19 +731,15 @@ const Admin = () => {
                 value={emailBody}
                 onChange={(e) => setEmailBody(e.target.value)}
                 rows="7"
-                className={`w-full p-3.5 rounded-xl border focus:ring-4 focus:outline-none text-sm resize-none ${
-                  darkMode ? "bg-slate-950 border-slate-800 text-white focus:ring-brand-blue/20" : "bg-slate-50 border-gray-205 focus:ring-brand-blue/15"
-                }`}
+                className="w-full p-3.5 rounded-xl border focus:ring-4 focus:outline-none text-sm resize-none bg-slate-50 border-gray-205 focus:ring-brand-blue/15"
               ></textarea>
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-5 border-t border-slate-800">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-5 border-t border-gray-100">
               <button
                 onClick={() => copyToClipboard(selectedInquiry.email, "email")}
-                className={`px-4 py-2.5 text-xs font-bold rounded-xl transition-colors w-full sm:w-auto ${
-                  darkMode ? "bg-slate-800 hover:bg-slate-750" : "bg-slate-100 hover:bg-slate-200"
-                }`}
+                className="px-4 py-2.5 text-xs font-bold rounded-xl transition-colors w-full sm:w-auto bg-slate-100 hover:bg-slate-200"
               >
                 {copiedText === "email" ? "Email Copied!" : "Copy Client Email"}
               </button>
@@ -789,9 +747,7 @@ const Admin = () => {
               <div className="flex gap-3 w-full sm:w-auto">
                 <button
                   onClick={() => setReplyModalOpen(false)}
-                  className={`px-5 py-3 text-sm font-bold rounded-xl transition-colors flex-1 sm:flex-initial ${
-                    darkMode ? "bg-slate-850 hover:bg-slate-800" : "bg-slate-100 hover:bg-slate-200"
-                  }`}
+                  className="px-5 py-3 text-sm font-bold rounded-xl transition-colors flex-1 sm:flex-initial bg-slate-100 hover:bg-slate-200"
                 >
                   Cancel
                 </button>
@@ -813,8 +769,8 @@ const Admin = () => {
 
       {/* 🗑️ DELETE CONFIRMATION DIALOG */}
       {deleteConfirmOpen && recordToDelete && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-fadeIn">
-          <div className={`max-w-md w-full rounded-3xl shadow-2xl p-6 border text-center animate-scaleIn ${darkMode ? "bg-slate-900 border-slate-800/80 text-white" : "bg-white border-gray-150 text-gray-900"}`}>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn">
+          <div className="max-w-md w-full rounded-3xl shadow-2xl p-6 border text-center animate-scaleIn bg-white border-gray-150 text-gray-900">
             <div className="inline-flex p-3.5 bg-red-500/10 text-red-500 rounded-2xl mb-4">
               <Trash2 className="w-8 h-8" />
             </div>
@@ -826,9 +782,7 @@ const Admin = () => {
             <div className="flex gap-3 justify-center">
               <button
                 onClick={() => setDeleteConfirmOpen(false)}
-                className={`px-5 py-2.5 text-sm font-bold rounded-xl transition-colors w-24 ${
-                  darkMode ? "bg-slate-850 hover:bg-slate-800" : "bg-slate-100 hover:bg-slate-200"
-                }`}
+                className="px-5 py-2.5 text-sm font-bold rounded-xl transition-colors w-24 bg-slate-100 hover:bg-slate-200"
               >
                 Cancel
               </button>
