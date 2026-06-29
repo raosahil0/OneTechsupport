@@ -32,8 +32,8 @@ const Admin = () => {
   const [activeTab, setActiveTab] = useState("inquiries");
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Default password for access
-  const ADMIN_PASSWORD = "admin";
+  // Secure password for access
+  const ADMIN_PASSWORD = "Yadav@32!";
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -121,7 +121,6 @@ const Admin = () => {
               Unlock Dashboard
             </button>
           </form>
-          <p className="text-xs text-gray-400 mt-4">Default password: <code className="bg-slate-100 px-1.5 py-0.5 rounded font-mono">admin</code></p>
         </div>
       </div>
     );
