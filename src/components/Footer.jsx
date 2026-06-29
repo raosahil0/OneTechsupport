@@ -123,7 +123,7 @@ const Footer = () => {
             <div className="space-y-3 text-sm text-gray-400">
               <p>
                 <Mail className="inline w-4 h-4 mr-2 text-gray-400" />
-                allsolution.1402@gmail.com
+                skonetechsupport@gmail.com
               </p>
               <p>
                 <Phone className="inline w-4 h-4 mr-2 text-gray-400" />
