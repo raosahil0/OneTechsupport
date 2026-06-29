@@ -1,16 +1,7 @@
 import { supabase, isSupabaseEnabled } from "./supabaseClient";
 
-const _ensureSupabase = () => {
-  if (!isSupabaseEnabled) {
-    throw new Error(
-      "Supabase is not configured. Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env file."
-    );
-  }
-};
-
 const _throwIfError = (error) => {
   if (error) {
-    // Make RLS errors explicit so they are easier to diagnose
     if (error.message?.includes("row-level security")) {
       throw new Error(
         "Supabase row-level security blocked this request. Add RLS policies for the table."
@@ -25,8 +16,34 @@ const _throwIfError = (error) => {
   }
 };
 
+// Helper for local storage storage fallback
+const getLocalStorageItem = (key) => {
+  try {
+    return JSON.parse(localStorage.getItem(key) || "[]");
+  } catch (e) {
+    console.error(`Error reading from localStorage key "${key}":`, e);
+    return [];
+  }
+};
+
+const saveLocalStorageItem = (key, item) => {
+  try {
+    const items = getLocalStorageItem(key);
+    const newItem = { ...item, id: item.id || Date.now().toString() };
+    items.push(newItem);
+    localStorage.setItem(key, JSON.stringify(items));
+    return [newItem];
+  } catch (e) {
+    console.error(`Error writing to localStorage key "${key}":`, e);
+    throw new Error("Local storage save failure");
+  }
+};
+
 export const saveContact = async (contact) => {
-  _ensureSupabase();
+  if (!isSupabaseEnabled) {
+    console.warn("Supabase is not configured. Saving contact info to localStorage instead.");
+    return saveLocalStorageItem("contacts", contact);
+  }
 
   const { data, error } = await supabase
     .from("contacts")
@@ -37,7 +54,9 @@ export const saveContact = async (contact) => {
 };
 
 export const getContacts = async () => {
-  _ensureSupabase();
+  if (!isSupabaseEnabled) {
+    return getLocalStorageItem("contacts");
+  }
 
   const { data, error } = await supabase
     .from("contacts")
@@ -48,7 +67,10 @@ export const getContacts = async () => {
 };
 
 export const saveFeedback = async (feedback) => {
-  _ensureSupabase();
+  if (!isSupabaseEnabled) {
+    console.warn("Supabase is not configured. Saving review/feedback to localStorage instead.");
+    return saveLocalStorageItem("feedbacks", feedback);
+  }
 
   const { data, error } = await supabase
     .from("feedbacks")
@@ -59,7 +81,9 @@ export const saveFeedback = async (feedback) => {
 };
 
 export const getFeedbacks = async () => {
-  _ensureSupabase();
+  if (!isSupabaseEnabled) {
+    return getLocalStorageItem("feedbacks");
+  }
 
   const { data, error } = await supabase
     .from("feedbacks")
@@ -70,7 +94,10 @@ export const getFeedbacks = async () => {
 };
 
 export const saveLead = async (lead) => {
-  _ensureSupabase();
+  if (!isSupabaseEnabled) {
+    console.warn("Supabase is not configured. Saving lead/request to localStorage instead.");
+    return saveLocalStorageItem("leads", lead);
+  }
 
   const { data, error } = await supabase
     .from("leads")
@@ -81,7 +108,9 @@ export const saveLead = async (lead) => {
 };
 
 export const getLeads = async () => {
-  _ensureSupabase();
+  if (!isSupabaseEnabled) {
+    return getLocalStorageItem("leads");
+  }
 
   const { data, error } = await supabase
     .from("leads")
