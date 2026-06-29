@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Star } from "lucide-react";
 import { saveFeedback } from "../services/databaseService";
 
-const FeedbackForm = () => {
+const FeedbackForm = ({ onFeedbackSubmitted }) => {
   const [formData, setFormData] = useState({
     name: "",
     rating: "",
@@ -28,6 +28,9 @@ const FeedbackForm = () => {
       });
       setSubmitted(true);
       setFormData({ name: "", rating: "", message: "" });
+      if (onFeedbackSubmitted) {
+        onFeedbackSubmitted();
+      }
     } catch (err) {
       console.error(err);
       setError(err.message || "Unable to save feedback. Please try again.");
