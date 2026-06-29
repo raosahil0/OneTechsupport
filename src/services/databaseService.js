@@ -8,7 +8,7 @@ const _throwIfError = (error) => {
 
   if (msg.includes("row-level security") || msg.includes("RLS")) {
     throw new Error(
-      "Permission denied by Supabase RLS. Make sure public INSERT/SELECT policies are enabled for this table."
+      "Permission denied by Supabase RLS. Make sure public INSERT/SELECT/DELETE policies are enabled."
     );
   }
   if (msg.includes("Invalid API key") || msg.includes("apikey")) {
@@ -48,25 +48,31 @@ const saveLocalStorageItem = (key, item) => {
   }
 };
 
+const deleteLocalStorageItem = (key, id) => {
+  try {
+    const items = getLocalStorageItem(key);
+    const filtered = items.filter((item) => String(item.id) !== String(id));
+    localStorage.setItem(key, JSON.stringify(filtered));
+    return filtered;
+  } catch (e) {
+    console.error(`Error deleting from localStorage key "${key}":`, e);
+    throw new Error("Local storage delete failed.");
+  }
+};
+
 // ─── Contacts ─────────────────────────────────────────────────────────────────
 
-/**
- * Save a contact form submission.
- * NOTE: The Postgres column is case-sensitive "inquiryType" (double-quoted).
- * We explicitly map the JS key to the correct Postgres column name.
- */
 export const saveContact = async (contact) => {
   if (!isSupabaseEnabled) {
     console.warn("Supabase not configured — saving contact to localStorage.");
     return saveLocalStorageItem("contacts", contact);
   }
 
-  // Remap camelCase JS field → exact Postgres column name (double-quoted in DB)
   const payload = {
     name: contact.name,
     email: contact.email,
     phone: contact.phone || null,
-    inquiryType: contact.inquiryType,   // matches "inquiryType" column in Supabase
+    inquiryType: contact.inquiryType,
     message: contact.message,
   };
 
@@ -88,6 +94,21 @@ export const getContacts = async () => {
     .from("contacts")
     .select("*")
     .order("created_at", { ascending: false });
+
+  _throwIfError(error);
+  return data;
+};
+
+export const deleteContact = async (id) => {
+  if (!isSupabaseEnabled) {
+    return deleteLocalStorageItem("contacts", id);
+  }
+
+  const { data, error } = await supabase
+    .from("contacts")
+    .delete()
+    .eq("id", id)
+    .select();
 
   _throwIfError(error);
   return data;
@@ -130,6 +151,21 @@ export const getFeedbacks = async () => {
   return data;
 };
 
+export const deleteFeedback = async (id) => {
+  if (!isSupabaseEnabled) {
+    return deleteLocalStorageItem("feedbacks", id);
+  }
+
+  const { data, error } = await supabase
+    .from("feedbacks")
+    .delete()
+    .eq("id", id)
+    .select();
+
+  _throwIfError(error);
+  return data;
+};
+
 // ─── Leads ────────────────────────────────────────────────────────────────────
 
 export const saveLead = async (lead) => {
@@ -161,6 +197,21 @@ export const getLeads = async () => {
     .from("leads")
     .select("*")
     .order("created_at", { ascending: false });
+
+  _throwIfError(error);
+  return data;
+};
+
+export const deleteLead = async (id) => {
+  if (!isSupabaseEnabled) {
+    return deleteLocalStorageItem("leads", id);
+  }
+
+  const { data, error } = await supabase
+    .from("leads")
+    .delete()
+    .eq("id", id)
+    .select();
 
   _throwIfError(error);
   return data;
