@@ -148,14 +148,14 @@ const Dashboard = () => {
       {/* Header Panel */}
       <div className="bg-white border border-gray-150 rounded-2xl shadow-sm p-6 mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-blue-50 text-brand-blue rounded-xl flex items-center justify-center">
+          <div className="w-12 h-12 bg-brand-blue/10 text-brand-blue rounded-xl flex items-center justify-center">
             <User className="w-6 h-6" />
           </div>
           <div>
             <h2 className="text-2xl font-extrabold text-slate-900">
               Welcome back!
             </h2>
-            <p className="text-gray-550 text-sm font-medium">
+            <p className="text-gray-500 text-sm font-medium">
               Client Session: <span className="text-slate-700 font-bold">{client?.email}</span>
             </p>
           </div>
@@ -181,7 +181,7 @@ const Dashboard = () => {
 
       {/* Demo Warning Banner */}
       {!isSupabaseEnabled && (
-        <div className="mb-8 p-4 bg-amber-50 border border-amber-255 text-amber-850 rounded-2xl flex items-start gap-3.5 shadow-sm">
+        <div className="mb-8 p-4 bg-amber-50 border border-amber-200 text-amber-800 rounded-2xl flex items-start gap-3.5 shadow-sm">
           <Info className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
           <div className="text-xs leading-relaxed">
             <span className="font-bold block text-sm mb-0.5">Local Storage Active</span>
@@ -336,7 +336,7 @@ const Dashboard = () => {
           )}
 
           {formSuccess && (
-            <div className="mb-4 p-3.5 bg-emerald-50 border border-emerald-250 text-emerald-800 rounded-xl flex items-start gap-2.5 text-xs">
+            <div className="mb-4 p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl flex items-start gap-2.5 text-xs">
               <CheckCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
               <span>{formSuccess}</span>
             </div>

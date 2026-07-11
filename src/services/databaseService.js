@@ -454,3 +454,51 @@ export const updateTicketStatus = async (ticketId, status) => {
   _throwIfError(error);
   return data;
 };
+
+export const getAllAccounts = async () => {
+  if (!isSupabaseEnabled) {
+    try {
+      return JSON.parse(localStorage.getItem("demo_users") || "[]");
+    } catch (e) {
+      console.error("Error reading localStorage for all accounts:", e);
+      return [];
+    }
+  }
+
+  try {
+    return JSON.parse(localStorage.getItem("demo_users") || "[]");
+  } catch (e) {
+    return [];
+  }
+};
+
+export const deleteAccount = async (accountId) => {
+  if (!isSupabaseEnabled) {
+    try {
+      const users = JSON.parse(localStorage.getItem("demo_users") || "[]");
+      const filtered = users.filter((u) => String(u.id) !== String(accountId));
+      localStorage.setItem("demo_users", JSON.stringify(filtered));
+      
+      const session = localStorage.getItem("demo_session");
+      if (session) {
+        const sessionUser = JSON.parse(session);
+        if (String(sessionUser.id) === String(accountId)) {
+          localStorage.removeItem("demo_session");
+        }
+      }
+      return filtered;
+    } catch (e) {
+      console.error("Error deleting user from localStorage:", e);
+      throw new Error("Local storage delete failed.");
+    }
+  }
+
+  try {
+    const users = JSON.parse(localStorage.getItem("demo_users") || "[]");
+    const filtered = users.filter((u) => String(u.id) !== String(accountId));
+    localStorage.setItem("demo_users", JSON.stringify(filtered));
+    return filtered;
+  } catch (e) {
+    return [];
+  }
+};
