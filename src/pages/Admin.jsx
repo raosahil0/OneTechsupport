@@ -8,6 +8,8 @@ import {
   deleteLead,
   getAllTickets,
   updateTicketStatus,
+  getAllAccounts,
+  deleteAccount,
 } from "../services/databaseService";
 import {
   Mail,
@@ -43,6 +45,7 @@ const Admin = () => {
   const [feedbacks, setFeedbacks] = useState([]);
   const [leads, setLeads] = useState([]);
   const [tickets, setTickets] = useState([]);
+  const [accounts, setAccounts] = useState([]);
 
   // UI State
   const [loading, setLoading] = useState(false);
@@ -77,16 +80,18 @@ const Admin = () => {
   const loadDashboardData = async () => {
     setLoading(true);
     try {
-      const [contactsData, feedbacksData, leadsData, ticketsData] = await Promise.all([
+      const [contactsData, feedbacksData, leadsData, ticketsData, accountsData] = await Promise.all([
         getContacts(),
         getFeedbacks(),
         getLeads(),
         getAllTickets(),
+        getAllAccounts(),
       ]);
       setContacts(contactsData || []);
       setFeedbacks(feedbacksData || []);
       setLeads(leadsData || []);
       setTickets(ticketsData || []);
+      setAccounts(accountsData || []);
     } catch (err) {
       console.error("Failed to load dashboard data:", err);
     } finally {
@@ -212,6 +217,9 @@ const Admin = () => {
       } else if (type === "lead") {
         await deleteLead(id);
         setLeads(leads.filter((l) => l.id !== id));
+      } else if (type === "account") {
+        await deleteAccount(id);
+        setAccounts(accounts.filter((u) => u.id !== id));
       }
     } catch (err) {
       alert("Error deleting record. If RLS is enabled, ensure DELETE policies are configured in Supabase.");
@@ -245,6 +253,12 @@ const Admin = () => {
       t.client_email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       t.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       t.status?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const filteredAccounts = accounts.filter(
+    (u) =>
+      u.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      u.id?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   // ─── ANALYTICS CHART CALCULATIONS ─────────────────────────────────────────
@@ -489,6 +503,16 @@ const Admin = () => {
               }`}
             >
               Tickets ({tickets.length})
+            </button>
+            <button
+              onClick={() => setActiveTab("accounts")}
+              className={`px-5 py-2.5 rounded-lg text-sm font-bold transition-all ${
+                activeTab === "accounts"
+                  ? "bg-brand-blue text-white shadow-sm"
+                  : "text-gray-500 hover:text-gray-900"
+              }`}
+            >
+              Accounts ({accounts.length})
             </button>
           </div>
 
@@ -785,6 +809,49 @@ const Admin = () => {
                             </tr>
                           );
                         })}
+                      </tbody>
+                    </table>
+                  )}
+                </div>
+              )}
+
+              {/* accounts Tab */}
+              {activeTab === "accounts" && (
+                <div className="overflow-x-auto">
+                  {filteredAccounts.length === 0 ? (
+                    <div className="py-20 text-center text-gray-450 font-semibold">No registered client accounts found.</div>
+                  ) : (
+                    <table className="w-full text-left border-collapse">
+                      <thead>
+                        <tr className="border-b text-xs font-bold uppercase tracking-wider bg-slate-50 border-gray-150 text-gray-500">
+                          <th className="p-5">Account ID</th>
+                          <th className="p-5">Email Address</th>
+                          <th className="p-5 text-right">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-100">
+                        {filteredAccounts.map((u) => (
+                          <tr key={u.id} className="transition-colors duration-200 hover:bg-slate-50/50">
+                            <td className="p-5 font-mono text-xs text-gray-500 font-bold">
+                              {u.id}
+                            </td>
+                            <td className="p-5">
+                              <div className="flex items-center gap-2 text-base font-bold text-gray-800">
+                                <Mail className="w-4.5 h-4.5 text-gray-400" />
+                                <a href={`mailto:${u.email}`} className="hover:underline hover:text-brand-blue">{u.email}</a>
+                              </div>
+                            </td>
+                            <td className="p-5 text-right">
+                              <button
+                                onClick={() => triggerDeleteConfirm(u.id, "account")}
+                                className="p-2.5 rounded-xl bg-red-500/10 hover:bg-red-650 text-red-500 hover:text-white transition-all hover:scale-105 active:scale-95"
+                                title="Delete Client Account"
+                              >
+                                <Trash2 className="w-4.5 h-4.5" />
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
                       </tbody>
                     </table>
                   )}
