@@ -161,15 +161,6 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="flex items-center gap-3 self-stretch md:self-auto">
-          {/* Connection Mode Tag */}
-          <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border ${
-            isSupabaseEnabled 
-              ? "bg-emerald-50 text-emerald-700 border-emerald-200" 
-              : "bg-amber-50 text-amber-700 border-amber-200"
-          }`}>
-            <Database className="w-3.5 h-3.5" />
-            {isSupabaseEnabled ? "Live database" : "Demo Mode"}
-          </span>
           <button
             onClick={handleLogout}
             className="flex items-center justify-center gap-2 border border-red-200 hover:border-red-300 hover:bg-red-50 text-red-600 px-4 py-2 rounded-xl text-sm font-bold transition-colors cursor-pointer"
@@ -178,17 +169,6 @@ const Dashboard = () => {
           </button>
         </div>
       </div>
-
-      {/* Demo Warning Banner */}
-      {!isSupabaseEnabled && (
-        <div className="mb-8 p-4 bg-amber-50 border border-amber-200 text-amber-800 rounded-2xl flex items-start gap-3.5 shadow-sm">
-          <Info className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-          <div className="text-xs leading-relaxed">
-            <span className="font-bold block text-sm mb-0.5">Local Storage Active</span>
-            Since no `.env` file configuration is present, tickets and attachments you create are saved locally in this browser. To link this dashboard to a live Supabase backend and storage bucket, execute the SQL schema in your Supabase editor and configure environment variables.
-          </div>
-        </div>
-      )}
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">

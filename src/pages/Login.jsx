@@ -94,25 +94,6 @@ const Login = () => {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md z-10">
         <div className="bg-white py-8 px-6 border border-gray-150 shadow-xl rounded-2xl sm:px-10">
-          {/* Connection Mode Indicator Banner */}
-          <div className={`mb-6 p-4 rounded-xl border flex items-start gap-3 shadow-sm ${
-            isSupabaseEnabled 
-              ? "bg-emerald-50 border-emerald-200 text-emerald-800" 
-              : "bg-amber-50 border-amber-200 text-amber-800"
-          }`}>
-            <Database className={`w-5 h-5 flex-shrink-0 mt-0.5 ${isSupabaseEnabled ? "text-emerald-600" : "text-amber-600"}`} />
-            <div>
-              <span className="font-bold block text-sm">
-                {isSupabaseEnabled ? "Connected to Supabase" : "Running in Demo Mode"}
-              </span>
-              <span className="text-xs">
-                {isSupabaseEnabled 
-                  ? "Your authentication and ticket requests are synchronized with your production database."
-                  : "No configuration file found. Data will persist locally in your browser's localStorage for demonstration."}
-              </span>
-            </div>
-          </div>
-
           {/* Tab Selection */}
           <div className="flex border-b border-gray-100 mb-8">
             <button
@@ -241,14 +222,6 @@ const Login = () => {
               </button>
             </div>
           </form>
-
-          {!isSupabaseEnabled && (
-            <div className="mt-8 pt-6 border-t border-gray-100 text-center">
-              <span className="text-xs text-slate-500 font-medium">
-                Try logging in with any email and password or register a new one instantly!
-              </span>
-            </div>
-          )}
         </div>
       </div>
     </div>
