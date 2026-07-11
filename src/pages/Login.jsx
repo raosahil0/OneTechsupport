@@ -93,26 +93,26 @@ const Login = () => {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md z-10">
-        {/* Connection Mode Indicator Banner */}
-        <div className={`mb-6 p-4 rounded-xl border flex items-start gap-3 shadow-sm ${
-          isSupabaseEnabled 
-            ? "bg-emerald-50 border-emerald-250 text-emerald-800" 
-            : "bg-amber-50 border-amber-250 text-amber-800"
-        }`}>
-          <Database className={`w-5 h-5 flex-shrink-0 mt-0.5 ${isSupabaseEnabled ? "text-emerald-600" : "text-amber-600"}`} />
-          <div>
-            <span className="font-bold block text-sm">
-              {isSupabaseEnabled ? "Connected to Supabase" : "Running in Demo Mode"}
-            </span>
-            <span className="text-xs">
-              {isSupabaseEnabled 
-                ? "Your authentication and ticket requests are synchronized with your production database."
-                : "No configuration file found. Data will persist locally in your browser's localStorage for demonstration."}
-            </span>
-          </div>
-        </div>
-
         <div className="bg-white py-8 px-6 border border-gray-150 shadow-xl rounded-2xl sm:px-10">
+          {/* Connection Mode Indicator Banner */}
+          <div className={`mb-6 p-4 rounded-xl border flex items-start gap-3 shadow-sm ${
+            isSupabaseEnabled 
+              ? "bg-emerald-50 border-emerald-200 text-emerald-800" 
+              : "bg-amber-50 border-amber-200 text-amber-800"
+          }`}>
+            <Database className={`w-5 h-5 flex-shrink-0 mt-0.5 ${isSupabaseEnabled ? "text-emerald-600" : "text-amber-600"}`} />
+            <div>
+              <span className="font-bold block text-sm">
+                {isSupabaseEnabled ? "Connected to Supabase" : "Running in Demo Mode"}
+              </span>
+              <span className="text-xs">
+                {isSupabaseEnabled 
+                  ? "Your authentication and ticket requests are synchronized with your production database."
+                  : "No configuration file found. Data will persist locally in your browser's localStorage for demonstration."}
+              </span>
+            </div>
+          </div>
+
           {/* Tab Selection */}
           <div className="flex border-b border-gray-100 mb-8">
             <button
@@ -160,7 +160,7 @@ const Login = () => {
           )}
 
           {successMessage && (
-            <div className="mb-6 p-4 bg-emerald-50 border border-emerald-250 text-emerald-800 rounded-xl flex items-center gap-3 text-sm">
+            <div className="mb-6 p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl flex items-center gap-3 text-sm">
               <div className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></div>
               <span>{successMessage}</span>
             </div>
