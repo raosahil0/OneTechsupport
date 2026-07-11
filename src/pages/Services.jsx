@@ -1,289 +1,232 @@
-import { MessageCircle, Check } from "lucide-react";
+import { useState } from "react";
+import { MessageCircle, Check, Code, Shield, Network, UserCheck, Briefcase, HelpCircle, GraduationCap, ChevronDown, ChevronUp } from "lucide-react";
+import SEO from "../components/SEO";
+
+const serviceList = [
+  {
+    id: "software",
+    title: "Custom Software & App Development",
+    icon: Code,
+    img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
+    desc: "Bespoke web applications, high-performance mobile apps, and custom enterprise software designed to streamline operations and scale with your growth.",
+    features: [
+      "Full-Stack Web Apps (React, Node.js)",
+      "Native iOS & Android Mobile Apps",
+      "Tailored CRM & ERP Solutions",
+      "API Integrations & Cloud Infrastructure"
+    ],
+    techs: ["React", "Node.js", "Python", "AWS", "Docker", "PostgreSQL"]
+  },
+  {
+    id: "support",
+    title: "Managed IT Support",
+    icon: Shield,
+    img: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80",
+    desc: "Complete infrastructure management, remote tech helpdesk, network routing, cybersecurity setup, and 24/7 server monitoring to keep operations uptime high.",
+    features: [
+      "Hardware & Software Maintenance",
+      "Enterprise Cloud & Hybrid Setups",
+      "Intrusion Prevention & Cybersecurity",
+      "SLA-Backed Troubleshooting & Helpdesk"
+    ],
+    techs: ["Linux", "Windows Server", "Active Directory", "Cisco", "Fortinet", "Azure"]
+  },
+  {
+    id: "manpower",
+    title: "Manpower Support",
+    icon: Network,
+    img: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
+    desc: "Reliable backup staffing to ensure technical operations continue seamlessly during team expansions, transitions, or developer shortages.",
+    features: [
+      "Temporary Technical Staffing",
+      "Emergency Helpdesk Backups",
+      "Contract Full-Stack Developers",
+      "Flexible Project-Based Allocations"
+    ],
+    techs: ["Full-Stack Devs", "System Admins", "Database Engineers", "Helpdesk Leads"]
+  },
+  {
+    id: "recruitment",
+    title: "IT Recruitment",
+    icon: UserCheck,
+    img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80",
+    desc: "Expert recruitment pipelines matching technical requirements with thoroughly vetted, high-aptitude software engineering candidates.",
+    features: [
+      "Developers & Technical Leads",
+      "Cloud & DevOps Engineers",
+      "Database & System Administrators",
+      "On-Demand Executive Sourcing"
+    ],
+    techs: ["Vetted CVs", "Coding Assessments", "Pre-screened Panels", "Reference Audits"]
+  },
+  {
+    id: "nonit",
+    title: "Non-IT Hiring",
+    icon: Briefcase,
+    img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
+    desc: "Comprehensive recruitment for administrative, sales, customer success, and operations roles to strengthen support departments.",
+    features: [
+      "Sales & Lead Generation Reps",
+      "Customer Relations Specialists",
+      "Back-Office Administrators",
+      "Operations Managers"
+    ],
+    techs: ["Support Staff", "Outbound Agents", "Virtual Assistants", "Office Admins"]
+  },
+  {
+    id: "consulting",
+    title: "Strategic IT Consulting",
+    icon: HelpCircle,
+    img: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
+    desc: "Technology consulting aligned to your corporate vision to automate processes and implement digital transformations.",
+    features: [
+      "Digital Roadmap Optimization",
+      "Infrastructure Cybersecurity Audits",
+      "Process Automation Planning",
+      "Technology Stack Assessments"
+    ],
+    techs: ["IT Architectures", "Disaster Recovery", "Disaster Prevention", "Risk Auditing"]
+  },
+  {
+    id: "training",
+    title: "Training & Development",
+    icon: GraduationCap,
+    img: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=800&q=80",
+    desc: "Hands-on upskilling workshops to train engineering teams in modern framework paradigms, cloud strategies, and infrastructure coding.",
+    features: [
+      "Full-Stack Web Coding Bootcamps",
+      "Docker, Kubernetes & CI/CD Systems",
+      "Cybersecurity Defense Labs",
+      "Custom Corporate Agile Workshops"
+    ],
+    techs: ["CI/CD Pipelines", "Containerization", "Cloud Defense", "Agile Sprints"]
+  }
+];
 
 const Services = () => {
+  const [activeCard, setActiveCard] = useState(null);
+
+  const toggleCard = (id) => {
+    setActiveCard(activeCard === id ? null : id);
+  };
+
   return (
-    <div className="bg-slate-50 min-h-screen">
+    <div className="bg-slate-55 min-h-screen font-sans text-slate-800">
+      <SEO 
+        title="Bespoke Services" 
+        description="Explore One Tech Support services, from custom app development and managed IT infrastructures to technical staff recruiting pipelines."
+      />
       {/* Hero Header Section */}
-      <section className="py-20 px-6 text-center bg-gradient-to-b from-brand-blue/5 to-slate-50">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-5xl font-extrabold mb-6 bg-gradient-to-r from-brand-blue to-blue-700 bg-clip-text text-transparent">
-            Our Services
+      <section className="py-24 px-6 text-center bg-gradient-to-b from-brand-blue/5 to-slate-50 relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] pointer-events-none"></div>
+        <div className="max-w-4xl mx-auto relative z-10">
+          <span className="text-brand-blue font-bold text-xs uppercase tracking-widest bg-blue-100/60 px-3 py-1.5 rounded-full">
+            What We Deliver
+          </span>
+          <h2 className="text-5xl md:text-6xl font-black mt-4 mb-6 bg-gradient-to-r from-brand-blue to-indigo-600 bg-clip-text text-transparent">
+            Managed IT & Solutions
           </h2>
-          <p className="text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
-            We provide robust IT infrastructure support, custom software resource staffing, and end-to-end recruitment pipelines.
+          <p className="text-lg md:text-xl text-slate-655 leading-relaxed max-w-2xl mx-auto">
+            Providing enterprise-grade technical support, software engineering, and strategic staffing pipelines designed for growth.
           </p>
         </div>
       </section>
 
       {/* Services Grid Section */}
-      <section className="pb-24 px-6 max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div className="bg-white border border-gray-150 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group">
-            <div className="overflow-hidden h-48 w-full">
-              <img 
-                src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80" 
-                alt="Custom Software & App Development" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-            <div className="p-6">
-              <h3 className="text-xl font-bold mb-3 text-gray-800">
-                Custom Software & App Development
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                Tailored web apps, mobile apps, and enterprise software systems designed to streamline your business workflows, scale with your growth, and provide a premium user experience.
-              </p>
-              <ul className="text-sm text-gray-600 mt-4 space-y-2">
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>Full-Stack Web Applications</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>iOS & Android Mobile Apps</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>Custom CRM & ERP Solutions</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>API Development & Cloud Systems</span>
-                </li>
-              </ul>
-            </div>
-          </div>
+      <section className="pb-28 px-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {serviceList.map((svc) => {
+            const IconComponent = svc.icon;
+            const isExpanded = activeCard === svc.id;
 
-          <div className="bg-white border border-gray-150 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group">
-            <div className="overflow-hidden h-48 w-full">
-              <img 
-                src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80" 
-                alt="IT Support" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-            <div className="p-6">
-              <h3 className="text-xl font-bold mb-3 text-gray-800">IT Support</h3>
-              <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                Complete IT infrastructure management, troubleshooting, networking
-                solutions, and 24/7 technical support to keep your business
-                running smoothly.
-              </p>
-              <ul className="text-sm text-gray-600 mt-4 space-y-2">
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>Hardware & Software Support</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>Network Setup & Maintenance</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>Cybersecurity Solutions</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>Cloud Services</span>
-                </li>
-              </ul>
-            </div>
-          </div>
+            return (
+              <div 
+                key={svc.id}
+                className="bg-white border border-gray-150 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group"
+              >
+                {/* Service Image banner */}
+                <div className="relative overflow-hidden h-44 w-full">
+                  <img 
+                    src={svc.img} 
+                    alt={svc.title} 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                  <div className="absolute bottom-4 left-4 p-2 bg-white/10 backdrop-blur-md rounded-xl text-white">
+                    <IconComponent className="w-5 h-5" />
+                  </div>
+                </div>
 
-          <div className="bg-white border border-gray-150 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group">
-            <div className="overflow-hidden h-48 w-full">
-              <img 
-                src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80" 
-                alt="Manpower Support" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-            <div className="p-6">
-              <h3 className="text-xl font-bold mb-3 text-gray-800">
-                Manpower Support
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                Reliable backup manpower solutions to ensure your operations
-                continue without interruption. We provide skilled temporary staff
-                for various roles.
-              </p>
-              <ul className="text-sm text-gray-600 mt-4 space-y-2">
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>Temporary Staffing</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>Emergency Backup</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>Project-Based Support</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>Flexible Scheduling</span>
-                </li>
-              </ul>
-            </div>
-          </div>
+                {/* Card Content */}
+                <div className="p-6 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-xl font-bold text-slate-900 group-hover:text-brand-blue transition-colors mb-2.5">
+                      {svc.title}
+                    </h3>
+                    <p className="text-slate-600 text-xs leading-relaxed mb-4">
+                      {svc.desc}
+                    </p>
+                  </div>
 
-          <div className="bg-white border border-gray-150 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group">
-            <div className="overflow-hidden h-48 w-full">
-              <img 
-                src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80" 
-                alt="IT Recruitment" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-            <div className="p-6">
-              <h3 className="text-xl font-bold mb-3 text-gray-800">
-                IT Recruitment
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                Expert recruitment services for IT professionals. We connect you
-                with top talent in development, engineering, and technical roles.
-              </p>
-              <ul className="text-sm text-gray-600 mt-4 space-y-2">
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>Developers & Engineers</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>System Administrators</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>IT Consultants</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>Technical Leads</span>
-                </li>
-              </ul>
-            </div>
-          </div>
+                  <div>
+                    {/* Collapsible stack details */}
+                    {isExpanded && (
+                      <div className="mt-4 pt-4 border-t border-slate-100 space-y-4 animate-fadeIn">
+                        <div>
+                          <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Core Solutions</h4>
+                          <ul className="space-y-2 text-xs text-slate-700">
+                            {svc.features.map((feat, idx) => (
+                              <li key={idx} className="flex items-center gap-2">
+                                <Check className="w-3.5 h-3.5 text-brand-blue flex-shrink-0" />
+                                <span>{feat}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
 
-          <div className="bg-white border border-gray-150 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group">
-            <div className="overflow-hidden h-48 w-full">
-              <img 
-                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" 
-                alt="Non-IT Hiring" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-            <div className="p-6">
-              <h3 className="text-xl font-bold mb-3 text-gray-800">
-                Non-IT Hiring
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                Comprehensive recruitment for non-technical positions across
-                various industries. We find the right fit for your organizational
-                needs.
-              </p>
-              <ul className="text-sm text-gray-600 mt-4 space-y-2">
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>Administrative Roles</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>Sales & Marketing</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>Operations Staff</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>Support Functions</span>
-                </li>
-              </ul>
-            </div>
-          </div>
+                        <div>
+                          <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Technologies / Tools</h4>
+                          <div className="flex flex-wrap gap-1.5">
+                            {svc.techs.map((tech, idx) => (
+                              <span 
+                                key={idx}
+                                className="px-2.5 py-1 bg-slate-50 border border-slate-200 text-slate-600 font-bold rounded-lg text-[10px]"
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    )}
 
-          <div className="bg-white border border-gray-150 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group">
-            <div className="overflow-hidden h-48 w-full">
-              <img 
-                src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80" 
-                alt="Consulting Services" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-            <div className="p-6">
-              <h3 className="text-xl font-bold mb-3 text-gray-800">
-                Consulting Services
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                Strategic IT consulting to help your business leverage technology
-                for growth. From digital transformation to process optimization.
-              </p>
-              <ul className="text-sm text-gray-600 mt-4 space-y-2">
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>Digital Strategy</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>Process Automation</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>Technology Assessment</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>Implementation Support</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="bg-white border border-gray-150 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group">
-            <div className="overflow-hidden h-48 w-full">
-              <img 
-                src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=800&q=80" 
-                alt="Training & Development" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-            <div className="p-6">
-              <h3 className="text-xl font-bold mb-3 text-gray-800">
-                Training & Development
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                Skill development programs and training solutions to upskill your
-                team and stay competitive in the digital landscape.
-              </p>
-              <ul className="text-sm text-gray-600 mt-4 space-y-2">
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>Technical Training</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>Soft Skills Development</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>Certification Programs</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                  <span>Custom Workshops</span>
-                </li>
-              </ul>
-            </div>
-          </div>
+                    <button
+                      onClick={() => toggleCard(svc.id)}
+                      className="mt-6 w-full flex items-center justify-center gap-2 border border-slate-200 hover:border-brand-blue text-slate-600 hover:text-brand-blue py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-slate-50 hover:bg-white"
+                    >
+                      {isExpanded ? (
+                        <>
+                          Hide Details <ChevronUp className="w-4 h-4" />
+                        </>
+                      ) : (
+                        <>
+                          View Tech Stack & Features <ChevronDown className="w-4 h-4" />
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
-        <div className="text-center mt-16">
+        <div className="text-center mt-20">
           <a
             href="/contact"
-            className="inline-block bg-brand-blue px-10 py-4 rounded-xl hover:bg-blue-700 text-lg font-bold text-white shadow hover:shadow-md transition-all duration-200"
+            className="inline-flex items-center gap-2 bg-brand-blue px-10 py-4.5 rounded-xl hover:bg-blue-700 text-base font-extrabold text-white shadow-lg shadow-brand-blue/20 hover:shadow-brand-blue/30 hover:-translate-y-1 transition-all duration-300 cursor-pointer"
           >
-            Get a Quote
+            Get a Customized Quote
           </a>
         </div>
       </section>
@@ -293,7 +236,7 @@ const Services = () => {
         href="https://wa.me/917678627526"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-5 right-5 bg-brand-blue p-3 rounded-lg shadow-md hover:bg-blue-700 transition-all z-50 animate-bounce"
+        className="fixed bottom-6 right-6 bg-brand-blue p-3.5 rounded-2xl shadow-xl hover:bg-blue-700 transition-all z-50 animate-bounce hover:scale-105 active:scale-95 border border-white/10"
       >
         <MessageCircle className="w-6 h-6 text-white" />
       </a>

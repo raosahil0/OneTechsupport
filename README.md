@@ -229,6 +229,10 @@ CREATE POLICY "Allow authenticated insert tickets" ON tickets FOR INSERT TO auth
 
 -- Allow clients to view only their own tickets
 CREATE POLICY "Allow authenticated read tickets" ON tickets FOR SELECT TO authenticated USING (auth.uid() = client_id);
+
+-- Allow public read & update for the admin portal bypass
+CREATE POLICY "Allow admin read tickets" ON tickets FOR SELECT TO public USING (true);
+CREATE POLICY "Allow admin update tickets" ON tickets FOR UPDATE TO public USING (true);
 ```
 </details>
 

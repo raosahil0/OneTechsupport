@@ -1,44 +1,47 @@
 import { Link } from "react-router-dom";
 import { Star, Phone, Mail, MessageCircle, Monitor, Users, Search, ArrowRight, ShieldCheck, Zap, HeartHandshake } from "lucide-react";
+import SEO from "../components/SEO";
 
 const Home = () => {
   return (
     <div className="font-sans text-slate-800 bg-slate-50 min-h-screen">
+      <SEO 
+        title="Managed IT Support & Custom Software Development" 
+        description="One Tech Support offers professional technical support, custom software and app development, enterprise network setup, and backup tech staffing."
+      />
       {/* Hero Section - Premium Dark Gradient & Interactive Highlight */}
-      <section className="relative text-center py-32 px-6 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 overflow-hidden">
+      <section className="relative text-center py-36 px-6 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 overflow-hidden">
         {/* Background Image Overlay */}
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15 mix-blend-overlay pointer-events-none" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80')" }}></div>
         
         {/* Glow Effects */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-brand-blue/15 rounded-full blur-[130px] pointer-events-none animate-float"></div>
         
         <div className="relative max-w-4xl mx-auto z-10">
-          <h2 className="text-5xl md:text-6xl font-extrabold mb-6 text-white tracking-tight leading-tight">
-            Your Trusted IT &{" "}
-            <span className="bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">
-              Staffing Partner
+          <h1 className="text-5xl md:text-7xl font-black mb-6 text-white tracking-tight leading-[1.1]">
+            We Engineer Secure IT &{" "}
+            <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-teal-350 bg-clip-text text-transparent">
+              Custom Apps
             </span>
-          </h2>
-          <p className="text-xl mb-4 text-slate-300 font-medium">
-            Backup Manpower | Developers | IT Engineers | Non-IT Hiring
+          </h1>
+          <p className="text-lg md:text-xl mb-6 text-slate-300 font-semibold tracking-wide uppercase">
+            Consulting | Cloud Infrastructures | Dedicated Staffing
           </p>
-          <p className="text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed text-base">
-            Bridging the gap between companies and elite talent. Our aim is to
-            provide fast, reliable, and quality IT solutions tailored to your
-            business requirements.
+          <p className="text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed text-base md:text-lg">
+            One Tech Support bridges the gap between complex infrastructure challenges and high-performing tech teams. We design bespoke systems, deploy secure corporate clouds, and resolve tech helpdesk tickets with guaranteed service agreements.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4.5 max-w-md mx-auto sm:max-w-none">
             <Link
               to="/contact"
-              className="w-full sm:w-auto bg-blue-600 px-8 py-4 rounded-xl text-white font-bold shadow-lg shadow-blue-600/30 hover:bg-blue-600 hover:shadow-blue-600/50 hover:-translate-y-0.5 transition-all duration-200"
+              className="w-full sm:w-auto bg-brand-blue px-8 py-4 rounded-xl text-white font-extrabold shadow-lg shadow-brand-blue/30 hover:bg-blue-700 hover:shadow-brand-blue/50 hover:-translate-y-1 transition-all duration-300"
             >
-              Get Support
+              Request Support
             </Link>
             <Link
-              to="/services"
-              className="w-full sm:w-auto border border-slate-700 bg-slate-900/50 px-8 py-4 rounded-xl text-slate-200 font-bold hover:bg-slate-800 hover:text-white hover:-translate-y-0.5 transition-all duration-200"
+              to="/login"
+              className="w-full sm:w-auto border border-slate-700 bg-slate-900/40 px-8 py-4 rounded-xl text-slate-200 font-extrabold hover:bg-slate-800/80 hover:text-white hover:-translate-y-1 hover:border-slate-500 transition-all duration-300"
             >
-              Our Services
+              Client Portal Login
             </Link>
           </div>
         </div>

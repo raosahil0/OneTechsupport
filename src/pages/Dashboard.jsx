@@ -9,6 +9,7 @@ import {
   getCurrentClient, signOutClient, saveTicket, getTicketsForClient 
 } from "../services/databaseService";
 import { isSupabaseEnabled } from "../services/supabaseClient";
+import Toast from "../components/Toast";
 
 const Dashboard = () => {
   const [client, setClient] = useState(null);
@@ -309,17 +310,19 @@ const Dashboard = () => {
           </div>
 
           {formError && (
-            <div className="mb-4 p-3.5 bg-red-50 border border-red-200 text-red-700 rounded-xl flex items-start gap-2.5 text-xs">
-              <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
-              <span>{formError}</span>
-            </div>
+            <Toast
+              message={formError}
+              type="error"
+              onClose={() => setFormError("")}
+            />
           )}
 
           {formSuccess && (
-            <div className="mb-4 p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl flex items-start gap-2.5 text-xs">
-              <CheckCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
-              <span>{formSuccess}</span>
-            </div>
+            <Toast
+              message={formSuccess}
+              type="success"
+              onClose={() => setFormSuccess("")}
+            />
           )}
 
           <form onSubmit={handleSubmitTicket} className="space-y-4">

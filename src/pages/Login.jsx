@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Mail, Lock, LogIn, UserPlus, AlertCircle, Database, Eye, EyeOff } from "lucide-react";
+import { Mail, Lock, LogIn, UserPlus, Database, Eye, EyeOff } from "lucide-react";
 import { signInClient, signUpClient, getCurrentClient } from "../services/databaseService";
 import { isSupabaseEnabled } from "../services/supabaseClient";
+import Toast from "../components/Toast";
 
 const Login = () => {
   const [isLoginTab, setIsLoginTab] = useState(true);
@@ -132,19 +133,21 @@ const Login = () => {
             </button>
           </div>
 
-          {/* Feedback messages */}
+          {/* Feedback Toast Alerts */}
           {errorMessage && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl flex items-center gap-3 text-sm animate-shake">
-              <AlertCircle className="w-5 h-5 flex-shrink-0" />
-              <span>{errorMessage}</span>
-            </div>
+            <Toast
+              message={errorMessage}
+              type="error"
+              onClose={() => setErrorMessage("")}
+            />
           )}
 
           {successMessage && (
-            <div className="mb-6 p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl flex items-center gap-3 text-sm">
-              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></div>
-              <span>{successMessage}</span>
-            </div>
+            <Toast
+              message={successMessage}
+              type="success"
+              onClose={() => setSuccessMessage("")}
+            />
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
