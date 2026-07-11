@@ -21,6 +21,42 @@ const Services = () => {
           <div className="bg-white border border-gray-150 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group">
             <div className="overflow-hidden h-48 w-full">
               <img 
+                src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80" 
+                alt="Custom Software & App Development" 
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+            <div className="p-6">
+              <h3 className="text-xl font-bold mb-3 text-gray-800">
+                Custom Software & App Development
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                Tailored web apps, mobile apps, and enterprise software systems designed to streamline your business workflows, scale with your growth, and provide a premium user experience.
+              </p>
+              <ul className="text-sm text-gray-600 mt-4 space-y-2">
+                <li className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
+                  <span>Full-Stack Web Applications</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
+                  <span>iOS & Android Mobile Apps</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
+                  <span>Custom CRM & ERP Solutions</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
+                  <span>API Development & Cloud Systems</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="bg-white border border-gray-150 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group">
+            <div className="overflow-hidden h-48 w-full">
+              <img 
                 src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80" 
                 alt="IT Support" 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

@@ -205,6 +205,29 @@ CREATE POLICY "Allow public delete feedbacks" ON feedbacks FOR DELETE TO public 
 CREATE POLICY "Allow public insert leads" ON leads FOR INSERT TO public WITH CHECK (true);
 CREATE POLICY "Allow public read leads" ON leads FOR SELECT TO public USING (true);
 CREATE POLICY "Allow public delete leads" ON leads FOR DELETE TO public USING (true);
+
+-- -------------------------------------------------------------
+-- 4. Tickets System (Client Support)
+-- -------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS tickets (
+  ticket_id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  client_id uuid REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  title text NOT NULL,
+  description text NOT NULL,
+  status text DEFAULT 'Open' NOT NULL,
+  attachment_url text,
+  attachment_name text,
+  created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+ALTER TABLE tickets ENABLE ROW LEVEL SECURITY;
+
+-- Allow clients to insert their own tickets (authenticated users)
+CREATE POLICY "Allow authenticated insert tickets" ON tickets FOR INSERT TO authenticated WITH CHECK (auth.uid() = client_id);
+
+-- Allow clients to view only their own tickets
+CREATE POLICY "Allow authenticated read tickets" ON tickets FOR SELECT TO authenticated USING (auth.uid() = client_id);
 ```
 </details>
 

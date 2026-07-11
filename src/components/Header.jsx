@@ -1,11 +1,15 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { Menu, X, ArrowRight, User } from "lucide-react";
+import { getCurrentClient } from "../services/databaseService";
 import logo from "../assets/logo.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,6 +22,14 @@ const Header = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const user = await getCurrentClient();
+      setCurrentUser(user);
+    };
+    checkUser();
+  }, [location]);
 
   const navLinkClass = ({ isActive }) =>
     `text-sm font-semibold transition-all relative py-1.5 ${
@@ -69,7 +81,13 @@ const Header = () => {
         </nav>
 
         {/* CTA Button - Desktop */}
-        <div className="hidden md:block">
+        <div className="hidden md:flex items-center gap-3">
+          <Link
+            to={currentUser ? "/dashboard" : "/login"}
+            className="border border-brand-blue/30 hover:border-brand-blue text-brand-blue hover:bg-blue-50 text-xs font-bold px-4 py-2.5 rounded-xl transition-all duration-200 shadow-sm flex items-center gap-1.5"
+          >
+            <User className="w-3.5 h-3.5" /> {currentUser ? "Dashboard" : "Client Portal"}
+          </Link>
           <Link
             to="/contact"
             className="bg-brand-blue hover:bg-blue-700 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition-all duration-200 hover:shadow shadow-sm flex items-center gap-1.5"
@@ -157,6 +175,14 @@ const Header = () => {
             >
               Contact
             </NavLink>
+
+            <Link
+              to={currentUser ? "/dashboard" : "/login"}
+              className="border border-brand-blue/30 hover:border-brand-blue text-brand-blue hover:bg-blue-50 font-bold py-3.5 rounded-xl text-center shadow-sm transition-all flex items-center justify-center gap-2"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <User className="w-4 h-4" /> {currentUser ? "Client Dashboard" : "Client Portal Login"}
+            </Link>
 
             <Link
               to="/contact"
