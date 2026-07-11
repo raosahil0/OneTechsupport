@@ -246,6 +246,7 @@ export const saveTicket = async (ticket, file = null) => {
       const newTicket = {
         ticket_id: "tkt_" + Math.random().toString(36).substring(2, 11) + Date.now().toString(36),
         client_id: ticket.clientId,
+        client_email: ticket.clientEmail,
         title: ticket.title,
         description: ticket.description,
         status: ticket.status || "Open",
@@ -291,6 +292,7 @@ export const saveTicket = async (ticket, file = null) => {
 
   const payload = {
     client_id: ticket.clientId,
+    client_email: ticket.clientEmail,
     title: ticket.title,
     description: ticket.description,
     status: ticket.status || "Open",
@@ -406,4 +408,49 @@ export const getCurrentClient = async () => {
     console.error("Supabase getUser error:", e);
     return null;
   }
+};
+
+export const getAllTickets = async () => {
+  if (!isSupabaseEnabled) {
+    try {
+      const tickets = JSON.parse(localStorage.getItem("tickets") || "[]");
+      return tickets.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    } catch (e) {
+      console.error("Error reading localStorage for all tickets:", e);
+      return [];
+    }
+  }
+
+  const { data, error } = await supabase
+    .from("tickets")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  _throwIfError(error);
+  return data;
+};
+
+export const updateTicketStatus = async (ticketId, status) => {
+  if (!isSupabaseEnabled) {
+    try {
+      const tickets = JSON.parse(localStorage.getItem("tickets") || "[]");
+      const updated = tickets.map((t) =>
+        t.ticket_id === ticketId ? { ...t, status } : t
+      );
+      localStorage.setItem("tickets", JSON.stringify(updated));
+      return updated.filter((t) => t.ticket_id === ticketId);
+    } catch (e) {
+      console.error("Error updating ticket status in localStorage:", e);
+      throw new Error("Local storage update failed.");
+    }
+  }
+
+  const { data, error } = await supabase
+    .from("tickets")
+    .update({ status })
+    .eq("ticket_id", ticketId)
+    .select();
+
+  _throwIfError(error);
+  return data;
 };

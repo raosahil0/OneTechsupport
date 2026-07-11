@@ -93,6 +93,7 @@ const Dashboard = () => {
     try {
       const newTicket = {
         clientId: client.id,
+        clientEmail: client.email,
         title: ticketTitle.trim(),
         description: ticketDescription.trim(),
         status: "Open"

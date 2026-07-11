@@ -213,6 +213,7 @@ CREATE POLICY "Allow public delete leads" ON leads FOR DELETE TO public USING (t
 CREATE TABLE IF NOT EXISTS tickets (
   ticket_id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
   client_id uuid REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  client_email text NOT NULL,
   title text NOT NULL,
   description text NOT NULL,
   status text DEFAULT 'Open' NOT NULL,

@@ -6,6 +6,8 @@ import {
   deleteContact,
   deleteFeedback,
   deleteLead,
+  getAllTickets,
+  updateTicketStatus,
 } from "../services/databaseService";
 import {
   Mail,
@@ -26,6 +28,8 @@ import {
   FileSpreadsheet,
   BarChart2,
   TrendingUp,
+  Paperclip,
+  ClipboardList,
 } from "lucide-react";
 
 const Admin = () => {
@@ -38,6 +42,7 @@ const Admin = () => {
   const [contacts, setContacts] = useState([]);
   const [feedbacks, setFeedbacks] = useState([]);
   const [leads, setLeads] = useState([]);
+  const [tickets, setTickets] = useState([]);
 
   // UI State
   const [loading, setLoading] = useState(false);
@@ -72,14 +77,16 @@ const Admin = () => {
   const loadDashboardData = async () => {
     setLoading(true);
     try {
-      const [contactsData, feedbacksData, leadsData] = await Promise.all([
+      const [contactsData, feedbacksData, leadsData, ticketsData] = await Promise.all([
         getContacts(),
         getFeedbacks(),
         getLeads(),
+        getAllTickets(),
       ]);
       setContacts(contactsData || []);
       setFeedbacks(feedbacksData || []);
       setLeads(leadsData || []);
+      setTickets(ticketsData || []);
     } catch (err) {
       console.error("Failed to load dashboard data:", err);
     } finally {
@@ -230,6 +237,14 @@ const Admin = () => {
 
   const filteredLeads = leads.filter((l) =>
     l.email?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const filteredTickets = tickets.filter(
+    (t) =>
+      t.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      t.client_email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      t.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      t.status?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   // ─── ANALYTICS CHART CALCULATIONS ─────────────────────────────────────────
@@ -389,34 +404,44 @@ const Admin = () => {
           </div>
 
           {/* Card 3: Metrics Summary */}
-          <div className="grid grid-rows-3 gap-4">
-            <div className="border p-5 rounded-2xl shadow-sm flex items-center gap-4 hover:shadow-md transition-all duration-300 bg-white border-gray-150">
-              <div className="p-3.5 bg-blue-500/10 text-brand-blue rounded-xl">
-                <Inbox className="w-5.5 h-5.5" />
+          <div className="grid grid-rows-4 gap-3">
+            <div className="border p-3.5 rounded-2xl shadow-sm flex items-center gap-4 hover:shadow-md transition-all duration-305 bg-white border-gray-150">
+              <div className="p-2.5 bg-blue-500/10 text-brand-blue rounded-xl">
+                <Inbox className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Total Inquiries</p>
-                <h4 className="text-3xl font-black mt-0.5">{contacts.length}</h4>
+                <p className="text-[9px] font-bold text-gray-400 uppercase tracking-wider">Total Inquiries</p>
+                <h4 className="text-2xl font-black mt-0.5">{contacts.length}</h4>
               </div>
             </div>
 
-            <div className="border p-5 rounded-2xl shadow-sm flex items-center gap-4 hover:shadow-md transition-all duration-300 bg-white border-gray-150">
-              <div className="p-3.5 bg-amber-500/10 text-amber-400 rounded-xl">
-                <Star className="w-5.5 h-5.5" />
+            <div className="border p-3.5 rounded-2xl shadow-sm flex items-center gap-4 hover:shadow-md transition-all duration-305 bg-white border-gray-150">
+              <div className="p-2.5 bg-amber-500/10 text-amber-400 rounded-xl">
+                <Star className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Total Reviews</p>
-                <h4 className="text-3xl font-black mt-0.5">{feedbacks.length}</h4>
+                <p className="text-[9px] font-bold text-gray-400 uppercase tracking-wider">Total Reviews</p>
+                <h4 className="text-2xl font-black mt-0.5">{feedbacks.length}</h4>
               </div>
             </div>
 
-            <div className="border p-5 rounded-2xl shadow-sm flex items-center gap-4 hover:shadow-md transition-all duration-300 bg-white border-gray-150">
-              <div className="p-3.5 bg-purple-500/10 text-purple-500 rounded-xl">
-                <Users className="w-5.5 h-5.5" />
+            <div className="border p-3.5 rounded-2xl shadow-sm flex items-center gap-4 hover:shadow-md transition-all duration-305 bg-white border-gray-150">
+              <div className="p-2.5 bg-purple-500/10 text-purple-500 rounded-xl">
+                <Users className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Newsletter Subscribers</p>
-                <h4 className="text-3xl font-black mt-0.5">{leads.length}</h4>
+                <p className="text-[9px] font-bold text-gray-400 uppercase tracking-wider">Subscribers</p>
+                <h4 className="text-2xl font-black mt-0.5">{leads.length}</h4>
+              </div>
+            </div>
+
+            <div className="border p-3.5 rounded-2xl shadow-sm flex items-center gap-4 hover:shadow-md transition-all duration-305 bg-white border-gray-150">
+              <div className="p-2.5 bg-indigo-500/10 text-indigo-500 rounded-xl">
+                <ClipboardList className="w-5 h-5" />
+              </div>
+              <div>
+                <p className="text-[9px] font-bold text-gray-400 uppercase tracking-wider">Support Tickets</p>
+                <h4 className="text-2xl font-black mt-0.5">{tickets.length}</h4>
               </div>
             </div>
           </div>
@@ -454,6 +479,16 @@ const Admin = () => {
               }`}
             >
               Leads ({leads.length})
+            </button>
+            <button
+              onClick={() => setActiveTab("tickets")}
+              className={`px-5 py-2.5 rounded-lg text-sm font-bold transition-all ${
+                activeTab === "tickets"
+                  ? "bg-brand-blue text-white shadow-sm"
+                  : "text-gray-500 hover:text-gray-900"
+              }`}
+            >
+              Tickets ({tickets.length})
             </button>
           </div>
 
@@ -651,6 +686,105 @@ const Admin = () => {
                             </td>
                           </tr>
                         ))}
+                      </tbody>
+                    </table>
+                  )}
+                </div>
+              )}
+
+              {/* tickets Tab */}
+              {activeTab === "tickets" && (
+                <div className="overflow-x-auto">
+                  {filteredTickets.length === 0 ? (
+                    <div className="py-20 text-center text-gray-450 font-semibold">No tickets found.</div>
+                  ) : (
+                    <table className="w-full text-left border-collapse">
+                      <thead>
+                        <tr className="border-b text-xs font-bold uppercase tracking-wider bg-slate-50 border-gray-150 text-gray-500">
+                          <th className="p-5">Ticket ID</th>
+                          <th className="p-5">Client Info</th>
+                          <th className="p-5">Issue Details</th>
+                          <th className="p-5">Attachment</th>
+                          <th className="p-5">Status</th>
+                          <th className="p-5 text-right">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-100">
+                        {filteredTickets.map((t) => {
+                          const shortId = t.ticket_id ? (t.ticket_id.startsWith("tkt_") ? t.ticket_id.substring(4, 10) : t.ticket_id.substring(0, 6)) : "";
+                          let statusClass = "bg-blue-50 text-blue-700 border-blue-150";
+                          if (t.status === "In Progress") {
+                            statusClass = "bg-orange-50 text-orange-700 border-orange-150";
+                          } else if (t.status === "Resolved" || t.status === "Closed") {
+                            statusClass = "bg-emerald-50 text-emerald-700 border-emerald-150";
+                          }
+
+                          return (
+                            <tr key={t.ticket_id} className="transition-colors duration-200 hover:bg-slate-55/30">
+                              <td className="p-5 font-mono text-xs font-bold text-slate-500">
+                                #{shortId.toUpperCase()}
+                              </td>
+                              <td className="p-5">
+                                <p className="font-bold text-sm text-slate-800">{t.client_email}</p>
+                                <span className="block text-[10px] text-gray-400 mt-1">
+                                  Client ID: {t.client_id ? t.client_id.substring(0, 8) : "N/A"}...
+                                </span>
+                              </td>
+                              <td className="p-5 max-w-sm">
+                                <p className="font-bold text-sm text-gray-900">{t.title}</p>
+                                <p className="text-xs text-gray-550 line-clamp-2 mt-1 leading-relaxed">{t.description}</p>
+                                <span className="block text-[10px] text-gray-400 mt-2">
+                                  {new Date(t.created_at).toLocaleString()}
+                                </span>
+                              </td>
+                              <td className="p-5 text-xs">
+                                {t.attachment_url ? (
+                                  <a
+                                    href={t.attachment_url}
+                                    download={t.attachment_name}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1 text-brand-blue hover:text-blue-700 hover:underline font-semibold"
+                                  >
+                                    <Paperclip className="w-3.5 h-3.5 flex-shrink-0" />
+                                    <span className="max-w-[120px] truncate">{t.attachment_name}</span>
+                                  </a>
+                                ) : (
+                                  <span className="text-gray-400 italic">None</span>
+                                )}
+                              </td>
+                              <td className="p-5">
+                                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border ${statusClass}`}>
+                                  {t.status}
+                                </span>
+                              </td>
+                              <td className="p-5 text-right">
+                                <div className="flex justify-end gap-1.5 items-center">
+                                  <select
+                                    value={t.status}
+                                    onChange={async (e) => {
+                                      try {
+                                        await updateTicketStatus(t.ticket_id, e.target.value);
+                                        setTickets(tickets.map(ticket => 
+                                          ticket.ticket_id === t.ticket_id ? { ...ticket, status: e.target.value } : ticket
+                                        ));
+                                      } catch (err) {
+                                        console.error("Failed to update status:", err);
+                                        alert("Failed to update ticket status.");
+                                      }
+                                    }}
+                                    className="text-xs bg-slate-50 border border-gray-250 rounded-lg p-1.5 focus:outline-none focus:ring-1 focus:ring-brand-blue cursor-pointer font-semibold text-gray-700"
+                                  >
+                                    <option value="Open">Open</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Resolved">Resolved</option>
+                                    <option value="Closed">Closed</option>
+                                  </select>
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        })}
                       </tbody>
                     </table>
                   )}

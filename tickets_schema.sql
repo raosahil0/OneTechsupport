@@ -1,10 +1,11 @@
 -- -------------------------------------------------------------
--- Tickets Table Setup Script (Updated with Attachments)
+-- Tickets Table Setup Script (Updated with Client Email & Attachments)
 -- -------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS tickets (
   ticket_id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
   client_id uuid REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  client_email text NOT NULL,
   title text NOT NULL,
   description text NOT NULL,
   status text DEFAULT 'Open' NOT NULL,
@@ -36,6 +37,11 @@ ON tickets
 FOR SELECT 
 TO authenticated 
 USING (auth.uid() = client_id);
+
+-- Allow public read & update for the admin portal bypass
+-- Note: Adjust to administrative checks if using custom roles
+CREATE POLICY "Allow admin read tickets" ON tickets FOR SELECT TO public USING (true);
+CREATE POLICY "Allow admin update tickets" ON tickets FOR UPDATE TO public USING (true);
 
 -- -------------------------------------------------------------
 -- Supabase Storage Bucket Setup
