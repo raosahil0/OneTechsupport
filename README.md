@@ -1,4 +1,4 @@
-# 🌐 S'K One Tech Support Web Application
+# 🌐 S'K One Tech Support Portal
 
 [![React](https://img.shields.io/badge/React-19.0.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite-8.0.3-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vite.dev/)
@@ -6,13 +6,49 @@
 [![Supabase](https://img.shields.io/badge/Supabase-Database-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com/)
 [![Vercel](https://img.shields.io/badge/Vercel-Deployment-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
 
-A premium, interactive business portal for **S'K One Tech Support**. The application delivers a high-performance web experience for client inquiries, feedback gathering, and interactive staffing/IT operations management, backed by a robust serverless architecture with offline resilience.
+A premium, interactive business portal for **S'K One Tech Support**. Engineered with a focus on modern product design and robust architecture, this application delivers a high-performance web experience for client inquiries, interactive IT operations management, and secure feedback gathering. 
+
+---
+
+## 🎯 Product Vision
+
+Our goal was to build more than just a landing page. We envisioned a comprehensive **client portal** that bridges the gap between our technical support team and the businesses we serve. The platform reduces friction in client onboarding, streamlines support ticketing, and establishes trust through a fast, resilient, and beautifully designed digital interface.
+
+---
+
+## 🎨 Design System & UX Principles
+
+Built with modern UI/UX sensibilities, the application emphasizes aesthetics without sacrificing performance or accessibility.
+
+- **Responsive Glassmorphism:** We utilize a sleek dark theme featuring backdrop-blur panels, subtle translucent cards, and smooth lift animations to create a sense of depth and modernity.
+- **Dynamic Micro-Interactions:** Hover-expanding cards, step progress trackers in forms, and sliding toast alerts provide immediate, satisfying feedback to user actions.
+- **Intentional Typography:** Leveraging the **Outfit** font family to establish a clear typographic hierarchy, ensuring readability across all devices.
+- **Graceful Degradation:** The UI seamlessly adapts if backend services are unreachable. Localized fallback mechanisms ensure users can still interact with core features without encountering disruptive error states.
+
+---
+
+## ✨ Key Features & User Journeys
+
+- **Guided Project Intake Wizard:** A multi-step lead capture form on the Contact page that guides users smoothly through their inquiry, reducing form abandonment rates.
+- **Interactive Services Matrix:** An engaging services catalogue featuring dynamic hover states that reveal our technology stacks (React, Python, AWS, Docker) and service capabilities.
+- **Client Support Hub:** A secure portal allowing authenticated clients to submit tickets, upload media attachments (up to 2MB), and track resolution progress via visual charts.
+- **Admin Control Center:** A comprehensive backend management interface to monitor inquiries, filter feedback, and oversee client accounts with inline status selectors. *(Note: Admin credentials configured securely via environment/DB).*
+
+---
+
+## 🏗️ Frontend Architecture & Performance
+
+Performance and scalability are foundational to the application's design:
+
+- **Aggressive Code-Splitting:** Utilizing React Router v7 and lazy loading, we minimized the initial bundle size from **564 kB down to 429 kB**. This results in sub-second Time to Interactive (TTI) and buttery-smooth page transitions.
+- **Serverless Edge Resilience:** Powered by Supabase for real-time PostgreSQL synchronization. If network connectivity drops or credentials fail, the application gracefully falls back to browser `localStorage` to preserve user data.
+- **Optimized Asset Delivery:** Built and bundled via Vite 8 for lightning-fast HMR during development and heavily optimized static assets for production deployment on Vercel.
 
 ---
 
 ## 🗺️ System Architecture
 
-Below is a diagram of the application's client-serverless architecture and automatic fallback mechanism:
+The following diagram illustrates the client-serverless topology, highlighting our automatic failover strategy:
 
 ```mermaid
 graph TD
@@ -52,7 +88,7 @@ graph TD
 
 ---
 
-## 🛠️ Tech Stack & Key Integrations
+## 🛠️ Tech Stack & Integrations
 
 | Technology | Purpose | Key Benefit |
 | :--- | :--- | :--- |
@@ -100,9 +136,11 @@ graph TD
 
 ---
 
-## ⚙️ Environment Configuration
+## 🚀 Setup & Installation
 
-To set up the database and messaging integrations, add a `.env` file in the project root:
+### Environment Configuration
+
+To enable the database and messaging integrations, add a `.env` file in the project root:
 
 ```ini
 # Supabase Configuration
@@ -115,34 +153,26 @@ VITE_EMAILJS_TEMPLATE_ID=your_template_id
 VITE_EMAILJS_PUBLIC_KEY=your_public_key
 ```
 
----
+### Running Locally
 
-## 🚀 Running Locally
-
-Follow these quick commands to spin up the project:
-
-### 1. Installation
 ```bash
+# 1. Install dependencies
 npm install
-```
 
-### 2. Launch Dev Server
-```bash
+# 2. Launch the development server
 npm run dev
-```
 
-### 3. Production Compilation & Testing
-```bash
-npm run build      # Build optimized application files inside /dist
+# 3. Build for production
+npm run build      
 npm run preview    # Serve and test the local production build
 ```
 
 ---
 
-## 🗄️ Database Setup (Supabase)
+## 🗄️ Database Provisioning (Supabase)
 
 > [!TIP]
-> This application automatically detects if Supabase credentials are missing and falls back to browser-level `localStorage` storing so that the app remains fully functional under any configuration.
+> **Offline Resilience:** This application automatically detects if Supabase credentials are missing and falls back to browser-level `localStorage`, ensuring the app remains fully functional out of the box.
 
 If configuring Supabase, open your **Supabase SQL Editor** and execute the following schema script to configure tables and Row Level Security (RLS) policies:
 
@@ -248,20 +278,8 @@ CREATE POLICY "Allow authenticated delete on attachments" ON storage.objects FOR
 
 ---
 
-## ✨ Features & User Experience
-
-- **📊 High-Performance Code-Splitting**: All routes are lazy-loaded dynamically, shrinking the initial bundle size from **564 kB down to 429 kB** for sub-second page rendering and layout transitions.
-- **⚡ Guided Project Intake Wizard**: The [Contact Page](file:///c:/Users/Sahil.yadav/Desktop/OneTechsupport/src/pages/Contact.jsx) utilizes a high-converting multi-step lead wizard with active step progress trackers.
-- **🛠️ Interactive Services Index**: The [Services catalogue](file:///c:/Users/Sahil.yadav/Desktop/OneTechsupport/src/pages/Services.jsx) features dynamic hover-expanding cards that display tools, services, and tech stacks (React, Python, AWS, Docker).
-- **🔔 Floating Overlay Toast Alert System**: Overlay toast alerts slide into view dynamically to prevent layout shifts during form validation checks.
-- **🔐 Client Support Hub & Resolution Analytics**: Portal for clients to submit support tickets, upload media attachments under 2MB, and view ticket history status distributions via progress charts.
-- **🛡️ Full-Featured Administration Center**: Access at `/admin` (password: `Yadav@32!`) to manage inquiries, feedback submissions, subscribers, support tickets, and client accounts with inline status selectors and confirmable account deletion rules.
-- **📱 Responsive Glassmorphic Theme**: Designed with an Outfit-based typographic scale, sleek dark hero grids, backdrop-blur cards, and smooth lift animations.
-
----
-
 ## 👥 Authors
 
 - **Sahil Yadav**
   - GitHub: [@raosahil0](https://github.com/raosahil0)
-  - GitHub Backup/Secondary: [@sahilyadav-01](https://github.com/sahilyadav-01)
+  - GitHub Backup: [@sahilyadav-01](https://github.com/sahilyadav-01)
