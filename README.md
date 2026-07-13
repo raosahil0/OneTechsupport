@@ -233,6 +233,16 @@ CREATE POLICY "Allow authenticated read tickets" ON tickets FOR SELECT TO authen
 -- Allow public read & update for the admin portal bypass
 CREATE POLICY "Allow admin read tickets" ON tickets FOR SELECT TO public USING (true);
 CREATE POLICY "Allow admin update tickets" ON tickets FOR UPDATE TO public USING (true);
+
+-- -------------------------------------------------------------
+-- 5. Storage Buckets & Policies Setup
+-- -------------------------------------------------------------
+-- Ensure you create a public bucket named 'ticket-attachments' in Supabase Storage.
+-- Then run the following commands to configure security policies for attachment uploads:
+
+CREATE POLICY "Allow public select on attachments" ON storage.objects FOR SELECT TO public USING (bucket_id = 'ticket-attachments');
+CREATE POLICY "Allow authenticated insert on attachments" ON storage.objects FOR INSERT TO authenticated WITH CHECK (bucket_id = 'ticket-attachments');
+CREATE POLICY "Allow authenticated delete on attachments" ON storage.objects FOR DELETE TO authenticated USING (bucket_id = 'ticket-attachments');
 ```
 </details>
 
