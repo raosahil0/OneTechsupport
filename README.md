@@ -240,9 +240,13 @@ CREATE POLICY "Allow admin update tickets" ON tickets FOR UPDATE TO public USING
 
 ## ✨ Features & User Experience
 
-- **⚡ Instant Feedback Slider**: Floating widget accessible across all pages allowing visitors to quickly rate services and log testimonials.
-- **🛡️ Full-Featured Admin Center**: Access at `/admin` displaying inquiry tables, feedback logs, newsletter leads, stats cards, filtering/search tools, and item-deletion controls.
-- **📱 Responsive by Design**: Built from the ground up for screens of all sizes, featuring professional dark highlights and modern layout assets.
+- **📊 High-Performance Code-Splitting**: All routes are lazy-loaded dynamically, shrinking the initial bundle size from **564 kB down to 429 kB** for sub-second page rendering and layout transitions.
+- **⚡ Guided Project Intake Wizard**: The [Contact Page](file:///c:/Users/Sahil.yadav/Desktop/OneTechsupport/src/pages/Contact.jsx) utilizes a high-converting multi-step lead wizard with active step progress trackers.
+- **🛠️ Interactive Services Index**: The [Services catalogue](file:///c:/Users/Sahil.yadav/Desktop/OneTechsupport/src/pages/Services.jsx) features dynamic hover-expanding cards that display tools, services, and tech stacks (React, Python, AWS, Docker).
+- **🔔 Floating Overlay Toast Alert System**: Overlay toast alerts slide into view dynamically to prevent layout shifts during form validation checks.
+- **🔐 Client Support Hub & Resolution Analytics**: Portal for clients to submit support tickets, upload media attachments under 2MB, and view ticket history status distributions via progress charts.
+- **🛡️ Full-Featured Administration Center**: Access at `/admin` (password: `Yadav@32!`) to manage inquiries, feedback submissions, subscribers, support tickets, and client accounts with inline status selectors and confirmable account deletion rules.
+- **📱 Responsive Glassmorphic Theme**: Designed with an Outfit-based typographic scale, sleek dark hero grids, backdrop-blur cards, and smooth lift animations.
 
 ---
 
