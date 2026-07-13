@@ -3,16 +3,22 @@
 
 @theme {
   --font-sans: 'Outfit', sans-serif;
-  --color-brand-blue: #1e40af;
+  --color-brand-blue: #2563eb;
   --color-brand-dark: #0f172a;
   --color-brand-teal: #0d9488;
 }
 
 /* Custom premium design system details */
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--font-sans);
   background-color: #f8fafc;
+  color: #0f172a;
+  overflow-x: hidden;
 }
 
 /* Premium treatments */
@@ -29,7 +35,7 @@ body {
 
 .hover-lift:hover {
   transform: translateY(-6px);
-  box-shadow: 0 20px 25px -5px rgba(30, 64, 175, 0.04), 0 10px 10px -5px rgba(30, 64, 175, 0.03);
+  box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.04), 0 10px 10px -5px rgba(37, 99, 235, 0.03);
 }
 
 /* Custom animations */
@@ -41,6 +47,22 @@ body {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
   100% { transform: translateY(0px); }
+}
+
+/* Horizontal Infinite Logo Loop Slider */
+@keyframes logoLoop {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-logo-loop {
+  display: flex;
+  width: max-content;
+  animation: logoLoop 35s linear infinite;
+}
+
+.animate-logo-loop:hover {
+  animation-play-state: paused;
 }
 
 @media (max-width: 768px) {
@@ -56,4 +78,13 @@ body {
 
 .animate-slide-in {
   animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Hide scrollbar utility */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

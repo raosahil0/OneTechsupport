@@ -13,6 +13,7 @@ const Contact = lazy(() => import("./pages/Contact"));
 const Admin = lazy(() => import("./pages/Admin"));
 const Login = lazy(() => import("./pages/Login"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Blog = lazy(() => import("./pages/Blog"));
 
 // Sleek loading screen for suspense fallback
 const LoadingSpinner = () => (
@@ -41,6 +42,7 @@ function App() {
               <Route path="/admin" element={<Admin />} />
               <Route path="/login" element={<Login />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/blog" element={<Blog />} />
             </Routes>
           </Suspense>
         </div>
