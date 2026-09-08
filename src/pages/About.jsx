@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { 
-  Award, Users, MapPin, Target, Eye, Shield, Sparkles, 
+import {
+  Award, Users, MapPin, Target, Eye, Shield, Sparkles,
   MessageSquare, Calendar, Globe, Briefcase, Network
 } from "lucide-react";
 import SEO from "../components/SEO";
@@ -21,8 +21,8 @@ const TIMELINE_MILESTONES = [
 const About = () => {
   return (
     <div className="bg-slate-50 min-h-screen pb-28 font-sans">
-      <SEO 
-        title="Corporate Profile & Core Values" 
+      <SEO
+        title="Corporate Profile & Core Values"
         description="Learn about the history of S'K One Tech Support, our mission to deliver secure cloud infrastructures, core enterprise principles, and leadership team."
       />
 
@@ -64,7 +64,7 @@ const About = () => {
 
       {/* Mission & Vision Section */}
       <section className="py-24 px-6 max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -79,7 +79,7 @@ const About = () => {
           </p>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: 20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -144,7 +144,7 @@ const About = () => {
 
         <div className="relative border-l-2 border-slate-200 ml-4 md:ml-12 space-y-12">
           {TIMELINE_MILESTONES.map((ms, idx) => (
-            <motion.div 
+            <motion.div
               key={idx}
               initial={{ opacity: 0, x: -10 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -153,7 +153,7 @@ const About = () => {
             >
               {/* Bullet circle */}
               <div className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full border-4 border-slate-50 bg-brand-blue z-10 shadow-sm" />
-              
+
               <span className="text-brand-blue font-black text-xl tracking-tight block">{ms.year}</span>
               <h4 className="text-base font-bold text-slate-900 mt-1">{ms.title}</h4>
               <p className="text-slate-555 text-xs md:text-sm mt-1 leading-relaxed max-w-xl">{ms.desc}</p>
@@ -197,7 +197,7 @@ const About = () => {
           {[
             { name: "Sahil Yadav", role: "Founder & CEO", init: "SY", desc: "Drives corporate strategy, SLA-compliance guidelines, and client onboarding pipelines." },
             { name: "Kapil Sharma", role: "Technical Lead", init: "KS", desc: "Oversees cloud architectures deployments, container configurations, and cybersecurity." },
-            { name: "HR Coordinator", role: "Talent Specialist", init: "HR", desc: "Manages developer sourcing arrays, code assessments, and client placement matrices." }
+            { name: "Bhunesh Kumar", role: "Talent Specialist", init: "BK", desc: "Manages developer sourcing arrays, code assessments, and client placement matrices." }
           ].map((t, idx) => (
             <div key={idx} className="bg-white border border-gray-150 p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow group flex flex-col justify-between h-[300px]">
               <div>
