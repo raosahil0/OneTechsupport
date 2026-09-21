@@ -145,7 +145,8 @@ const Services = () => {
     <div className="bg-slate-50 min-h-screen font-sans text-slate-800 pb-28">
       <SEO 
         title="Managed IT Services & App Engineering" 
-        description="Explore our IT services catalogue, ranging from cloud infrastructures and network configurations to technical staffing pipelines."
+        description="Explore SKONE Tech Support services catalogue, ranging from cloud infrastructures and network configurations to cybersecurity and technical staffing."
+        keywords="Cloud Solutions, IT Helpdesk Services, Cisco Network Configuration, Cybersecurity Audit, Dedicated Developers, Enterprise IT Consultation"
       />
 
       {/* Hero Header Section */}

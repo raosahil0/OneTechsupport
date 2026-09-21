@@ -10,6 +10,7 @@ import {
 } from "../services/databaseService";
 import { isSupabaseEnabled } from "../services/supabaseClient";
 import Toast from "../components/Toast";
+import SEO from "../components/SEO";
 
 const Dashboard = () => {
   const [client, setClient] = useState(null);
@@ -146,6 +147,7 @@ const Dashboard = () => {
 
   return (
     <div className="bg-slate-50 min-h-screen py-10 px-6 max-w-6xl mx-auto">
+      <SEO title="Client Workspace Dashboard" noIndex={true} />
       {/* Header Panel */}
       <div className="bg-white border border-gray-150 rounded-2xl shadow-sm p-6 mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="flex items-center gap-4">

@@ -105,7 +105,8 @@ const Blog = () => {
     <div className="bg-slate-50 min-h-screen pt-24 pb-28 font-sans">
       <SEO 
         title="Insights & Tech Articles" 
-        description="Read technical guides, security briefs, cloud migration checklists, and dedicated staffing recommendations from our engineering leads."
+        description="Read technical guides, security briefs, cloud migration checklists, and dedicated staffing recommendations from SKONE Tech Support engineering leads."
+        keywords="Tech Blog, Cloud Migration Guide, Cybersecurity Best Practices, IT Support Tips, Enterprise Architecture Articles"
       />
 
       <div className="max-w-6xl mx-auto px-6">

@@ -104,7 +104,8 @@ const Home = () => {
     <div className="font-sans text-slate-800 bg-slate-50 min-h-screen">
       <SEO 
         title="Enterprise Managed IT Services & Custom App Development" 
-        description="One Tech Support provides enterprise IT support, custom CRM/ERP app development, zero-trust cybersecurity, and responsive backup staffing."
+        description="SKONE Tech Support delivers SLA-backed enterprise IT support, cloud infrastructure, zero-trust cybersecurity, and custom web/mobile application engineering."
+        keywords="Managed IT Services, Cloud Migration, Enterprise IT Support, Cybersecurity Solutions, Web App Development, Gurugram IT Company, Jaipur IT Support"
       />
 
       {/* Hero Section - Parallax Dark Gradient with Floating Blobs */}

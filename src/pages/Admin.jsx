@@ -33,6 +33,7 @@ import {
   Paperclip,
   ClipboardList,
 } from "lucide-react";
+import SEO from "../components/SEO";
 
 const Admin = () => {
   // Authentication

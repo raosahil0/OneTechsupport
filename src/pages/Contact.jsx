@@ -81,7 +81,8 @@ const Contact = () => {
     <div className="bg-slate-50 min-h-screen pt-24 pb-28 font-sans">
       <SEO 
         title="Consultation & Helpdesk Support" 
-        description="Schedule a technical evaluation, submit bespoke software requests, or contact our 24/7 emergency networks helpdesk."
+        description="Contact SKONE Tech Support: Schedule a technical evaluation, submit software inquiries, or reach our emergency IT helpdesk at +91 7678627526."
+        keywords="Contact IT Support, IT Helpdesk Phone, Hire IT Consultants, Technical Support Inquiry, Gurgaon IT Support, Jaipur Tech Consultation"
       />
       
       <div className="max-w-6xl mx-auto px-6">

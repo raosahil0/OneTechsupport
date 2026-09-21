@@ -70,7 +70,8 @@ const Projects = () => {
     <div className="bg-slate-50 min-h-screen pt-24 pb-28 font-sans">
       <SEO 
         title="Case Studies Portfolio" 
-        description="Review our completed cloud migration case studies, Cisco infrastructure installations, and agile software development projects."
+        description="Review SKONE Tech Support case studies in AWS/GCP cloud migrations, enterprise network deployments, and bespoke web application engineering."
+        keywords="IT Case Studies, Cloud Migration Portfolio, Network Optimization, Web App Engineering Projects, Enterprise IT Success Stories"
       />
 
       <div className="max-w-6xl mx-auto px-6">

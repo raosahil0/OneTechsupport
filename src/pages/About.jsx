@@ -23,7 +23,8 @@ const About = () => {
     <div className="bg-slate-50 min-h-screen pb-28 font-sans">
       <SEO
         title="Corporate Profile & Core Values"
-        description="Learn about the history of S'K One Tech Support, our mission to deliver secure cloud infrastructures, core enterprise principles, and leadership team."
+        description="Learn about the history of SKONE Tech Support, our mission to deliver secure cloud infrastructures, core enterprise principles, and leadership team."
+        keywords="About SKONE Tech Support, IT Company Profile, Enterprise IT Leadership, Sahil Yadav, IT Mission and Values"
       />
 
       {/* Hero Header Section */}

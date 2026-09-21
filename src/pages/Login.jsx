@@ -4,6 +4,7 @@ import { Mail, Lock, LogIn, UserPlus, Database, Eye, EyeOff } from "lucide-react
 import { signInClient, signUpClient, getCurrentClient } from "../services/databaseService";
 import { isSupabaseEnabled } from "../services/supabaseClient";
 import Toast from "../components/Toast";
+import SEO from "../components/SEO";
 
 const Login = () => {
   const [isLoginTab, setIsLoginTab] = useState(true);
@@ -81,6 +82,11 @@ const Login = () => {
 
   return (
     <div className="bg-slate-50 min-h-screen flex flex-col justify-center py-12 px-6 lg:px-8 relative overflow-hidden">
+      <SEO 
+        title="Client Portal Sign In" 
+        description="Secure client portal login for SKONE Tech Support ticket management." 
+        noIndex={true} 
+      />
       {/* Background Graphic Accents */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none"></div>
 

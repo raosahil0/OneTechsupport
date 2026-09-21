@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import FeedbackForm from "../components/FeedbackForm";
+import SEO from "../components/SEO";
 import { Star, MessageCircle, Quote } from "lucide-react";
 import { getFeedbacks } from "../services/databaseService";
 
@@ -53,6 +54,11 @@ const Clients = () => {
 
   return (
     <div className="bg-slate-50 min-h-screen py-16 px-6">
+      <SEO 
+        title="Client Reviews & Testimonials"
+        description="Discover how SKONE Tech Support helps businesses streamline operations, secure IT infrastructure, and recruit top engineering talent."
+        keywords="Client Testimonials, IT Support Reviews, Customer Feedback, Managed Services Experience, SKONE Reviews"
+      />
       <div className="max-w-6xl mx-auto">
         
         {/* Header Section */}
