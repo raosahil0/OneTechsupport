@@ -62,18 +62,14 @@ const Header = () => {
       />
 
       <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
-        {/* Brand Logo & Name */}
-        <Link to="/" className="flex items-center space-x-3 group">
-          <div className="relative">
-            <img
-              src={logo}
-              className="w-11 h-11 rounded-full border-2 border-transparent group-hover:border-brand-blue/30 transition-all duration-300"
-              alt="One Tech Support Logo"
-            />
-          </div>
-          <h1 className="text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-blue-700 tracking-tight group-hover:opacity-90 transition-opacity">
-            One Tech Support
-          </h1>
+        {/* Brand Logo */}
+        <Link to="/" className="flex items-center group py-0.5" aria-label="SKONE Tech Support Home">
+          <img
+            src={logo}
+            className="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+            alt="SKONE Tech Support Logo"
+          />
+          <span className="sr-only">SKONE Tech Support</span>
         </Link>
 
         {/* Desktop Navigation */}

@@ -2,6 +2,7 @@ import { Mail, Phone, MapPin, Share2, Send } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { saveLead } from "../services/databaseService";
+import logoDark from "../assets/logo-dark-bg.png";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -32,9 +33,14 @@ const Footer = () => {
         
         {/* Column 1: Company Profile */}
         <div className="lg:col-span-2 space-y-5">
-          <h3 className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
-            One Tech Support
-          </h3>
+          <Link to="/" className="inline-block group" aria-label="SKONE Tech Support Home">
+            <img
+              src={logoDark}
+              alt="SKONE Tech Support"
+              className="h-10 sm:h-11 w-auto object-contain transition-opacity duration-300 group-hover:opacity-90"
+            />
+            <span className="sr-only">SKONE Tech Support</span>
+          </Link>
           <p className="text-slate-400 text-xs leading-relaxed max-w-sm">
             Secure Cloud Solutions, Enterprise IT Support & Custom Software Engineering. We deliver SLA-backed managed systems designed to scale tech operations for modern enterprises.
           </p>
