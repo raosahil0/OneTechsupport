@@ -284,6 +284,7 @@ const Admin = () => {
   if (!isAuthenticated) {
     return (
       <div className="min-h-[80vh] flex items-center justify-center px-6 py-12 bg-slate-50">
+        <SEO title="Admin Portal Authentication" noIndex={true} />
         <div className="max-w-md w-full border rounded-3xl shadow-2xl p-8 text-center bg-white/90 border-gray-150 backdrop-blur-md">
           <div className="inline-flex p-4 bg-gradient-to-tr from-brand-blue to-blue-600 text-white rounded-2xl shadow-md mb-6">
             <Lock className="w-8 h-8" />
@@ -321,6 +322,7 @@ const Admin = () => {
 
   return (
     <div className="min-h-screen py-10 px-6 bg-slate-50 text-slate-900">
+      <SEO title="Admin Database Dashboard" noIndex={true} />
       <div className="max-w-7xl mx-auto">
         
         {/* Header */}
