@@ -1,4 +1,4 @@
-import { supabase, isSupabaseEnabled } from "./supabaseClient";
+import { supabase, isSupabaseEnabled } from "./supabaseClient.js";
 
 // ─── Error Handler ────────────────────────────────────────────────────────────
 const _throwIfError = (error) => {

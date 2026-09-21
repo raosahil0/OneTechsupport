@@ -141,7 +141,7 @@ const Home = () => {
               High-Velocity App Engineering | Cisco Infrastructure | Backup Developer Staffing
             </p>
             <p className="text-slate-400 max-w-2xl mx-auto leading-relaxed text-xs md:text-base">
-              One Tech Support builds, secures, and maintains modern software apps and server infrastructure. From cloud migration pipelines to dedicated tech helpdesks, our engineering SLAs are structured to ensure business velocity.
+              SKONE Tech Support builds, secures, and maintains modern software apps and server infrastructure. From cloud migration pipelines to dedicated tech helpdesks, our engineering SLAs are structured to ensure business velocity.
             </p>
             
             {/* Dual CTAs */}

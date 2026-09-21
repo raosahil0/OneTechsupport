@@ -119,7 +119,7 @@ const Blog = () => {
             Latest Insights
           </h2>
           <p className="text-lg text-slate-600 max-w-xl mx-auto leading-relaxed">
-            Case studies, technical analysis, and security updates compiled by the senior architects at One Tech Support.
+            Case studies, technical analysis, and security updates compiled by the senior architects at SKONE Tech Support.
           </p>
         </div>
 

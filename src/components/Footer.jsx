@@ -91,7 +91,8 @@ const Footer = () => {
             <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
             <li><Link to="/projects" className="hover:text-white transition-colors">Projects Portfolio</Link></li>
             <li><Link to="/blog" className="hover:text-white transition-colors">Latest Insights</Link></li>
-            <li><Link to="/clients" className="hover:text-white transition-colors">Clients Portal</Link></li>
+            <li><Link to="/clients" className="hover:text-white transition-colors">Client Reviews</Link></li>
+            <li><Link to="/login" className="hover:text-white transition-colors">Client Portal</Link></li>
             <li><Link to="/contact" className="hover:text-white transition-colors">Get Support</Link></li>
           </ul>
           
@@ -156,7 +157,7 @@ const Footer = () => {
       {/* Copyright Footer */}
       <div className="border-t border-slate-950/20 py-6 bg-slate-950 text-center">
         <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] font-semibold text-slate-500">
-          <p>&copy; 2026 S'K One Tech Support. All rights reserved.</p>
+          <p>&copy; 2026 SKONE Tech Support. All rights reserved.</p>
           <div className="flex gap-4">
             <Link to="/about" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link to="/about" className="hover:text-white transition-colors">Terms of Service</Link>

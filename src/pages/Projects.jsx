@@ -84,7 +84,7 @@ const Projects = () => {
             Case Studies
           </h2>
           <p className="text-sm md:text-base text-slate-600 max-w-xl mx-auto leading-relaxed">
-            A comprehensive look at migration tasks, network optimizations, and software engineering builds completed by One Tech Support.
+            A comprehensive look at migration tasks, network optimizations, and software engineering builds completed by SKONE Tech Support.
           </p>
         </div>
 
@@ -193,7 +193,7 @@ const Projects = () => {
               Ready to start your technical setup?
             </h3>
             <p className="text-slate-400 max-w-lg mx-auto text-xs md:text-sm leading-relaxed">
-              Partner with One Tech Support to build a reliable infrastructure, scale your engineering team, or transition securely to the cloud.
+              Partner with SKONE Tech Support to build a reliable infrastructure, scale your engineering team, or transition securely to the cloud.
             </p>
             <div className="flex flex-wrap justify-center gap-4 pt-4">
               <Link

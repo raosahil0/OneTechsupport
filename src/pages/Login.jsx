@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { Mail, Lock, LogIn, UserPlus, Database, Eye, EyeOff } from "lucide-react";
 import { signInClient, signUpClient, getCurrentClient } from "../services/databaseService";
 import { isSupabaseEnabled } from "../services/supabaseClient";
 import Toast from "../components/Toast";
 import SEO from "../components/SEO";
+import logoIcon from "../assets/logo-icon.png";
 
 const Login = () => {
   const [isLoginTab, setIsLoginTab] = useState(true);
@@ -90,11 +91,21 @@ const Login = () => {
       {/* Background Graphic Accents */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none"></div>
 
-      <div className="sm:mx-auto sm:w-full sm:max-w-md z-10">
-        <h2 className="text-center text-4xl font-extrabold text-slate-900 tracking-tight">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md z-10 text-center">
+        <Link to="/" className="inline-flex flex-col items-center mb-3 group" aria-label="Back to SKONE Tech Support Home">
+          <img
+            src={logoIcon}
+            alt="SKONE Tech Support"
+            className="w-14 h-14 object-contain transition-transform duration-300 group-hover:scale-105"
+          />
+          <span className="text-[11px] font-bold text-slate-500 group-hover:text-brand-blue mt-1 transition-colors">
+            ← Back to Home
+          </span>
+        </Link>
+        <h2 className="text-center text-3xl font-extrabold text-slate-900 tracking-tight">
           Client Portal
         </h2>
-        <p className="mt-2 text-center text-sm text-slate-600">
+        <p className="mt-1.5 text-center text-xs sm:text-sm text-slate-600">
           Access your tech support tickets and operations dashboard
         </p>
       </div>

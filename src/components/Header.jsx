@@ -86,6 +86,9 @@ const Header = () => {
           <NavLink to="/blog" className={navLinkClass}>
             Insights
           </NavLink>
+          <NavLink to="/clients" className={navLinkClass}>
+            Reviews
+          </NavLink>
           <NavLink to="/about" className={navLinkClass}>
             About
           </NavLink>
@@ -175,6 +178,17 @@ const Header = () => {
               onClick={() => setIsMenuOpen(false)}
             >
               Insights
+            </NavLink>
+            <NavLink
+              to="/clients"
+              className={({ isActive }) =>
+                `text-base font-bold py-2 px-3 rounded-xl transition-colors ${
+                  isActive ? "bg-blue-50 text-brand-blue" : "text-slate-700 hover:bg-slate-50 hover:text-brand-blue"
+                }`
+              }
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Reviews
             </NavLink>
             <NavLink
               to="/about"
