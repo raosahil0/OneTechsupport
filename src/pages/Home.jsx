@@ -103,9 +103,9 @@ const Home = () => {
   return (
     <div className="font-sans text-slate-800 bg-slate-50 min-h-screen">
       <SEO 
-        title="Enterprise Managed IT Services & Custom App Development" 
-        description="SKONE Tech Support delivers SLA-backed enterprise IT support, cloud infrastructure, zero-trust cybersecurity, and custom web/mobile application engineering."
-        keywords="Managed IT Services, Cloud Migration, Enterprise IT Support, Cybersecurity Solutions, Web App Development, Gurugram IT Company, Jaipur IT Support"
+        title="SK ONE Tech Support | Managed IT Services & Custom App Development" 
+        description="SK ONE Tech Support (SKONE) delivers SLA-backed enterprise IT support, cloud infrastructure, zero-trust cybersecurity, and custom web/mobile application engineering."
+        keywords="SK ONE, SK ONE Tech Support, SKONE Tech Support, Managed IT Services, Cloud Migration, Enterprise IT Support, Cybersecurity Solutions, Web App Development, Gurugram IT Company, Jaipur IT Support"
       />
 
       {/* Hero Section - Parallax Dark Gradient with Floating Blobs */}
@@ -141,7 +141,7 @@ const Home = () => {
               High-Velocity App Engineering | Cisco Infrastructure | Backup Developer Staffing
             </p>
             <p className="text-slate-400 max-w-2xl mx-auto leading-relaxed text-xs md:text-base">
-              SKONE Tech Support builds, secures, and maintains modern software apps and server infrastructure. From cloud migration pipelines to dedicated tech helpdesks, our engineering SLAs are structured to ensure business velocity.
+              SK ONE Tech Support (SKONE) builds, secures, and maintains modern software apps and server infrastructure. From cloud migration pipelines to dedicated tech helpdesks, our engineering SLAs are structured to ensure business velocity.
             </p>
             
             {/* Dual CTAs */}

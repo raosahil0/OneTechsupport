@@ -16,11 +16,11 @@ const SEO = ({
   const location = useLocation();
 
   useEffect(() => {
-    const brandName = "SKONE Tech Support";
-    const defaultTitle = `${brandName} | Fast, Reliable & Secure IT Solutions`;
-    const fullTitle = title ? `${title} | ${brandName}` : defaultTitle;
+    const brandName = "SK ONE Tech Support | SKONE";
+    const defaultTitle = `${brandName} - Fast, Reliable & Secure IT Solutions`;
+    const fullTitle = title ? `${title} | SK ONE Tech Support` : defaultTitle;
     const defaultDescription =
-      "Enterprise Managed IT Services, Cloud Infrastructure Migration, Zero-Trust Cybersecurity, Custom Software Development & 24/7 Helpdesk Support.";
+      "SK ONE Tech Support (SKONE) delivers Enterprise Managed IT Services, Cloud Infrastructure Migration, Zero-Trust Cybersecurity, Custom Software Development & 24/7 Helpdesk Support.";
     const metaDesc = description || defaultDescription;
     const currentUrl = typeof window !== "undefined" ? window.location.href : `https://skonetechsupport.com${location.pathname}`;
     const fullImageUrl = image.startsWith("http")
@@ -49,7 +49,7 @@ const SEO = ({
       "name",
       "keywords",
       keywords ||
-        "IT Support, Managed IT Services, Cloud Migration, Cybersecurity, Custom Software Development, Tech Support India, Gurugram, Jaipur, Delhi NCR"
+        "SK ONE, SK ONE Tech Support, SKONE, SKONE Tech Support, SK One, Managed IT Services, Cloud Migration, Cybersecurity, Custom Software Development, Tech Support India, Gurugram, Jaipur, Delhi NCR"
     );
     setMetaTag("name", "robots", noIndex ? "noindex, nofollow" : "index, follow, max-snippet:-1, max-image-preview:large");
     setMetaTag("name", "author", brandName);
