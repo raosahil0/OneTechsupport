@@ -5,6 +5,16 @@ Allow: /
 Disallow: /admin
 Disallow: /dashboard
 
+# Google Search & Googlebot-Image (Explicitly authorized for favicons & logos)
+User-agent: Googlebot
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+
+User-agent: Googlebot-Image
+Allow: /
+
+
 # Explicit Permissions for AI Search Agents and Autonomous Web Assistants
 User-agent: GPTBot
 Allow: /
