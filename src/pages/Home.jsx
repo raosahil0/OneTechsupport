@@ -7,6 +7,9 @@ import {
   Globe, Trophy, Award, Lock, Server, Cloud, Cpu, ArrowDownCircle
 } from "lucide-react";
 import SEO from "../components/SEO";
+import JsonLd from "../components/SEO/JsonLd";
+import { pageSeo } from "../seo/pageSeo";
+import { getOrganizationSchema, getLocalBusinessSchema } from "../seo/schemas";
 
 // Partners logo array for infinite slider
 const PARTNER_LOGOS = [
@@ -103,10 +106,13 @@ const Home = () => {
   return (
     <div className="font-sans text-slate-800 bg-slate-50 min-h-screen">
       <SEO 
-        title="SK ONE Tech Support | Managed IT Services & Custom App Development" 
-        description="SK ONE Tech Support (SKONE) delivers SLA-backed enterprise IT support, cloud infrastructure, zero-trust cybersecurity, and custom web/mobile application engineering."
-        keywords="SK ONE, SK ONE Tech Support, SKONE Tech Support, Managed IT Services, Cloud Migration, Enterprise IT Support, Cybersecurity Solutions, Web App Development, Gurugram IT Company, Jaipur IT Support"
+        title={pageSeo.home.title} 
+        description={pageSeo.home.description}
+        canonical={pageSeo.home.canonical}
+        keywords={pageSeo.home.keywords}
       />
+      <JsonLd data={getOrganizationSchema()} />
+      <JsonLd data={getLocalBusinessSchema()} />
 
       {/* Hero Section - Parallax Dark Gradient with Floating Blobs */}
       <section 

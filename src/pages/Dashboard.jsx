@@ -146,7 +146,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="bg-slate-50 min-h-screen py-10 px-6 max-w-6xl mx-auto">
+    <div className="bg-slate-50 min-h-screen pt-28 pb-16 px-6 max-w-6xl mx-auto">
       <SEO title="Client Workspace Dashboard" noIndex={true} />
       {/* Header Panel */}
       <div className="bg-white border border-gray-150 rounded-2xl shadow-sm p-6 mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">

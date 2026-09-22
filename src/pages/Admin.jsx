@@ -321,7 +321,7 @@ const Admin = () => {
   }
 
   return (
-    <div className="min-h-screen py-10 px-6 bg-slate-50 text-slate-900">
+    <div className="min-h-screen pt-28 pb-16 px-6 bg-slate-50 text-slate-900">
       <SEO title="Admin Database Dashboard" noIndex={true} />
       <div className="max-w-7xl mx-auto">
         

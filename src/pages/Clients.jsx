@@ -53,7 +53,7 @@ const Clients = () => {
   const allReviews = [...staticReviews, ...feedbacks];
 
   return (
-    <div className="bg-slate-50 min-h-screen py-16 px-6">
+    <div className="bg-slate-50 min-h-screen pt-28 pb-20 px-6 font-sans">
       <SEO 
         title="Client Reviews & Testimonials"
         description="Discover how SKONE Tech Support helps businesses streamline operations, secure IT infrastructure, and recruit top engineering talent."

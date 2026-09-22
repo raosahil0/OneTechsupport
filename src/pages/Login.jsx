@@ -82,7 +82,7 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-slate-50 min-h-screen flex flex-col justify-center py-12 px-6 lg:px-8 relative overflow-hidden">
+    <div className="bg-slate-50 min-h-screen flex flex-col justify-center pt-28 pb-16 px-6 lg:px-8 relative overflow-hidden">
       <SEO 
         title="Client Portal Sign In" 
         description="Secure client portal login for SKONE Tech Support ticket management." 

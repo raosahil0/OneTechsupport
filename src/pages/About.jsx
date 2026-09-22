@@ -28,7 +28,7 @@ const About = () => {
       />
 
       {/* Hero Header Section */}
-      <section className="py-24 px-6 text-center bg-gradient-to-b from-brand-blue/5 to-slate-50 relative overflow-hidden">
+      <section className="pt-28 pb-20 px-6 text-center bg-gradient-to-b from-brand-blue/5 to-slate-50 relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-slate-100 pointer-events-none"></div>
         <div className="max-w-4xl mx-auto relative z-10 space-y-4">
           <span className="text-brand-blue font-bold text-xs uppercase tracking-widest bg-blue-100/60 px-3.5 py-1.5 rounded-full">

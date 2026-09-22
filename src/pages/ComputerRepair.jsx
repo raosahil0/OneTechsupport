@@ -1,0 +1,107 @@
+import { Laptop, Cpu, HardDrive, ShieldCheck, PenTool, CheckCircle } from "lucide-react";
+import ServicePageTemplate from "../components/ServicePageTemplate";
+import { pageSeo } from "../seo/pageSeo";
+
+export default function ComputerRepair() {
+  return (
+    <ServicePageTemplate
+      seo={pageSeo.computerRepair}
+      serviceName="Computer Repair Services"
+      icon={Laptop}
+      h1Title="Business Computer Repair, Laptop Maintenance & Hardware Upgrades"
+      h1Subtitle="Commercial workstation diagnostics, NVMe SSD upgrades, RAM expansion, thermal servicing, screen/keyboard replacements, and clean OS reinstallation."
+      overviewText="Sluggish computers, failing hard drives, and overheating laptops drastically reduce employee productivity. S'K ONE Tech Support delivers professional hardware repair and performance upgrades for commercial laptops and desktop workstations (Dell, HP, Lenovo, Apple MacBook, Asus). We conduct hardware bench stress-testing, clone mechanical HDDs to blazing-fast NVMe SSDs, and provide certified component-level board repairs with zero data loss."
+      featuresTitle="Hardware & System Repair Capabilities"
+      features={[
+        {
+          title: "NVMe SSD & High-Speed RAM Upgrades",
+          desc: "Upgrading legacy HDDs and slow SATA drives to PCIe Gen4 NVMe solid-state storage. Sector-by-sector cloning preserves your exact Windows installation, programs, and files."
+        },
+        {
+          title: "Thermal Overhaul & Fan Servicing",
+          desc: "Ultrasonic heatsink dust cleaning, cooling fan bearing lubrication, and Arctic MX-4/thermal pad re-pasting to prevent CPU thermal throttling and unexpected shutdowns."
+        },
+        {
+          title: "Laptop Screen, Hinge & Keyboard Repair",
+          desc: "Replacing cracked FHD/4K IPS panels, repairing broken chassis hinges, and installing spill-resistant backlit OEM keyboards."
+        },
+        {
+          title: "Power Supply Unit (PSU) & Motherboard Repairs",
+          desc: "Micro-soldering, blown capacitor replacement, DC power jack repairs, and certified 80+ Gold modular power supply installations for engineering rigs."
+        },
+        {
+          title: "Blue Screen of Death (BSOD) & Crash Diagnostics",
+          desc: "Kernel memory dump analysis (Minidump) to pinpoint faulty hardware drivers, failing RAM sectors, or corrupted system registry hives."
+        },
+        {
+          title: "Data Recovery & Drive Imaging",
+          desc: "Bit-level data carving and retrieval from formatted drives, damaged partitions, bad-sector storage, and accidentally deleted directories."
+        }
+      ]}
+      specifications={[
+        { label: "Hardware Brands", value: "Dell, HP, Lenovo, ThinkPad, Apple Mac" },
+        { label: "Storage Tech", value: "PCIe NVMe M.2, SATA SSD, RAID Arrays" },
+        { label: "OS Rebuilds", value: "Windows 11 Pro, macOS Sonoma, Linux" },
+        { label: "Diagnostics", value: "MemTest86, SMART Health, FurMark, Prime95" }
+      ]}
+      processSteps={[
+        {
+          title: "Comprehensive Diagnostics",
+          desc: "Testing memory integrity, storage read/write latency, GPU/CPU thermals, and motherboard voltage rails."
+        },
+        {
+          title: "Pre-Repair Data Backup",
+          desc: "Creating an exact clone of your drive onto secure localized storage to guarantee zero data loss during repair."
+        },
+        {
+          title: "Component Servicing / Replacement",
+          desc: "Installing genuine OEM replacement components with precision electrostatic discharge (ESD) protection."
+        },
+        {
+          title: "Burn-In Stress Testing",
+          desc: "Running synthetic 100% load benchmarks for 60 minutes to confirm total hardware stability before return."
+        }
+      ]}
+      faqs={[
+        {
+          q: "Will my data and software programs be safe during computer repair?",
+          a: "Yes. Our standard operating procedure is to create a complete bit-for-bit drive image prior to opening or servicing any computer. Your files, documents, applications, and passwords remain 100% intact."
+        },
+        {
+          q: "How much faster will my computer be after an NVMe SSD upgrade?",
+          a: "Upgrading from a traditional spinning mechanical hard drive to an NVMe SSD increases read/write speeds by 500% to 2000%. Windows boots in under 15 seconds, and applications open instantaneously."
+        },
+        {
+          q: "Do you repair commercial business laptops on-site?",
+          a: "Yes. For corporate clients in Delhi NCR, Gurugram, Jaipur, and Noida, our certified engineers perform on-site diagnosis and repair at your office to minimize logistics downtime."
+        },
+        {
+          q: "What warranty do you provide on replacement hardware parts?",
+          a: "All newly installed SSDs, RAM modules, and power supplies carry manufacturer warranties ranging from 1 to 5 years, along with our 30-day service warranty."
+        }
+      ]}
+      relatedServices={[
+        {
+          title: "IT Support Services",
+          path: "/it-support",
+          desc: "Operating system, software, and remote desktop helpdesk."
+        },
+        {
+          title: "Printer Support",
+          path: "/printer-support",
+          desc: "Network printer drivers, print queue errors, and hardware repairs."
+        },
+        {
+          title: "Cybersecurity Services",
+          path: "/cyber-security",
+          desc: "Malware cleansing, rootkit removal, and anti-virus setup."
+        },
+        {
+          title: "IT Annual Maintenance (AMC)",
+          path: "/annual-maintenance-contract",
+          desc: "Comprehensive maintenance covering full office desktop fleets."
+        }
+      ]}
+    />
+  );
+}

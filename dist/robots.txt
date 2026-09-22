@@ -3,13 +3,19 @@
 User-agent: *
 Allow: /
 Disallow: /admin
+Disallow: /admin/
 Disallow: /dashboard
+Disallow: /login
+Disallow: /private/
 
 # Google Search & Googlebot-Image (Explicitly authorized for favicons & logos)
 User-agent: Googlebot
 Allow: /
 Disallow: /admin
+Disallow: /admin/
 Disallow: /dashboard
+Disallow: /login
+Disallow: /private/
 
 User-agent: Googlebot-Image
 Allow: /

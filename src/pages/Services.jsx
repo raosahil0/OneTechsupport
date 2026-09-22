@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Check, Code, Shield, Network, UserCheck, Briefcase, HelpCircle, 
-  GraduationCap, ChevronDown, ChevronUp, ArrowRight, MessageSquare, Cloud, Server
+  GraduationCap, ChevronDown, ChevronUp, ArrowRight, MessageSquare, Cloud, Server,
+  Monitor, Cpu, Printer, Lock, FileText, ArrowUpRight, Smartphone, Code2, Headphones
 } from "lucide-react";
 import SEO from "../components/SEO";
+import { pageSeo } from "../seo/pageSeo";
 
 const serviceList = [
   {
@@ -144,13 +146,14 @@ const Services = () => {
   return (
     <div className="bg-slate-50 min-h-screen font-sans text-slate-800 pb-28">
       <SEO 
-        title="Managed IT Services & App Engineering" 
-        description="Explore SKONE Tech Support services catalogue, ranging from cloud infrastructures and network configurations to cybersecurity and technical staffing."
-        keywords="Cloud Solutions, IT Helpdesk Services, Cisco Network Configuration, Cybersecurity Audit, Dedicated Developers, Enterprise IT Consultation"
+        title={pageSeo.services.title} 
+        description={pageSeo.services.description}
+        canonical={pageSeo.services.canonical}
+        keywords={pageSeo.services.keywords}
       />
 
       {/* Hero Header Section */}
-      <section className="py-24 px-6 text-center bg-gradient-to-b from-brand-blue/5 to-slate-50 relative overflow-hidden">
+      <section className="pt-28 pb-20 px-6 text-center bg-gradient-to-b from-brand-blue/5 to-slate-50 relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-slate-100 pointer-events-none"></div>
         <div className="max-w-4xl mx-auto relative z-10 space-y-4">
           <span className="text-brand-blue font-bold text-xs uppercase tracking-widest bg-blue-100/60 px-3.5 py-1.5 rounded-full">
@@ -292,10 +295,119 @@ const Services = () => {
             })}
           </AnimatePresence>
         </motion.div>
+
+        {/* Specialized Enterprise IT Infrastructure Solutions Grid */}
+        <div className="mt-24 border-t border-slate-200/80 pt-16">
+          <div className="text-center mb-12 space-y-3">
+            <span className="text-brand-blue font-bold text-xs uppercase tracking-widest bg-blue-100/60 px-3.5 py-1.5 rounded-full">
+              Targeted IT Solutions
+            </span>
+            <h2 className="text-3xl font-black text-slate-900">Specialized Service Portals</h2>
+            <p className="text-slate-500 text-xs md:text-sm max-w-xl mx-auto">
+              Direct access to dedicated engineering teams, SLA specifics, and diagnostic workflows for your core business systems.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[
+              {
+                title: "App & Web Development",
+                path: "/app-and-web-development",
+                desc: "High-performance React web apps, Next.js portals, and cross-platform Flutter iOS/Android apps.",
+                icon: Smartphone
+              },
+              {
+                title: "Software Development",
+                path: "/software-development",
+                desc: "Bespoke enterprise ERP/CRM systems, scalable Node/Python microservices, and database schemas.",
+                icon: Code2
+              },
+              {
+                title: "24/7 Tech Support",
+                path: "/tech-support",
+                desc: "Instant remote technical assistance, software error diagnosis, and on-site emergency helpdesk.",
+                icon: Headphones
+              },
+              {
+                title: "Business IT Support",
+                path: "/it-support",
+                desc: "Rapid desktop troubleshooting, OS patching, and 30-min critical SLA helpdesk.",
+                icon: Monitor
+              },
+              {
+                title: "Managed IT Services",
+                path: "/managed-it-services",
+                desc: "24/7 server monitoring, proactive updates, automated backups, and fixed-cost MSP.",
+                icon: Shield
+              },
+              {
+                title: "Network Support",
+                path: "/network-support",
+                desc: "Cisco switches, corporate Wi-Fi 6, Fortinet firewalls, and SD-WAN routing.",
+                icon: Network
+              },
+              {
+                title: "Server Support",
+                path: "/server-support",
+                desc: "Windows & Linux administration, Active Directory, RAID repairs, and cloud migration.",
+                icon: Server
+              },
+              {
+                title: "Cybersecurity Services",
+                path: "/cyber-security",
+                desc: "Zero-Trust network architecture, endpoint protection, and penetration audits.",
+                icon: Lock
+              },
+              {
+                title: "Computer Repair",
+                path: "/computer-repair",
+                desc: "Workstation NVMe SSD upgrades, thermal servicing, RAM expansion, and screen repair.",
+                icon: Cpu
+              },
+              {
+                title: "Printer Support",
+                path: "/printer-support",
+                desc: "Enterprise network MFP setup, print spooler crash recovery, and driver deployment.",
+                icon: Printer
+              },
+              {
+                title: "Annual Maintenance (AMC)",
+                path: "/annual-maintenance-contract",
+                desc: "Comprehensive fixed-rate contracts with unlimited breakdown dispatches.",
+                icon: FileText
+              }
+            ].map((sol, idx) => {
+              const SolIcon = sol.icon;
+              return (
+                <Link
+                  key={idx}
+                  to={sol.path}
+                  className="group bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-brand-blue hover:-translate-y-1 transition-all flex flex-col justify-between"
+                >
+                  <div className="space-y-3">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-brand-blue flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-colors">
+                      <SolIcon className="w-5 h-5" />
+                    </div>
+                    <h3 className="font-bold text-slate-900 text-sm group-hover:text-brand-blue transition-colors flex items-center justify-between">
+                      <span>{sol.title}</span>
+                      <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-brand-blue transition-colors" />
+                    </h3>
+                    <p className="text-xs text-slate-500 leading-relaxed">
+                      {sol.desc}
+                    </p>
+                  </div>
+                  <span className="text-xs font-bold text-brand-blue mt-4 inline-flex items-center gap-1 group-hover:gap-1.5 transition-all">
+                    Explore Service <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
       </section>
 
       {/* Services Specific FAQ Accordions */}
-      <section className="py-28 px-6 max-w-4xl mx-auto border-t border-slate-200 mt-20">
+      <section className="py-24 px-6 max-w-4xl mx-auto border-t border-slate-200 mt-12">
         <div className="text-center mb-16 space-y-4">
           <span className="text-brand-blue font-bold text-xs uppercase tracking-widest bg-blue-100/60 px-3.5 py-1.5 rounded-full">
             Inquiries

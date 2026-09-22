@@ -71,11 +71,17 @@ const Footer = () => {
         <div className="space-y-4">
           <h4 className="text-sm font-bold uppercase tracking-wider text-slate-200">Services</h4>
           <ul className="space-y-2 text-xs text-slate-400">
-            <li><Link to="/services" className="hover:text-white transition-colors">Custom Development</Link></li>
-            <li><Link to="/services" className="hover:text-white transition-colors">Managed IT Support</Link></li>
-            <li><Link to="/services" className="hover:text-white transition-colors">Manpower Staffing</Link></li>
-            <li><Link to="/services" className="hover:text-white transition-colors">IT Recruitment</Link></li>
-            <li><Link to="/services" className="hover:text-white transition-colors">Non-IT Hiring</Link></li>
+            <li><Link to="/app-and-web-development" className="hover:text-white transition-colors">App & Web Development</Link></li>
+            <li><Link to="/software-development" className="hover:text-white transition-colors">Software Development</Link></li>
+            <li><Link to="/tech-support" className="hover:text-white transition-colors">24/7 Tech Support</Link></li>
+            <li><Link to="/it-support" className="hover:text-white transition-colors">IT Support Services</Link></li>
+            <li><Link to="/managed-it-services" className="hover:text-white transition-colors">Managed IT Services</Link></li>
+            <li><Link to="/network-support" className="hover:text-white transition-colors">Network Support</Link></li>
+            <li><Link to="/server-support" className="hover:text-white transition-colors">Server Maintenance</Link></li>
+            <li><Link to="/cyber-security" className="hover:text-white transition-colors">Cybersecurity Services</Link></li>
+            <li><Link to="/computer-repair" className="hover:text-white transition-colors">Computer & Laptop Repair</Link></li>
+            <li><Link to="/printer-support" className="hover:text-white transition-colors">Printer Support</Link></li>
+            <li><Link to="/annual-maintenance-contract" className="hover:text-white transition-colors">IT Annual Maintenance (AMC)</Link></li>
           </ul>
         </div>
 

@@ -1,76 +1,9 @@
 import { useState } from "react";
-import { Search, Calendar, User, ArrowRight, BookOpen, Clock, Tag } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Search, Calendar, User, ArrowRight, BookOpen, Clock, Tag, X, ExternalLink, Share2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import SEO from "../components/SEO";
-
-const BLOG_POSTS = [
-  {
-    id: 1,
-    title: "Navigating Multi-Cloud Migration: Strategy & Rationale",
-    category: "Cloud",
-    author: "Ravi Sharma",
-    date: "2026-07-10",
-    readTime: "6 min read",
-    snippet: "Why modern enterprises are choosing hybrid cloud frameworks over single-vendor locks, and how to safely execute data pipelines migrations.",
-    tags: ["AWS", "Azure", "Cloud Architecture"],
-    img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    id: 2,
-    title: "Combating Ransomware in the Zero Trust Era",
-    category: "Cyber Security",
-    author: "Vikram Malhotra",
-    date: "2026-07-08",
-    readTime: "8 min read",
-    snippet: "A practical guide to implementing Identity-based access policies and micro-segmentation to secure server databases.",
-    tags: ["Zero Trust", "Firewall", "Compliance"],
-    img: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    id: 3,
-    title: "Scaling Engineering Squads: Dedicated Staffing Models",
-    category: "Staffing",
-    author: "Neha Yadav",
-    date: "2026-07-04",
-    readTime: "5 min read",
-    snippet: "How backup manpower support models help IT departments maintain velocity during sudden scale-up operations and key personnel transitions.",
-    tags: ["Recruiting", "Agile Teams", "Manpower"],
-    img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    id: 4,
-    title: "Building Resilient REST APIs with React & Node.js",
-    category: "Software Development",
-    author: "Amit Verma",
-    date: "2026-06-28",
-    readTime: "7 min read",
-    snippet: "Best practices for backend structure, custom middleware schemas validation, token auth flows, and layout shifts prevention in client apps.",
-    tags: ["React", "API Security", "Node.js"],
-    img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    id: 5,
-    title: "The Roadmap to ISO 27001 Compliance",
-    category: "Cyber Security",
-    author: "Vikram Malhotra",
-    date: "2026-06-20",
-    readTime: "10 min read",
-    snippet: "An exhaustive walkthrough of technical security audit checklists and implementation controls required for enterprise data credentials verification.",
-    tags: ["Compliance", "ISO Audits", "Data Governance"],
-    img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    id: 6,
-    title: "Optimizing Serverless Databases Performance",
-    category: "Cloud",
-    author: "Ravi Sharma",
-    date: "2026-06-15",
-    readTime: "6 min read",
-    snippet: "How indexes, query plans pooling, and RLS policies structures impact retrieval response times in transactional cloud SQL databases.",
-    tags: ["Supabase", "PostgreSQL", "Database Tuning"],
-    img: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80"
-  }
-];
+import { BLOG_POSTS } from "../data/blogArticles";
 
 const CATEGORIES = ["All", "Cloud", "Cyber Security", "Staffing", "Software Development"];
 const POSTS_PER_PAGE = 3;
@@ -80,6 +13,7 @@ const Blog = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedTag, setSelectedTag] = useState(null);
+  const [quickReadPost, setQuickReadPost] = useState(null);
 
   // Filters logic
   const filteredPosts = BLOG_POSTS.filter((post) => {
@@ -193,7 +127,7 @@ const Blog = () => {
                 className="bg-white border border-gray-150 rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1"
               >
                 {/* Banner Media */}
-                <div className="h-48 overflow-hidden relative">
+                <Link to={`/blog/${post.slug}`} className="h-48 overflow-hidden relative block group">
                   <img
                     src={post.img}
                     alt={post.title}
@@ -202,7 +136,7 @@ const Blog = () => {
                   <div className="absolute top-4 left-4 px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-white font-bold text-[10px] uppercase">
                     {post.category}
                   </div>
-                </div>
+                </Link>
 
                 {/* Metadata & Copy details */}
                 <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
@@ -218,9 +152,11 @@ const Blog = () => {
                       </span>
                     </div>
 
-                    <h3 className="text-lg font-bold text-slate-900 group-hover:text-brand-blue transition-colors line-clamp-2 leading-snug">
-                      {post.title}
-                    </h3>
+                    <Link to={`/blog/${post.slug}`} className="block">
+                      <h3 className="text-lg font-bold text-slate-900 group-hover:text-brand-blue transition-colors line-clamp-2 leading-snug">
+                        {post.title}
+                      </h3>
+                    </Link>
                     <p className="text-slate-500 text-xs leading-relaxed line-clamp-3">
                       {post.snippet}
                     </p>
@@ -244,12 +180,28 @@ const Blog = () => {
                       ))}
                     </div>
 
-                    {/* Read More button link */}
-                    <div className="pt-6 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-brand-blue group-hover:text-blue-700">
-                      <span className="flex items-center gap-1">
+                    {/* Read More button link & Quick Preview */}
+                    <div className="pt-6 border-t border-slate-100 flex items-center justify-between">
+                      <Link
+                        to={`/blog/${post.slug}`}
+                        className="flex items-center gap-1.5 text-xs font-bold text-brand-blue hover:text-blue-700 transition-colors py-1 cursor-pointer"
+                        title="Read full article"
+                      >
                         <BookOpen className="w-3.5 h-3.5" /> Read Article
-                      </span>
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </Link>
+
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setQuickReadPost(post);
+                        }}
+                        className="text-[11px] font-semibold text-slate-400 hover:text-slate-800 hover:bg-slate-100 px-2.5 py-1 rounded-lg transition-colors cursor-pointer"
+                        title="Quick preview in popup"
+                      >
+                        Quick Preview
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -300,6 +252,113 @@ const Blog = () => {
             </button>
           </div>
         )}
+
+        {/* Quick Read Article Modal */}
+        <AnimatePresence>
+          {quickReadPost && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setQuickReadPost(null)}
+                className="fixed inset-0 bg-slate-950/70 backdrop-blur-sm"
+              />
+
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                transition={{ duration: 0.2 }}
+                className="relative bg-white w-full max-w-3xl max-h-[88vh] rounded-3xl shadow-2xl overflow-hidden flex flex-col z-10 border border-slate-200"
+              >
+                {/* Modal Header */}
+                <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
+                  <div className="flex items-center gap-3">
+                    <span className="px-2.5 py-1 bg-brand-blue/10 text-brand-blue font-bold text-[11px] rounded-md uppercase">
+                      {quickReadPost.category}
+                    </span>
+                    <span className="text-slate-400 text-xs flex items-center gap-1">
+                      <Clock className="w-3.5 h-3.5" /> {quickReadPost.readTime}
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => setQuickReadPost(null)}
+                    className="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 transition-colors cursor-pointer"
+                    aria-label="Close reader"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+
+                {/* Modal Scrollable Article Body */}
+                <div className="p-6 sm:p-8 overflow-y-auto space-y-6 flex-1 text-left">
+                  <div className="h-44 sm:h-56 -mx-6 sm:-mx-8 -mt-6 sm:-mt-8 mb-6 overflow-hidden relative">
+                    <img
+                      src={quickReadPost.img}
+                      alt={quickReadPost.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+
+                  <h2 className="text-2xl sm:text-3xl font-black text-slate-900 leading-tight">
+                    {quickReadPost.title}
+                  </h2>
+
+                  <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 pb-4 border-b border-slate-100">
+                    <span className="font-bold text-slate-800">{quickReadPost.author}</span>
+                    <span>•</span>
+                    <span>{quickReadPost.authorRole}</span>
+                    <span>•</span>
+                    <span>{new Date(quickReadPost.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
+                  </div>
+
+                  <p className="text-slate-600 text-sm italic bg-slate-50 p-4 rounded-xl border border-slate-100 leading-relaxed">
+                    {quickReadPost.snippet}
+                  </p>
+
+                  <div className="space-y-6 pt-2">
+                    {quickReadPost.content.map((sec, idx) => (
+                      <div key={idx} className="space-y-2">
+                        <h3 className="text-base sm:text-lg font-bold text-slate-900">{sec.heading}</h3>
+                        <p className="text-slate-700 text-sm leading-relaxed whitespace-pre-line">
+                          {sec.body}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Modal Footer */}
+                <div className="px-6 py-4 border-t border-slate-100 bg-slate-50 flex items-center justify-between">
+                  <div className="hidden sm:flex items-center gap-1.5">
+                    {quickReadPost.tags.map((t) => (
+                      <span key={t} className="text-[10px] bg-white border border-slate-200 px-2 py-0.5 rounded text-slate-600 font-medium">
+                        #{t}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center gap-3 ml-auto">
+                    <button
+                      type="button"
+                      onClick={() => setQuickReadPost(null)}
+                      className="text-xs text-slate-500 hover:text-slate-800 px-3 py-2 rounded-xl transition-colors cursor-pointer"
+                    >
+                      Close
+                    </button>
+                    <Link
+                      to={`/blog/${quickReadPost.slug}`}
+                      className="flex items-center gap-1.5 bg-brand-blue hover:bg-blue-600 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-md shadow-brand-blue/20 cursor-pointer"
+                    >
+                      Open Full Article Page <ExternalLink className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
