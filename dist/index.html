@@ -7,6 +7,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SK ONE Tech Support | SKONE - Fast, Reliable & Secure IT Solutions</title>
 
+  <!-- Performance: Resource Preconnects & High-Speed Font Preload -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" media="print" onload="this.media='all'" />
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" />
+  </noscript>
+
+  <!-- Agentic Browsing & AI Discovery Links (llmstxt.org) -->
+  <link rel="alternate" type="text/markdown" href="/llms.txt" title="LLM Agent Context Summary" />
+  <link rel="help" type="text/markdown" href="/llms-full.txt" title="Full AI Agent Knowledge Base" />
+
   <!-- Primary Meta Tags -->
   <meta name="google-site-verification" content="SC9KL0CAbY5YK9AcIAm6OdqmdMQIiILy5ji1lTRyKRs" />
   <meta name="title" content="SK ONE Tech Support | SKONE - Fast, Reliable & Secure IT Solutions" />
@@ -14,7 +27,7 @@
   <meta name="keywords" content="SK ONE, SK ONE Tech Support, SKONE, SKONE Tech Support, SK One, SK One Tech, IT Support, Managed IT Services, Cloud Migration, Cybersecurity, Custom Software Development, Tech Support India, Gurugram, Jaipur, Delhi NCR, IT Helpdesk" />
   <meta name="author" content="SK ONE Tech Support" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-  <meta name="theme-color" content="#0b4fbb" />
+  <meta name="theme-color" content="#2563eb" />
   <link rel="canonical" href="https://skonetechsupport.com/" />
 
   <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
@@ -33,47 +46,58 @@
   <meta name="twitter:description" content="SK ONE Tech Support (SKONE) delivers Enterprise Managed IT Services, Cloud Infrastructure Migration, Custom Software Development & 24/7 Helpdesk Support." />
   <meta name="twitter:image" content="https://skonetechsupport.com/og-image.png" />
 
-  <!-- Schema.org JSON-LD Structured Data -->
+  <!-- Schema.org JSON-LD Structured Data with Agentic & Rich Snippet Graph -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ITService",
-    "name": "SK ONE Tech Support",
-    "alternateName": [
-      "SKONE Tech Support",
-      "SK ONE",
-      "SKONE",
-      "SK One Tech Support",
-      "SK One"
-    ],
-    "url": "https://skonetechsupport.com/",
-    "logo": "https://skonetechsupport.com/og-image.png",
-    "image": "https://skonetechsupport.com/og-image.png",
-    "description": "Secure Cloud Solutions, Enterprise IT Support & Custom Software Engineering by SK ONE Tech Support (SKONE). SLA-backed managed systems designed to scale tech operations for modern enterprises.",
-    "telephone": "+91-7678627526",
-    "email": "skonetechsupport@gmail.com",
-    "areaServed": [
-      "Jaipur",
-      "Gurugram",
-      "Delhi",
-      "Noida",
-      "Chandigarh",
-      "Neemrana",
-      "India"
-    ],
-    "serviceType": [
-      "Managed IT Support",
-      "Cloud Infrastructure Migration",
-      "Custom Software Development",
-      "Zero-Trust Cybersecurity",
-      "IT Helpdesk & Remote Assistance"
-    ],
-    "priceRange": "$$"
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://skonetechsupport.com/#organization",
+        "name": "SK ONE Tech Support",
+        "alternateName": ["SKONE Tech Support", "SK ONE", "SKONE"],
+        "url": "https://skonetechsupport.com/",
+        "logo": "https://skonetechsupport.com/og-image.png",
+        "image": "https://skonetechsupport.com/og-image.png",
+        "email": "skonetechsupport@gmail.com",
+        "telephone": "+91-7678627526",
+        "contactPoint": [
+          {
+            "@type": "ContactPoint",
+            "telephone": "+91-7678627526",
+            "contactType": "customer service",
+            "availableLanguage": ["English", "Hindi"],
+            "areaServed": ["IN", "Worldwide"]
+          }
+        ]
+      },
+      {
+        "@type": "ITService",
+        "@id": "https://skonetechsupport.com/#service",
+        "name": "Enterprise Managed IT & Software Services",
+        "provider": { "@id": "https://skonetechsupport.com/#organization" },
+        "url": "https://skonetechsupport.com/",
+        "description": "Secure Cloud Solutions, Enterprise IT Support & Custom Software Engineering by SK ONE Tech Support (SKONE). SLA-backed managed systems designed to scale tech operations.",
+        "areaServed": ["Jaipur", "Gurugram", "Delhi", "Noida", "Chandigarh", "Neemrana", "India"],
+        "serviceType": [
+          "Managed IT Support",
+          "Cloud Infrastructure Migration",
+          "Custom Software Development",
+          "Zero-Trust Cybersecurity",
+          "IT Helpdesk & Remote Assistance"
+        ],
+        "priceRange": "$$"
+      }
+    ]
   }
   </script>
-  <script type="module" crossorigin src="/assets/index-BM9E5thN.js"></script>
-  <link rel="modulepreload" crossorigin href="/assets/jsx-runtime-CtmGZz8m.js">
-  <link rel="stylesheet" crossorigin href="/assets/index-e0oijrL7.css">
+  <script type="module" crossorigin src="/assets/index-ZNOLJsjb.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/rolldown-runtime-COnpUsM8.js">
+  <link rel="modulepreload" crossorigin href="/assets/vendor-icons-D8muWCb_.js">
+  <link rel="modulepreload" crossorigin href="/assets/vendor-react-C5K0USZf.js">
+  <link rel="modulepreload" crossorigin href="/assets/vendor-supabase-CBVXJNNH.js">
+  <link rel="modulepreload" crossorigin href="/assets/vendor-motion-DzBXHw5S.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-d8wN_QZS.css">
 </head>
 
 <body>

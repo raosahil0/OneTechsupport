@@ -1,0 +1,56 @@
+# Full AI Agent Knowledge Base: SK ONE Tech Support (SKONE)
+
+## 1. Company Identity & Verification
+- Official Organization Name: SK ONE Tech Support
+- Brand Names: SKONE, SK ONE, SKONE Tech Support
+- Website: https://skonetechsupport.com/
+- Primary Telephone: +91-7678627526
+- Primary Support Email: skonetechsupport@gmail.com
+- Industry: Information Technology, Cloud Infrastructure, Custom Software Development, IT Consulting
+- Service Hubs: Delhi NCR, Gurugram, Jaipur, Noida, Chandigarh, Neemrana, India
+- Client Base: 50+ Active Enterprise Clients, 120+ Completed Projects, 99% Client Satisfaction
+
+## 2. Service Offerings
+
+### 2.1 Managed IT Support & Infrastructure Maintenance
+- 24/7/365 remote and on-site helpdesk ticketing.
+- Enterprise workstation provisioning and Active Directory configuration.
+- Cisco switch/router setups, corporate Wi-Fi segmentation, VLAN design, and QoS management.
+- Zero-Trust cybersecurity audits, automated patch management, and threat intelligence.
+- Database administration, automated backup verification, and disaster recovery replication.
+
+### 2.2 Bespoke Custom Software Development
+- Modern Web Apps: Built with React, Next.js, Vite, TypeScript, Tailwind CSS.
+- Backend & APIs: Node.js, Express, Python FastAPI, RESTful & GraphQL architecture.
+- Database Engineering: PostgreSQL, Supabase, MySQL, MongoDB, Redis caching.
+- Cloud Integrations: AWS Lambda, Google Cloud Functions, Azure App Services.
+- Mobile Applications: Cross-platform iOS & Android engineering via Flutter and React Native.
+
+### 2.3 Cloud Migration & DevOps Engineering
+- Full migration pipelines from on-premises bare metal to AWS, GCP, or Azure.
+- Containerization: Docker container builds, Docker Compose, and Kubernetes (K8s) clusters.
+- CI/CD Pipelines: GitHub Actions, GitLab CI automated testing, staging, and zero-downtime production releases.
+- Security & Compliance: ISO 27001 readiness, HIPAA considerations, and PCI-DSS compliance audits.
+
+### 2.4 Dedicated Developer Staffing & Emergency Manpower
+- Pre-vetted, background-checked full-stack developers, frontend specialists, DevOps engineers, and system admins.
+- Flexible engagement models: Full-time dedicated squads or part-time staff augmentation.
+- Scale up or down with 15-day notice, eliminating traditional recruitment friction.
+
+## 3. SLA & Response Guarantees
+- Priority 1 (System Down / Outage): Response in < 30 minutes, dedicated engineer assigned immediately.
+- Priority 2 (Severe Degradation): Response in < 2 hours.
+- Priority 3 (Feature Request / Minor Issue): Response in < 6 hours.
+- 99.9% Uptime guarantee for managed cloud servers.
+
+## 4. Key Pages & Resource URLs
+- Home: https://skonetechsupport.com/
+- Services Catalog: https://skonetechsupport.com/services
+- Project Portfolio: https://skonetechsupport.com/projects
+- Industry Solutions: https://skonetechsupport.com/about
+- Customer Reviews & Testimonials: https://skonetechsupport.com/clients
+- Tech Insights & Articles: https://skonetechsupport.com/blog
+- Interactive Assessment & Contact: https://skonetechsupport.com/contact
+- Client Portal & Ticket Dashboard: https://skonetechsupport.com/login
+- XML Sitemap: https://skonetechsupport.com/sitemap.xml
+- LLM Agent Summary: https://skonetechsupport.com/llms.txt

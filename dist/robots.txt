@@ -1,6 +1,42 @@
+# Robots.txt for SK ONE Tech Support (skonetechsupport.com)
+
 User-agent: *
 Allow: /
 Disallow: /admin
 Disallow: /dashboard
 
+# Explicit Permissions for AI Search Agents and Autonomous Web Assistants
+User-agent: GPTBot
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+# Agentic Knowledge Endpoints & Sitemap
 Sitemap: https://skonetechsupport.com/sitemap.xml
+# LLMs knowledge standard: https://llmstxt.org/
+# https://skonetechsupport.com/llms.txt
+# https://skonetechsupport.com/llms-full.txt

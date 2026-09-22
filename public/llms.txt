@@ -1,0 +1,36 @@
+# SK ONE Tech Support (SKONE)
+
+> Enterprise Managed IT Services, Cloud Infrastructure Migration, Custom Software Engineering & 24/7 SLA-Backed Tech Helpdesk.
+
+## Overview
+SK ONE Tech Support (SKONE) provides enterprise-grade IT infrastructure management, zero-trust cybersecurity, custom full-stack software development, and backup developer staffing solutions across India (Delhi NCR, Gurugram, Jaipur, Noida, Chandigarh, Neemrana) and international clients.
+
+## Core Capabilities
+- Managed IT Support: Cisco firewall routing, network architecture, enterprise workstation provisioning, server database maintenance, 24/7 SLA helpdesk.
+- Bespoke Software Engineering: High-velocity React & Node.js web applications, REST API integrations, CRM/ERP platforms, mobile apps, database schema design.
+- Cloud Infrastructure & Migration: AWS, Microsoft Azure, Google Cloud (GCP) migrations, container orchestration with Kubernetes, Docker, and Supabase RLS architectures.
+- Backup Developer Staffing: Pre-vetted contract software developers, emergency system administrators, and dedicated tech squad outsourcing with flexible 15-day scaling.
+
+## Service Level Agreements (SLAs)
+- Critical Incidents (P1): Response within 30 minutes, 24/7 escalation engineers.
+- High Priority (P2): Response within 2 hours.
+- General Support (P3): Same-day resolution.
+- Uptime Commitment: 99.9% availability for managed cloud environments.
+
+## Geographical Coverage
+- Headquarters & Regional Hubs: Jaipur, Gurugram, Delhi NCR, Noida, Chandigarh, Neemrana.
+- Global Operations: Remote cloud support and custom software delivery worldwide.
+
+## Official Contact & Verification
+- Website: https://skonetechsupport.com/
+- Telephone: +91 7678627526
+- Direct Email: skonetechsupport@gmail.com
+- WhatsApp Support: https://wa.me/917678627526
+- Client Portal: https://skonetechsupport.com/login
+
+## Optional Information
+- Full Knowledge Base: https://skonetechsupport.com/llms-full.txt
+- XML Sitemap: https://skonetechsupport.com/sitemap.xml
+- Service Catalog: https://skonetechsupport.com/services
+- Project Portfolio: https://skonetechsupport.com/projects
+- Tech Insights & Blog: https://skonetechsupport.com/blog

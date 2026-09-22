@@ -37,6 +37,10 @@ const Footer = () => {
             <img
               src={logoDark}
               alt="SKONE Tech Support"
+              width="168"
+              height="44"
+              loading="lazy"
+              decoding="async"
               className="h-10 sm:h-11 w-auto object-contain transition-opacity duration-300 group-hover:opacity-90"
             />
             <span className="sr-only">SKONE Tech Support</span>
@@ -131,12 +135,18 @@ const Footer = () => {
             onSubmit={handleNewsletterSubmit}
             className="w-full md:max-w-sm flex items-center gap-2"
           >
+            <label htmlFor="newsletter-email" className="sr-only">
+              Email address for newsletter
+            </label>
             <input 
+              id="newsletter-email"
+              name="email"
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="name@company.com"
+              aria-label="Email address for newsletter"
               className="flex-1 px-4 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-brand-blue"
             />
             <button 

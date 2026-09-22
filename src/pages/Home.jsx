@@ -81,7 +81,7 @@ const CounterStat = ({ value, label, prefix = "", suffix = "" }) => {
       <h3 className="text-4xl md:text-5xl font-black text-brand-blue mb-1">
         {prefix}{count}{suffix}
       </h3>
-      <p className="text-slate-500 font-bold uppercase tracking-wider text-[10px]">
+      <p className="text-slate-600 font-extrabold uppercase tracking-wider text-[11px]">
         {label}
       </p>
     </div>
@@ -113,11 +113,12 @@ const Home = () => {
         ref={heroRef}
         className="relative text-center py-40 md:py-48 px-6 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 overflow-hidden min-h-[90vh] flex items-center"
       >
-        {/* Parallax Background Cover */}
+        {/* High-Performance Zero-Latency CSS Tech Grid Mesh */}
         <motion.div 
-          style={{ y: bgY, backgroundImage: "url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80')" }}
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10 mix-blend-overlay pointer-events-none"
+          style={{ y: bgY }}
+          className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(37,99,235,0.18),transparent_65%)] pointer-events-none"
         />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
         
         {/* Animated Glow Blobs */}
         <div className="absolute top-1/4 left-1/3 w-[550px] h-[550px] bg-brand-blue/10 rounded-full blur-[140px] pointer-events-none animate-float"></div>
@@ -160,16 +161,21 @@ const Home = () => {
               </Link>
             </div>
 
-            {/* Scroll down indicator */}
+            {/* Accessible scroll down indicator */}
             <div className="pt-16 hidden md:block">
-              <motion.div
-                animate={{ y: [0, 8, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-                className="inline-block text-slate-500 hover:text-white transition-colors cursor-pointer"
+              <button
+                type="button"
+                aria-label="Scroll down to explore enterprise IT solutions"
                 onClick={() => window.scrollTo({ top: window.innerHeight - 80, behavior: "smooth" })}
+                className="inline-block text-slate-400 hover:text-white transition-colors cursor-pointer bg-transparent border-0 p-1 focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-full"
               >
-                <ArrowDownCircle className="w-8 h-8" />
-              </motion.div>
+                <motion.div
+                  animate={{ y: [0, 8, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  <ArrowDownCircle className="w-8 h-8" />
+                </motion.div>
+              </button>
             </div>
           </motion.div>
         </div>
@@ -337,7 +343,7 @@ const Home = () => {
             <h2 className="text-4xl md:text-5xl font-black text-slate-900">
               Industries We Serve
             </h2>
-            <p className="text-slate-555 max-w-md mx-auto text-xs md:text-sm leading-relaxed">
+            <p className="text-slate-600 max-w-md mx-auto text-xs md:text-sm leading-relaxed">
               Providing customized systems configuration for technical departments across key verticals.
             </p>
             <div className="w-16 h-1 bg-brand-blue mx-auto rounded-full mt-4"></div>
@@ -356,7 +362,7 @@ const Home = () => {
             ].map((ind, idx) => (
               <div key={idx} className="bg-white border border-gray-150 p-5 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
                 <span className="text-xs font-black text-slate-800 block">{ind.title}</span>
-                <span className="text-[10px] text-slate-400 block mt-1">{ind.desc}</span>
+                <span className="text-[11px] text-slate-500 block mt-1 font-medium">{ind.desc}</span>
               </div>
             ))}
           </div>
@@ -392,7 +398,7 @@ const Home = () => {
               <div key={idx} className="bg-slate-50 border border-slate-200 p-5 rounded-2xl relative hover:bg-white hover:border-brand-blue hover:shadow-md transition-all">
                 <span className="text-3xl font-black text-brand-blue/20 block">{proc.step}</span>
                 <h4 className="text-sm font-bold text-slate-900 mt-2">{proc.name}</h4>
-                <p className="text-[10px] text-slate-500 mt-1.5 leading-relaxed">{proc.desc}</p>
+                <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">{proc.desc}</p>
               </div>
             ))}
           </div>

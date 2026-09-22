@@ -29,22 +29,30 @@ function App() {
   return (
     <Router>
       <div className="bg-slate-50 text-gray-900 min-h-screen flex flex-col justify-between">
-        <div>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-brand-blue focus:text-white focus:rounded-xl focus:shadow-xl focus:outline-none"
+        >
+          Skip to main content
+        </a>
+        <div className="flex-1 flex flex-col">
           <Header />
-          <Suspense fallback={<LoadingSpinner />}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/clients" element={<Clients />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/admin" element={<Admin />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/blog" element={<Blog />} />
-            </Routes>
-          </Suspense>
+          <main id="main-content" className="flex-1 focus:outline-none" tabIndex="-1">
+            <Suspense fallback={<LoadingSpinner />}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/clients" element={<Clients />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/admin" element={<Admin />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/blog" element={<Blog />} />
+              </Routes>
+            </Suspense>
+          </main>
         </div>
         <Footer />
       </div>

@@ -66,6 +66,10 @@ const Header = () => {
         <Link to="/" className="flex items-center group py-0.5" aria-label="SKONE Tech Support Home">
           <img
             src={logo}
+            width="168"
+            height="48"
+            fetchPriority="high"
+            decoding="async"
             className="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]"
             alt="SKONE Tech Support Logo"
           />
@@ -73,7 +77,7 @@ const Header = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden md:flex items-center space-x-8" aria-label="Main Navigation">
           <NavLink to="/" className={navLinkClass}>
             Home
           </NavLink>
@@ -115,9 +119,11 @@ const Header = () => {
 
         {/* Hamburger Menu Button - Mobile */}
         <button
-          className="md:hidden p-1.5 focus:outline-none rounded-lg hover:bg-gray-100 transition-colors"
+          className="md:hidden p-1.5 focus:outline-none rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle menu"
+          aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-nav"
         >
           {isMenuOpen ? (
             <X className="w-6 h-6 text-slate-700" />
@@ -133,8 +139,13 @@ const Header = () => {
           <div
             className="fixed inset-0 bg-slate-950/20 backdrop-blur-sm z-40 md:hidden"
             onClick={() => setIsMenuOpen(false)}
+            aria-hidden="true"
           />
-          <nav className="fixed top-20 right-6 left-6 bg-white border border-gray-150 shadow-2xl rounded-2xl p-6 z-50 md:hidden flex flex-col space-y-4 animate-in fade-in slide-in-from-top-4 duration-200">
+          <nav 
+            id="mobile-nav"
+            aria-label="Mobile Navigation"
+            className="fixed top-20 right-6 left-6 bg-white border border-gray-150 shadow-2xl rounded-2xl p-6 z-50 md:hidden flex flex-col space-y-4 animate-in fade-in slide-in-from-top-4 duration-200"
+          >
             <NavLink
               to="/"
               className={({ isActive }) =>
