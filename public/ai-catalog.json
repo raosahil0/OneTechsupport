@@ -1,0 +1,37 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "SK ONE Tech Support",
+    "documentationUrl": "https://skonetechsupport.com/llms-full.txt",
+    "logoUrl": "https://skonetechsupport.com/logo-512x512.png"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:skonetechsupport:services:managed-it",
+      "displayName": "Enterprise Managed IT & Cloud Solutions",
+      "type": "application/json",
+      "url": "https://skonetechsupport.com/services",
+      "description": "Enterprise Managed IT Services, Cloud Infrastructure Migration, Zero-Trust Cybersecurity & 24/7 SLA-Backed Tech Helpdesk.",
+      "tags": [
+        "it-support",
+        "cloud-migration",
+        "cybersecurity",
+        "staffing"
+      ],
+      "capabilities": [
+        "NetworkArchitecture",
+        "CloudMigration",
+        "CustomSoftwareEngineering",
+        "DedicatedStaffing"
+      ],
+      "representativeQueries": [
+        "hire managed IT support team India",
+        "enterprise cloud migration AWS Azure GCP",
+        "contract software developers staffing",
+        "Cisco firewall zero trust cybersecurity"
+      ],
+      "version": "1.0.0",
+      "updatedAt": "2026-09-22T00:00:00Z"
+    }
+  ]
+}

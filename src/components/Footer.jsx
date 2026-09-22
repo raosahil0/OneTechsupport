@@ -1,8 +1,8 @@
 import { Mail, Phone, MapPin, Share2, Send } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { saveLead } from "../services/databaseService";
-import logoDark from "../assets/logo-dark-bg.png";
+import logoDarkWebp from "../assets/logo-dark-bg.webp";
+import logoDarkPng from "../assets/logo-dark-bg.png";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -15,6 +15,7 @@ const Footer = () => {
     setNewsletterMessage("");
 
     try {
+      const { saveLead } = await import("../services/databaseService");
       await saveLead({ email, source: "newsletter" });
       setNewsletterMessage("Subscribed successfully! Thank you.");
       setEmail("");
@@ -34,16 +35,18 @@ const Footer = () => {
         {/* Column 1: Company Profile */}
         <div className="lg:col-span-2 space-y-5">
           <Link to="/" className="inline-block group" aria-label="SKONE Tech Support Home">
-            <img
-              src={logoDark}
-              alt="SKONE Tech Support"
-              width="168"
-              height="44"
-              loading="lazy"
-              decoding="async"
-              className="h-10 sm:h-11 w-auto object-contain transition-opacity duration-300 group-hover:opacity-90"
-            />
-            <span className="sr-only">SKONE Tech Support</span>
+            <picture>
+              <source srcSet={logoDarkWebp} type="image/webp" />
+              <img
+                src={logoDarkPng}
+                alt="SKONE Tech Support"
+                width="168"
+                height="44"
+                loading="lazy"
+                decoding="async"
+                className="h-10 sm:h-11 w-auto object-contain transition-opacity duration-300 group-hover:opacity-90"
+              />
+            </picture>
           </Link>
           <p className="text-slate-400 text-xs leading-relaxed max-w-sm">
             Secure Cloud Solutions, Enterprise IT Support & Custom Software Engineering. We deliver SLA-backed managed systems designed to scale tech operations for modern enterprises.

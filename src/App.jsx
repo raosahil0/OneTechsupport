@@ -3,8 +3,9 @@ import { lazy, Suspense } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-// Lazy loaded page components
-const Home = lazy(() => import("./pages/Home"));
+import Home from "./pages/Home";
+
+// Lazy loaded secondary page components
 const About = lazy(() => import("./pages/About"));
 const Services = lazy(() => import("./pages/Services"));
 const Projects = lazy(() => import("./pages/Projects"));

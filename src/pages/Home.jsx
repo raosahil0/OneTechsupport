@@ -187,7 +187,7 @@ const Home = () => {
         <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none"></div>
         
         <div className="max-w-6xl mx-auto px-6 mb-4 text-center">
-          <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Authorized Vetted Engineers & Integrations</p>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Authorized Vetted Engineers & Integrations</p>
         </div>
 
         <div className="animate-logo-loop gap-12 items-center">
@@ -197,7 +197,7 @@ const Home = () => {
               <div className="w-2.5 h-2.5 rounded-full bg-brand-blue animate-pulse"></div>
               <div>
                 <span className="text-slate-200 font-black text-sm tracking-tight">{logo.name}</span>
-                <span className="block text-[8px] text-slate-500 font-bold uppercase tracking-wider mt-0.5">{logo.type}</span>
+                <span className="block text-[8px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">{logo.type}</span>
               </div>
             </div>
           ))}

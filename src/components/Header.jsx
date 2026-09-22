@@ -1,8 +1,8 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Menu, X, ArrowRight, User } from "lucide-react";
-import { getCurrentClient } from "../services/databaseService";
-import logo from "../assets/logo.png";
+import logoWebp from "../assets/logo.webp";
+import logoPng from "../assets/logo.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,8 +34,19 @@ const Header = () => {
 
   useEffect(() => {
     const checkUser = async () => {
-      const user = await getCurrentClient();
-      setCurrentUser(user);
+      try {
+        // Only load Supabase SDK if an active session key exists in localStorage
+        const hasSession = Object.keys(localStorage).some(
+          (k) => k.includes("auth-token") || k.includes("supabase")
+        );
+        if (hasSession) {
+          const { getCurrentClient } = await import("../services/databaseService");
+          const user = await getCurrentClient();
+          setCurrentUser(user);
+        }
+      } catch (err) {
+        console.error("Auth check failed:", err);
+      }
     };
     checkUser();
   }, [location]);
@@ -64,16 +75,18 @@ const Header = () => {
       <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
         {/* Brand Logo */}
         <Link to="/" className="flex items-center group py-0.5" aria-label="SKONE Tech Support Home">
-          <img
-            src={logo}
-            width="168"
-            height="48"
-            fetchPriority="high"
-            decoding="async"
-            className="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]"
-            alt="SKONE Tech Support Logo"
-          />
-          <span className="sr-only">SKONE Tech Support</span>
+          <picture>
+            <source srcSet={logoWebp} type="image/webp" />
+            <img
+              src={logoPng}
+              width="168"
+              height="48"
+              fetchPriority="high"
+              decoding="async"
+              className="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+              alt="SKONE Tech Support Logo"
+            />
+          </picture>
         </Link>
 
         {/* Desktop Navigation */}

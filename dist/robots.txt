@@ -47,6 +47,7 @@ Allow: /
 
 # Agentic Knowledge Endpoints & Sitemap
 Sitemap: https://skonetechsupport.com/sitemap.xml
+Agentmap: https://skonetechsupport.com/.well-known/ai-catalog.json
 # LLMs knowledge standard: https://llmstxt.org/
 # https://skonetechsupport.com/llms.txt
 # https://skonetechsupport.com/llms-full.txt
