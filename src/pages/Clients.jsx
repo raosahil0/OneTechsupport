@@ -3,6 +3,7 @@ import FeedbackForm from "../components/FeedbackForm";
 import SEO from "../components/SEO";
 import { Star, MessageCircle, Quote } from "lucide-react";
 import { getFeedbacks } from "../services/databaseService";
+import { pageSeo } from "../seo/pageSeo";
 
 const Clients = () => {
   const [feedbacks, setFeedbacks] = useState([]);
@@ -55,17 +56,15 @@ const Clients = () => {
   return (
     <div className="bg-slate-50 min-h-screen pt-28 pb-20 px-6 font-sans">
       <SEO 
-        title="Client Reviews & Testimonials"
-        description="Discover how SKONE Tech Support helps businesses streamline operations, secure IT infrastructure, and recruit top engineering talent."
-        keywords="Client Testimonials, IT Support Reviews, Customer Feedback, Managed Services Experience, SKONE Reviews"
+        {...pageSeo.clients}
       />
       <div className="max-w-6xl mx-auto">
         
         {/* Header Section */}
         <div className="text-center mb-16">
-          <h2 className="text-5xl font-extrabold mb-4 bg-gradient-to-r from-brand-blue to-blue-700 bg-clip-text text-transparent">
+          <h1 className="text-5xl font-extrabold mb-4 bg-gradient-to-r from-brand-blue to-blue-700 bg-clip-text text-transparent">
             Client Testimonials
-          </h2>
+          </h1>
           <p className="text-lg text-gray-600 max-w-xl mx-auto">
             See how we've helped businesses streamline their operations, recruit top talent, and build robust IT systems.
           </p>

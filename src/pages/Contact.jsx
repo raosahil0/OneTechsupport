@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { saveContact } from "../services/databaseService";
 import emailjs from "@emailjs/browser";
 import SEO from "../components/SEO";
+import { pageSeo } from "../seo/pageSeo";
 
 const BUSINESS_HOURS = [
   { days: "Monday - Friday", hours: "9:00 AM - 6:00 PM" },
@@ -80,9 +81,7 @@ const Contact = () => {
   return (
     <div className="bg-slate-50 min-h-screen pt-24 pb-28 font-sans">
       <SEO 
-        title="Consultation & Helpdesk Support" 
-        description="Contact SKONE Tech Support: Schedule a technical evaluation, submit software inquiries, or reach our emergency IT helpdesk at +91 7678627526."
-        keywords="Contact IT Support, IT Helpdesk Phone, Hire IT Consultants, Technical Support Inquiry, Gurgaon IT Support, Jaipur Tech Consultation"
+        {...pageSeo.contact}
       />
       
       <div className="max-w-6xl mx-auto px-6">
@@ -91,9 +90,9 @@ const Contact = () => {
           <span className="text-brand-blue font-bold text-xs uppercase tracking-widest bg-blue-100/60 px-3.5 py-1.5 rounded-full">
             Intake Center
           </span>
-          <h2 className="text-5xl font-black bg-gradient-to-r from-brand-blue to-indigo-600 bg-clip-text text-transparent">
+          <h1 className="text-5xl font-black bg-gradient-to-r from-brand-blue to-indigo-600 bg-clip-text text-transparent">
             Guided Project Intake
-          </h2>
+          </h1>
           <p className="text-sm md:text-base text-slate-600 max-w-xl mx-auto leading-relaxed">
             Fill out our guided wizard to specify engineering requirements, team scale, or support SLAs. Our architects will respond within 24 hours.
           </p>

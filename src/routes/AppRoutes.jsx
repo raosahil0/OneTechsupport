@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "../pages/Home";
 
 // Lazy-loaded secondary pages for optimal code splitting
@@ -47,8 +47,8 @@ export default function AppRoutes() {
 
         {/* Dedicated Specialized SEO Service Landings */}
         <Route path="/app-and-web-development" element={<WebAppDevelopment />} />
-        <Route path="/web-development" element={<WebAppDevelopment />} />
-        <Route path="/app-development" element={<WebAppDevelopment />} />
+        <Route path="/web-development" element={<Navigate to="/app-and-web-development" replace />} />
+        <Route path="/app-development" element={<Navigate to="/app-and-web-development" replace />} />
         <Route path="/software-development" element={<SoftwareDevelopment />} />
         <Route path="/tech-support" element={<TechSupport />} />
         <Route path="/it-support" element={<ITSupport />} />

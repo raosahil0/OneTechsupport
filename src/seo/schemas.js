@@ -19,7 +19,7 @@ export function getOrganizationSchema() {
     telephone: siteConfig.phone,
     email: siteConfig.email,
     areaServed: siteConfig.areaServed.map((area) => ({
-      "@type": "City",
+      "@type": "AdministrativeArea",
       name: area
     })),
     sameAs: siteConfig.social,
@@ -32,33 +32,6 @@ export function getOrganizationSchema() {
         areaServed: ["IN", "Worldwide"]
       }
     ]
-  };
-}
-
-/**
- * LocalBusiness / ITService Schema
- */
-export function getLocalBusinessSchema() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "@id": `${siteConfig.url}/#localbusiness`,
-    name: siteConfig.name,
-    url: siteConfig.url,
-    logo: siteConfig.logo,
-    image: siteConfig.defaultImage,
-    telephone: siteConfig.phone,
-    email: siteConfig.email,
-    priceRange: "$$",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: siteConfig.address.streetAddress,
-      addressLocality: siteConfig.address.addressLocality,
-      addressRegion: siteConfig.address.addressRegion,
-      postalCode: siteConfig.address.postalCode,
-      addressCountry: siteConfig.address.addressCountry
-    },
-    areaServed: siteConfig.areaServed
   };
 }
 
@@ -80,7 +53,7 @@ export function getServiceSchema({ name, description, serviceType, url }) {
       "@id": `${siteConfig.url}/#organization`
     },
     areaServed: siteConfig.areaServed.map((area) => ({
-      "@type": "City",
+      "@type": "AdministrativeArea",
       name: area
     }))
   };

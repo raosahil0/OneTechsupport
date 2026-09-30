@@ -5,6 +5,7 @@ import {
   FolderGit2, CheckCircle2, Clock, ArrowRight, MessageSquare, Tag, Eye
 } from "lucide-react";
 import SEO from "../components/SEO";
+import { pageSeo } from "../seo/pageSeo";
 
 const projectList = [
   {
@@ -69,9 +70,7 @@ const Projects = () => {
   return (
     <div className="bg-slate-50 min-h-screen pt-24 pb-28 font-sans">
       <SEO 
-        title="Case Studies Portfolio" 
-        description="Review SKONE Tech Support case studies in AWS/GCP cloud migrations, enterprise network deployments, and bespoke web application engineering."
-        keywords="IT Case Studies, Cloud Migration Portfolio, Network Optimization, Web App Engineering Projects, Enterprise IT Success Stories"
+        {...pageSeo.projects}
       />
 
       <div className="max-w-6xl mx-auto px-6">
@@ -80,9 +79,9 @@ const Projects = () => {
           <span className="text-brand-blue font-bold text-xs uppercase tracking-widest bg-blue-100/60 px-3.5 py-1.5 rounded-full">
             Our Work
           </span>
-          <h2 className="text-5xl font-black bg-gradient-to-r from-brand-blue to-indigo-600 bg-clip-text text-transparent">
+          <h1 className="text-5xl font-black bg-gradient-to-r from-brand-blue to-indigo-600 bg-clip-text text-transparent">
             Case Studies
-          </h2>
+          </h1>
           <p className="text-sm md:text-base text-slate-600 max-w-xl mx-auto leading-relaxed">
             A comprehensive look at migration tasks, network optimizations, and software engineering builds completed by SKONE Tech Support.
           </p>

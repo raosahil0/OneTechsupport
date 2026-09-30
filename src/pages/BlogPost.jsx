@@ -21,6 +21,12 @@ export default function BlogPost() {
   if (!post) {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center px-6 py-24 text-center">
+        <SEO
+          title="Article Not Found | S'K ONE Tech Support"
+          description="The requested article could not be found."
+          canonical={`${siteConfig.url}/404`}
+          noIndex
+        />
         <h1 className="text-3xl font-black text-slate-900 mb-2">Article Not Found</h1>
         <p className="text-slate-500 text-sm mb-6">The article you are looking for does not exist or has been relocated.</p>
         <Link

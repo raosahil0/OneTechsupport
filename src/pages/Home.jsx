@@ -9,7 +9,7 @@ import {
 import SEO from "../components/SEO";
 import JsonLd from "../components/SEO/JsonLd";
 import { pageSeo } from "../seo/pageSeo";
-import { getOrganizationSchema, getLocalBusinessSchema } from "../seo/schemas";
+import { getOrganizationSchema } from "../seo/schemas";
 
 // Partners logo array for infinite slider
 const PARTNER_LOGOS = [
@@ -112,7 +112,6 @@ const Home = () => {
         keywords={pageSeo.home.keywords}
       />
       <JsonLd data={getOrganizationSchema()} />
-      <JsonLd data={getLocalBusinessSchema()} />
 
       {/* Hero Section - Parallax Dark Gradient with Floating Blobs */}
       <section 

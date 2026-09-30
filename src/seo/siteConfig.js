@@ -11,13 +11,6 @@ export const siteConfig = {
   phone: "+91-7678627526",
   country: "IN",
   language: "en-IN",
-  address: {
-    streetAddress: "Cyber City & Industrial Corridor",
-    addressLocality: "Gurugram & Delhi NCR",
-    addressRegion: "Haryana / Delhi",
-    postalCode: "122002",
-    addressCountry: "IN"
-  },
   areaServed: [
     "Delhi",
     "Noida",
@@ -25,8 +18,7 @@ export const siteConfig = {
     "Jaipur",
     "Chandigarh",
     "Neemrana",
-    "Delhi NCR",
-    "India"
+    "Delhi NCR"
   ],
   social: [
     "https://instagram.com/thekeda.r",

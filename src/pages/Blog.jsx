@@ -4,6 +4,7 @@ import { Search, Calendar, User, ArrowRight, BookOpen, Clock, Tag, X, ExternalLi
 import { motion, AnimatePresence } from "framer-motion";
 import SEO from "../components/SEO";
 import { BLOG_POSTS } from "../data/blogArticles";
+import { pageSeo } from "../seo/pageSeo";
 
 const CATEGORIES = ["All", "Cloud", "Cyber Security", "Staffing", "Software Development"];
 const POSTS_PER_PAGE = 3;
@@ -38,9 +39,7 @@ const Blog = () => {
   return (
     <div className="bg-slate-50 min-h-screen pt-24 pb-28 font-sans">
       <SEO 
-        title="Insights & Tech Articles" 
-        description="Read technical guides, security briefs, cloud migration checklists, and dedicated staffing recommendations from SKONE Tech Support engineering leads."
-        keywords="Tech Blog, Cloud Migration Guide, Cybersecurity Best Practices, IT Support Tips, Enterprise Architecture Articles"
+        {...pageSeo.blog}
       />
 
       <div className="max-w-6xl mx-auto px-6">
@@ -49,9 +48,9 @@ const Blog = () => {
           <span className="text-brand-blue font-bold text-xs uppercase tracking-widest bg-blue-100/60 px-3.5 py-1.5 rounded-full">
             Knowledge Hub
           </span>
-          <h2 className="text-5xl font-black mt-4 mb-4 bg-gradient-to-r from-brand-blue to-indigo-600 bg-clip-text text-transparent">
+          <h1 className="text-5xl font-black mt-4 mb-4 bg-gradient-to-r from-brand-blue to-indigo-600 bg-clip-text text-transparent">
             Latest Insights
-          </h2>
+          </h1>
           <p className="text-lg text-slate-600 max-w-xl mx-auto leading-relaxed">
             Case studies, technical analysis, and security updates compiled by the senior architects at SKONE Tech Support.
           </p>

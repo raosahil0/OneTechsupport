@@ -4,6 +4,7 @@ import {
   MessageSquare, Calendar, Globe, Briefcase, Network
 } from "lucide-react";
 import SEO from "../components/SEO";
+import { pageSeo } from "../seo/pageSeo";
 
 const TIMELINE_MILESTONES = [
   {
@@ -22,9 +23,7 @@ const About = () => {
   return (
     <div className="bg-slate-50 min-h-screen pb-28 font-sans">
       <SEO
-        title="Corporate Profile & Core Values"
-        description="Learn about the history of SKONE Tech Support, our mission to deliver secure cloud infrastructures, core enterprise principles, and leadership team."
-        keywords="About SKONE Tech Support, IT Company Profile, Enterprise IT Leadership, Sahil Yadav, IT Mission and Values"
+        {...pageSeo.about}
       />
 
       {/* Hero Header Section */}
@@ -34,9 +33,9 @@ const About = () => {
           <span className="text-brand-blue font-bold text-xs uppercase tracking-widest bg-blue-100/60 px-3.5 py-1.5 rounded-full">
             Our Identity
           </span>
-          <h2 className="text-5xl md:text-6xl font-black bg-gradient-to-r from-brand-blue to-indigo-600 bg-clip-text text-transparent">
+          <h1 className="text-5xl md:text-6xl font-black bg-gradient-to-r from-brand-blue to-indigo-600 bg-clip-text text-transparent">
             Corporate Profile
-          </h2>
+          </h1>
           <p className="text-sm md:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto">
             S'K One Tech Support is a high-velocity IT services consultancy. We bridge technical infrastructure gaps with secure cloud migrations, dedicated helpdesk SLAs, and vetted engineering teams.
           </p>

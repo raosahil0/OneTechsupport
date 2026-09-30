@@ -28,7 +28,7 @@ export default function SEO({
 
   return (
     <Helmet>
-      <html lang="en" />
+      <html lang={siteConfig.language} />
       <title>{finalTitle}</title>
       <meta name="description" content={finalDescription} />
       {keywords && <meta name="keywords" content={keywords} />}
@@ -53,9 +53,11 @@ export default function SEO({
 
       {/* Twitter Cards */}
       <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:url" content={finalCanonical} />
       <meta name="twitter:title" content={finalTitle} />
       <meta name="twitter:description" content={finalDescription} />
       <meta name="twitter:image" content={finalImage} />
+      <meta name="twitter:image:alt" content={finalTitle} />
 
       <meta name="theme-color" content="#2563eb" />
       {children}
