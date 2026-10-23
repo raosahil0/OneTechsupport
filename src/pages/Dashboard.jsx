@@ -59,6 +59,12 @@ const Dashboard = () => {
     navigate("/login");
   };
 
+  // Allowed file types for ticket attachments
+  const ALLOWED_FILE_TYPES = [
+    'image/jpeg', 'image/png', 'image/gif', 'image/webp', 'application/pdf'
+  ];
+  const ALLOWED_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'pdf'];
+
   // Handle File Input Change
   const handleFileChange = (e) => {
     setFormError("");
@@ -66,6 +72,15 @@ const Dashboard = () => {
     const selectedFile = e.target.files[0];
     if (!selectedFile) {
       setAttachment(null);
+      return;
+    }
+
+    // File type check: only allow images and PDFs
+    const fileExt = selectedFile.name.split('.').pop()?.toLowerCase();
+    if (!ALLOWED_FILE_TYPES.includes(selectedFile.type) && !ALLOWED_EXTENSIONS.includes(fileExt)) {
+      setFormError("Only images (JPG, PNG, GIF, WebP) and PDFs are allowed.");
+      setAttachment(null);
+      setFileInputKey(Date.now());
       return;
     }
     

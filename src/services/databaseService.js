@@ -456,9 +456,14 @@ export const updateTicketStatus = async (ticketId, status) => {
 };
 
 export const getAllAccounts = async () => {
+  // Helper: strip sensitive fields before returning user data
+  const sanitizeUsers = (users) =>
+    users.map(({ password, ...safeFields }) => safeFields);
+
   if (!isSupabaseEnabled) {
     try {
-      return JSON.parse(localStorage.getItem("demo_users") || "[]");
+      const raw = JSON.parse(localStorage.getItem("demo_users") || "[]");
+      return sanitizeUsers(raw);
     } catch (e) {
       console.error("Error reading localStorage for all accounts:", e);
       return [];
@@ -466,7 +471,8 @@ export const getAllAccounts = async () => {
   }
 
   try {
-    return JSON.parse(localStorage.getItem("demo_users") || "[]");
+    const raw = JSON.parse(localStorage.getItem("demo_users") || "[]");
+    return sanitizeUsers(raw);
   } catch (e) {
     return [];
   }

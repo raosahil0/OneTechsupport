@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useAdminAuth } from "../hooks/useAdminAuth";
 import {
   getContacts,
   getFeedbacks,
@@ -36,10 +37,10 @@ import {
 import SEO from "../components/SEO";
 
 const Admin = () => {
-  // Authentication
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  // Authentication — via Supabase Auth (no hardcoded passwords)
+  const { user: adminUser, isAdmin, loading: authLoading, error: authError, signIn, signOut } = useAdminAuth();
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
 
   // Database Records
   const [contacts, setContacts] = useState([]);
@@ -64,17 +65,11 @@ const Admin = () => {
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [recordToDelete, setRecordToDelete] = useState(null); // { id, type }
 
-  // Default secure password
-  const ADMIN_PASSWORD = "Yadav@32!";
-
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (password === ADMIN_PASSWORD) {
-      setIsAuthenticated(true);
-      setError("");
+    const success = await signIn(loginEmail, loginPassword);
+    if (success) {
       loadDashboardData();
-    } else {
-      setError("Incorrect password. Please try again.");
     }
   };
 
@@ -101,10 +96,10 @@ const Admin = () => {
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAdmin) {
       loadDashboardData();
     }
-  }, [isAuthenticated]);
+  }, [isAdmin]);
 
   // ─── COPY TO CLIPBOARD ───────────────────────────────────────────────────
   const copyToClipboard = (text, type) => {
@@ -281,7 +276,18 @@ const Admin = () => {
     return Object.entries(ratings).reverse(); // 5 down to 1
   };
 
-  if (!isAuthenticated) {
+  if (authLoading) {
+    return (
+      <div className="min-h-[80vh] flex items-center justify-center bg-slate-50">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-10 h-10 border-2 border-brand-blue border-t-transparent rounded-full animate-spin" />
+          <p className="text-sm text-gray-500">Verifying admin access...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isAdmin) {
     return (
       <div className="min-h-[80vh] flex items-center justify-center px-6 py-12 bg-slate-50">
         <SEO title="Admin Portal Authentication" noIndex={true} />
@@ -293,26 +299,37 @@ const Admin = () => {
             Admin Portal
           </h2>
           <p className="text-sm mb-6 text-gray-550">
-            Please enter your password to access the submission database.
+            Sign in with your admin credentials to access the control center.
           </p>
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <input
+                type="email"
+                placeholder="Admin Email"
+                value={loginEmail}
+                onChange={(e) => setLoginEmail(e.target.value)}
+                required
+                className="w-full px-4 py-3.5 rounded-xl border focus:ring-4 focus:outline-none text-sm bg-slate-50 border-gray-205 focus:ring-brand-blue/15"
+              />
+            </div>
+            <div>
+              <input
                 type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={loginPassword}
+                onChange={(e) => setLoginPassword(e.target.value)}
                 placeholder="Enter admin password"
                 required
                 className="w-full p-4 rounded-xl border focus:ring-4 focus:outline-none transition-all text-center text-lg tracking-widest font-mono bg-slate-50 border-gray-250 focus:border-brand-blue focus:ring-brand-blue/15 text-gray-900"
               />
             </div>
-            {error && <p className="text-sm font-semibold text-red-500 animate-bounce">{error}</p>}
+            {authError && <p className="text-sm font-semibold text-red-500 animate-bounce">{authError}</p>}
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-brand-blue to-blue-700 py-4 rounded-xl hover:from-blue-600 hover:to-blue-800 font-bold text-white shadow-lg hover:shadow-blue-500/10 transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+              disabled={authLoading}
+              className="w-full bg-gradient-to-r from-brand-blue to-blue-700 py-4 rounded-xl hover:from-blue-600 hover:to-blue-800 font-bold text-white shadow-lg hover:shadow-blue-500/10 transition-all transform hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50"
             >
-              Unlock Dashboard
+              {authLoading ? "Signing in..." : "Sign In"}
             </button>
           </form>
         </div>
