@@ -2,10 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
-  FolderGit2, CheckCircle2, Clock, ArrowRight, MessageSquare, Tag, Eye
+  FolderGit2, CheckCircle2, Clock, ArrowRight, MessageSquare, Tag, Eye, Sparkles
 } from "lucide-react";
 import SEO from "../components/SEO";
 import { pageSeo } from "../seo/pageSeo";
+import SafeImage from "../components/SafeImage";
 
 const projectList = [
   {
@@ -122,16 +123,17 @@ const Projects = () => {
                 transition={{ duration: 0.3 }}
                 className="bg-white border border-gray-150 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group hover:-translate-y-1"
               >
-                {/* Banner media image */}
-                <div className="relative h-52 overflow-hidden bg-slate-100">
-                  <img
+                {/* Banner media image with guaranteed fallback */}
+                <div className="relative h-56 overflow-hidden bg-slate-950">
+                  <SafeImage
                     src={project.image}
                     alt={project.title}
+                    category={project.category}
+                    fallbackTitle={project.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
                   />
-                  {/* Category tag indicator */}
-                  <span className="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-slate-800 text-[10px] font-bold px-3 py-1.5 rounded-lg shadow-sm uppercase tracking-wide">
+                  {/* Category tag indicator with glassmorphism */}
+                  <span className="absolute top-4 left-4 bg-slate-950/75 backdrop-blur-md text-white border border-white/10 text-[10px] font-extrabold px-3 py-1.5 rounded-xl shadow-lg uppercase tracking-wider">
                     {project.category}
                   </span>
                 </div>

@@ -27,17 +27,18 @@ const About = () => {
       />
 
       {/* Hero Header Section */}
-      <section className="pt-28 pb-20 px-6 text-center bg-gradient-to-b from-brand-blue/5 to-slate-50 relative overflow-hidden">
-        <div className="absolute inset-0 bg-grid-slate-100 pointer-events-none"></div>
-        <div className="max-w-4xl mx-auto relative z-10 space-y-4">
-          <span className="text-brand-blue font-bold text-xs uppercase tracking-widest bg-blue-100/60 px-3.5 py-1.5 rounded-full">
-            Our Identity
+      <section className="pt-32 pb-24 px-6 text-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(37,99,235,0.18),transparent_65%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
+        <div className="max-w-4xl mx-auto relative z-10 space-y-5">
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-brand-blue/15 border border-brand-blue/30 text-blue-400 uppercase tracking-widest shadow-sm">
+            <Sparkles className="w-3.5 h-3.5 text-brand-blue" /> Corporate Identity & Leadership
           </span>
-          <h1 className="text-5xl md:text-6xl font-black bg-gradient-to-r from-brand-blue to-indigo-600 bg-clip-text text-transparent">
-            Corporate Profile
+          <h1 className="text-4xl sm:text-6xl font-black text-white tracking-tight leading-[1.1]">
+            Engineering Velocity. <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-teal-400 bg-clip-text text-transparent">Uncompromising Security.</span>
           </h1>
-          <p className="text-sm md:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto">
-            S'K One Tech Support is a high-velocity IT services consultancy. We bridge technical infrastructure gaps with secure cloud migrations, dedicated helpdesk SLAs, and vetted engineering teams.
+          <p className="text-sm md:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto font-normal">
+            S'K ONE Tech Support is a high-velocity IT services consultancy. We bridge enterprise infrastructure gaps with secure cloud migrations, dedicated helpdesk SLAs, and vetted engineering squads.
           </p>
         </div>
       </section>
@@ -199,14 +200,19 @@ const About = () => {
             { name: "Kapil Sharma", role: "Technical Lead", init: "KS", desc: "Oversees cloud architectures deployments, container configurations, and cybersecurity." },
             { name: "Bhunesh Kumar", role: "Talent Specialist", init: "BK", desc: "Manages developer sourcing arrays, code assessments, and client placement matrices." }
           ].map((t, idx) => (
-            <div key={idx} className="bg-white border border-gray-150 p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow group flex flex-col justify-between h-[300px]">
+            <div key={idx} className="bg-white border border-gray-150 hover:border-brand-blue/30 p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col justify-between hover:-translate-y-1">
               <div>
-                <div className="w-16 h-16 bg-brand-blue/10 text-brand-blue rounded-2xl mx-auto mb-5 flex items-center justify-center text-lg font-black group-hover:bg-brand-blue group-hover:text-white transition-colors duration-300">
+                <div className="w-16 h-16 bg-gradient-to-tr from-brand-blue to-indigo-600 text-white rounded-2xl mx-auto mb-5 flex items-center justify-center text-lg font-black shadow-lg shadow-brand-blue/20 group-hover:scale-105 transition-transform duration-300">
                   {t.init}
                 </div>
-                <h3 className="font-bold text-lg text-slate-900 mb-0.5">{t.name}</h3>
-                <span className="text-brand-blue text-xs font-bold block mb-4">{t.role}</span>
-                <p className="text-slate-500 text-xs leading-relaxed">{t.desc}</p>
+                <h3 className="font-extrabold text-lg text-slate-900 group-hover:text-brand-blue transition-colors mb-0.5">{t.name}</h3>
+                <span className="text-brand-blue text-xs font-extrabold block mb-3 uppercase tracking-wider">{t.role}</span>
+                <p className="text-slate-600 text-xs leading-relaxed">{t.desc}</p>
+              </div>
+              <div className="pt-4 border-t border-slate-100 mt-5">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                  Verified Executive
+                </span>
               </div>
             </div>
           ))}

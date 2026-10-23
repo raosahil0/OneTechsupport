@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import SEO from "../components/SEO";
 import { pageSeo } from "../seo/pageSeo";
+import SafeImage from "../components/SafeImage";
 
 const serviceList = [
   {
@@ -211,15 +212,20 @@ const Services = () => {
                   transition={{ duration: 0.3 }}
                   className="bg-white border border-gray-150 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group"
                 >
-                  {/* Service Image banner */}
-                  <div className="relative overflow-hidden h-44 w-full">
-                    <img 
+                  {/* Service Image banner with guaranteed fallback */}
+                  <div className="relative overflow-hidden h-48 w-full bg-slate-950">
+                    <SafeImage 
                       src={svc.img} 
                       alt={svc.title} 
+                      category={svc.category}
+                      fallbackTitle={svc.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                    <div className="absolute bottom-4 left-4 p-2 bg-white/10 backdrop-blur-md rounded-xl text-white">
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none"></div>
+                    <div className="absolute top-4 right-4 bg-slate-950/75 backdrop-blur-md text-white border border-white/10 text-[10px] font-extrabold px-3 py-1 rounded-xl shadow-lg uppercase tracking-wider">
+                      {svc.category}
+                    </div>
+                    <div className="absolute bottom-4 left-4 p-2.5 bg-brand-blue/90 backdrop-blur-md rounded-xl text-white shadow-md">
                       <IconComponent className="w-5 h-5" />
                     </div>
                   </div>

@@ -10,6 +10,7 @@ import SEO from "../components/SEO";
 import JsonLd from "../components/SEO/JsonLd";
 import { pageSeo } from "../seo/pageSeo";
 import { getOrganizationSchema } from "../seo/schemas";
+import SafeImage from "../components/SafeImage";
 
 // Partners logo array for infinite slider
 const PARTNER_LOGOS = [
@@ -236,52 +237,124 @@ const Home = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {/* Card 1 */}
-            <div className="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl border border-gray-150 hover:-translate-y-1.5 transition-all duration-300 group flex flex-col justify-between h-[360px]">
+            {/* Card 1: Managed IT Support */}
+            <div className="bg-white rounded-3xl shadow-sm hover:shadow-2xl border border-gray-150 hover:border-brand-blue/30 hover:-translate-y-2 transition-all duration-300 group flex flex-col justify-between overflow-hidden">
               <div>
-                <div className="w-12 h-12 bg-blue-50 text-brand-blue rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-blue group-hover:text-white transition-colors duration-300">
-                  <Monitor className="w-5.5 h-5.5" />
+                <div className="relative h-44 w-full overflow-hidden bg-slate-950">
+                  <SafeImage
+                    src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80"
+                    alt="Managed IT Support"
+                    category="it"
+                    fallbackTitle="Managed IT Support"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute bottom-3 left-4 flex items-center gap-2">
+                    <div className="w-9 h-9 bg-brand-blue text-white rounded-xl flex items-center justify-center shadow-lg">
+                      <Monitor className="w-5 h-5" />
+                    </div>
+                    <span className="text-[11px] font-extrabold uppercase tracking-wider text-white">SLA Managed</span>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-slate-900">Managed IT Support</h3>
-                <p className="text-slate-600 text-xs leading-relaxed">
-                  Enterprise network setups, Cisco firewall systems configurations, hardware provisioning, OS diagnostics helpdesk, and server databases maintenance.
-                </p>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2 text-slate-900 group-hover:text-brand-blue transition-colors">
+                    Managed IT Support
+                  </h3>
+                  <p className="text-slate-600 text-xs leading-relaxed mb-4">
+                    Enterprise network setups, Cisco firewall systems configurations, hardware provisioning, OS diagnostics helpdesk, and server databases maintenance.
+                  </p>
+                  <div className="flex flex-wrap gap-1.5 pt-2 border-t border-slate-100">
+                    <span className="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-lg">Cisco Systems</span>
+                    <span className="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-lg">24/7 SLA</span>
+                    <span className="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-lg">Firewall</span>
+                  </div>
+                </div>
               </div>
-              <Link to="/services" className="text-brand-blue font-bold text-xs inline-flex items-center gap-1.5 hover:gap-2.5 transition-all">
-                View Tech Stack <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
+              <div className="px-6 pb-6 pt-0">
+                <Link to="/services" className="text-brand-blue font-extrabold text-xs inline-flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
+                  View Tech Stack <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
             </div>
 
-            {/* Card 2 */}
-            <div className="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl border border-gray-150 hover:-translate-y-1.5 transition-all duration-300 group flex flex-col justify-between h-[360px]">
+            {/* Card 2: Bespoke Software */}
+            <div className="bg-white rounded-3xl shadow-sm hover:shadow-2xl border border-gray-150 hover:border-brand-blue/30 hover:-translate-y-2 transition-all duration-300 group flex flex-col justify-between overflow-hidden">
               <div>
-                <div className="w-12 h-12 bg-teal-50 text-teal-600 rounded-xl flex items-center justify-center mb-6 group-hover:bg-teal-600 group-hover:text-white transition-colors duration-300">
-                  <Cpu className="w-5.5 h-5.5" />
+                <div className="relative h-44 w-full overflow-hidden bg-slate-950">
+                  <SafeImage
+                    src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80"
+                    alt="Bespoke Software"
+                    category="software"
+                    fallbackTitle="Bespoke Software"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute bottom-3 left-4 flex items-center gap-2">
+                    <div className="w-9 h-9 bg-teal-600 text-white rounded-xl flex items-center justify-center shadow-lg">
+                      <Cpu className="w-5 h-5" />
+                    </div>
+                    <span className="text-[11px] font-extrabold uppercase tracking-wider text-white">Full-Stack Scale</span>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-slate-900">Bespoke Software</h3>
-                <p className="text-slate-600 text-xs leading-relaxed">
-                  Tailored web dashboard systems, REST API integrations, custom CRM/ERP platforms, mobile apps, and robust secure cloud setups.
-                </p>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2 text-slate-900 group-hover:text-brand-blue transition-colors">
+                    Bespoke Software
+                  </h3>
+                  <p className="text-slate-600 text-xs leading-relaxed mb-4">
+                    Tailored web dashboard systems, REST API integrations, custom CRM/ERP platforms, mobile apps, and robust secure cloud setups.
+                  </p>
+                  <div className="flex flex-wrap gap-1.5 pt-2 border-t border-slate-100">
+                    <span className="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-lg">React & Node</span>
+                    <span className="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-lg">Cloud APIs</span>
+                    <span className="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-lg">Mobile Apps</span>
+                  </div>
+                </div>
               </div>
-              <Link to="/services" className="text-brand-blue font-bold text-xs inline-flex items-center gap-1.5 hover:gap-2.5 transition-all">
-                View Tech Stack <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
+              <div className="px-6 pb-6 pt-0">
+                <Link to="/services" className="text-brand-blue font-extrabold text-xs inline-flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
+                  View Tech Stack <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
             </div>
 
-            {/* Card 3 */}
-            <div className="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl border border-gray-150 hover:-translate-y-1.5 transition-all duration-300 group flex flex-col justify-between h-[360px]">
+            {/* Card 3: Backup Staffing */}
+            <div className="bg-white rounded-3xl shadow-sm hover:shadow-2xl border border-gray-150 hover:border-brand-blue/30 hover:-translate-y-2 transition-all duration-300 group flex flex-col justify-between overflow-hidden">
               <div>
-                <div className="w-12 h-12 bg-indigo-50 text-indigo-650 rounded-xl flex items-center justify-center mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">
-                  <Users className="w-5.5 h-5.5" />
+                <div className="relative h-44 w-full overflow-hidden bg-slate-950">
+                  <SafeImage
+                    src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80"
+                    alt="Backup Staffing"
+                    category="default"
+                    fallbackTitle="Backup Staffing"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute bottom-3 left-4 flex items-center gap-2">
+                    <div className="w-9 h-9 bg-indigo-600 text-white rounded-xl flex items-center justify-center shadow-lg">
+                      <Users className="w-5 h-5" />
+                    </div>
+                    <span className="text-[11px] font-extrabold uppercase tracking-wider text-white">Vetted Talent</span>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-slate-900">Backup Staffing</h3>
-                <p className="text-slate-600 text-xs leading-relaxed">
-                  Emergency staffing pipelines, pre-screened contract developers, virtual helpdesk specialists, and operations managers ready for immediate deployment.
-                </p>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2 text-slate-900 group-hover:text-brand-blue transition-colors">
+                    Backup Staffing
+                  </h3>
+                  <p className="text-slate-600 text-xs leading-relaxed mb-4">
+                    Emergency staffing pipelines, pre-screened contract developers, virtual helpdesk specialists, and operations managers ready for immediate deployment.
+                  </p>
+                  <div className="flex flex-wrap gap-1.5 pt-2 border-t border-slate-100">
+                    <span className="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-lg">Pre-Screened</span>
+                    <span className="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-lg">Zero Overhead</span>
+                    <span className="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-lg">15-Day Notice</span>
+                  </div>
+                </div>
               </div>
-              <Link to="/services" className="text-brand-blue font-bold text-xs inline-flex items-center gap-1.5 hover:gap-2.5 transition-all">
-                View Tech Stack <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
+              <div className="px-6 pb-6 pt-0">
+                <Link to="/services" className="text-brand-blue font-extrabold text-xs inline-flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
+                  View Tech Stack <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
             </div>
           </div>
         </div>

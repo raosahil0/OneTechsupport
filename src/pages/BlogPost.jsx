@@ -9,6 +9,7 @@ import SEO from "../components/SEO/SEO";
 import Breadcrumbs from "../components/SEO/Breadcrumbs";
 import JsonLd from "../components/SEO/JsonLd";
 import { siteConfig } from "../seo/siteConfig";
+import SafeImage from "../components/SafeImage";
 
 export default function BlogPost() {
   const { slug } = useParams();
@@ -144,14 +145,14 @@ export default function BlogPost() {
         </div>
       </section>
 
-      {/* Featured Cover Image */}
+      {/* Featured Cover Image with guaranteed fallback */}
       <div className="max-w-4xl mx-auto px-6 -mt-10 relative z-20">
-        <div className="rounded-2xl overflow-hidden shadow-2xl border border-gray-200">
-          <img
+        <div className="rounded-3xl overflow-hidden shadow-2xl border border-slate-200/80 bg-slate-950">
+          <SafeImage
             src={post.img}
             alt={post.title}
-            width="1200"
-            height="600"
+            category={post.category}
+            fallbackTitle={post.title}
             className="w-full h-64 sm:h-96 object-cover"
           />
         </div>

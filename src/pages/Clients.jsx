@@ -72,44 +72,64 @@ const Clients = () => {
 
         {/* Testimonials Grid */}
         <div className="grid md:grid-cols-3 gap-8 mb-20">
-          {allReviews.map((feedback) => (
-            <div
-              key={feedback.id}
-              className="bg-white border border-gray-150 p-8 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between relative group hover:-translate-y-1"
-            >
-              {/* Quote icon watermark */}
-              <Quote className="absolute top-6 right-8 w-10 h-10 text-slate-100 group-hover:text-blue-50 transition-colors duration-300" />
-              
-              <div>
-                {/* Rating Stars */}
-                <div className="flex space-x-1 mb-4">
-                  {Array.from({ length: 5 }, (_, i) => (
-                    <Star
-                      key={i}
-                      className={`w-5 h-5 ${
-                        i < Number(feedback.rating)
-                          ? "fill-amber-400 text-amber-400"
-                          : "text-gray-250 fill-gray-200"
-                      }`}
-                    />
-                  ))}
+          {allReviews.map((feedback) => {
+            const initials = (feedback.name || "Client")
+              .split(" ")
+              .map((n) => n[0])
+              .slice(0, 2)
+              .join("")
+              .toUpperCase();
+
+            return (
+              <div
+                key={feedback.id}
+                className="bg-white border border-gray-150 p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative group hover:-translate-y-1 hover:border-brand-blue/30"
+              >
+                {/* Quote icon watermark */}
+                <Quote className="absolute top-6 right-8 w-10 h-10 text-slate-100 group-hover:text-blue-50 transition-colors duration-300 pointer-events-none" />
+                
+                <div>
+                  {/* Rating Stars */}
+                  <div className="flex items-center space-x-1 mb-4">
+                    {Array.from({ length: 5 }, (_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-4 h-4 ${
+                          i < Number(feedback.rating)
+                            ? "fill-amber-400 text-amber-400 drop-shadow-sm"
+                            : "text-slate-200 fill-slate-100"
+                        }`}
+                      />
+                    ))}
+                    <span className="text-xs font-bold text-slate-500 ml-2">
+                      {feedback.rating}.0
+                    </span>
+                  </div>
+
+                  {/* Feedback Message */}
+                  <p className="text-slate-650 leading-relaxed text-sm mb-6 relative z-10 font-normal">
+                    "{feedback.message}"
+                  </p>
                 </div>
 
-                {/* Feedback Message */}
-                <p className="text-gray-650 italic leading-relaxed mb-6">
-                  "{feedback.message}"
-                </p>
+                {/* Reviewer Details with Avatar */}
+                <div className="border-t border-slate-100 pt-5 mt-auto flex items-center gap-3.5">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-blue to-indigo-600 text-white flex items-center justify-center font-bold text-xs shadow-md shadow-brand-blue/20 flex-shrink-0">
+                    {initials}
+                  </div>
+                  <div>
+                    <h4 className="font-extrabold text-sm text-slate-900 group-hover:text-brand-blue transition-colors">
+                      {feedback.name}
+                    </h4>
+                    <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                      Verified Enterprise Client
+                    </span>
+                  </div>
+                </div>
               </div>
-
-              {/* Reviewer Details */}
-              <div className="border-t border-slate-100 pt-4 mt-auto">
-                <h4 className="font-bold text-gray-800">
-                  {feedback.name}
-                </h4>
-                <p className="text-xs text-gray-400 mt-1">Verified Client</p>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Leave a Review Form Section */}

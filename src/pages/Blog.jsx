@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import SEO from "../components/SEO";
 import { BLOG_POSTS } from "../data/blogArticles";
 import { pageSeo } from "../seo/pageSeo";
+import SafeImage from "../components/SafeImage";
 
 const CATEGORIES = ["All", "Cloud", "Cyber Security", "Staffing", "Software Development"];
 const POSTS_PER_PAGE = 3;
@@ -125,14 +126,16 @@ const Blog = () => {
                 transition={{ duration: 0.3 }}
                 className="bg-white border border-gray-150 rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1"
               >
-                {/* Banner Media */}
-                <Link to={`/blog/${post.slug}`} className="h-48 overflow-hidden relative block group">
-                  <img
+                {/* Banner Media with guaranteed fallback */}
+                <Link to={`/blog/${post.slug}`} className="h-52 overflow-hidden relative block group bg-slate-950">
+                  <SafeImage
                     src={post.img}
                     alt={post.title}
+                    category={post.category}
+                    fallbackTitle={post.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute top-4 left-4 px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-white font-bold text-[10px] uppercase">
+                  <div className="absolute top-4 left-4 px-3 py-1.5 bg-slate-950/75 backdrop-blur-md border border-white/10 rounded-xl text-white font-extrabold text-[10px] uppercase tracking-wider shadow-lg">
                     {post.category}
                   </div>
                 </Link>
@@ -292,10 +295,12 @@ const Blog = () => {
 
                 {/* Modal Scrollable Article Body */}
                 <div className="p-6 sm:p-8 overflow-y-auto space-y-6 flex-1 text-left">
-                  <div className="h-44 sm:h-56 -mx-6 sm:-mx-8 -mt-6 sm:-mt-8 mb-6 overflow-hidden relative">
-                    <img
+                  <div className="h-44 sm:h-56 -mx-6 sm:-mx-8 -mt-6 sm:-mt-8 mb-6 overflow-hidden relative bg-slate-950">
+                    <SafeImage
                       src={quickReadPost.img}
                       alt={quickReadPost.title}
+                      category={quickReadPost.category}
+                      fallbackTitle={quickReadPost.title}
                       className="w-full h-full object-cover"
                     />
                   </div>
