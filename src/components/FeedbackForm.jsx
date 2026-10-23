@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Star, Send, CheckCircle2, User, MessageSquare } from "lucide-react";
 import { saveFeedback } from "../services/databaseService";
+import ReCaptcha from "./ReCaptcha";
+import { checkRateLimit, recordAttempt, isBotSubmission } from "../utils/rateLimiter";
 
 const RATING_LABELS = {
   1: "1 Star - Poor",
@@ -16,6 +18,9 @@ const FeedbackForm = ({ onFeedbackSubmitted }) => {
     rating: 5,
     message: "",
   });
+  const [honeypot, setHoneypot] = useState("");
+  const [captchaToken, setCaptchaToken] = useState(null);
+  const recaptchaRef = useRef(null);
   const [hoverRating, setHoverRating] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -31,13 +36,37 @@ const FeedbackForm = ({ onFeedbackSubmitted }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+
     if (!formData.name.trim() || !formData.message.trim()) {
       setError("Please fill in both your name and your review message.");
       return;
     }
 
+    // 1. Honeypot check for bots
+    if (isBotSubmission(honeypot)) {
+      setSubmitted(true);
+      return;
+    }
+
+    // 2. Client-side rate limiting check
+    const rateCheck = checkRateLimit("feedback_form", {
+      minIntervalMs: 15000,
+      maxPerWindow: 4,
+      windowMs: 5 * 60 * 1000,
+    });
+    if (!rateCheck.allowed) {
+      setError(rateCheck.message);
+      return;
+    }
+
+    // 3. Bot verification check (reCAPTCHA)
+    if (!captchaToken) {
+      setError("Please complete the spam protection verification.");
+      return;
+    }
+
     setLoading(true);
-    setError("");
 
     try {
       await saveFeedback({
@@ -46,8 +75,13 @@ const FeedbackForm = ({ onFeedbackSubmitted }) => {
         message: formData.message.trim(),
         created_at: new Date().toISOString(),
       });
+
+      recordAttempt("feedback_form");
       setSubmitted(true);
       setFormData({ name: "", rating: 5, message: "" });
+      setCaptchaToken(null);
+      recaptchaRef.current?.reset();
+
       if (onFeedbackSubmitted) {
         onFeedbackSubmitted();
       }
@@ -161,6 +195,27 @@ const FeedbackForm = ({ onFeedbackSubmitted }) => {
             required
           />
         </div>
+      </div>
+
+      {/* Honeypot field for bot trapping (invisible to humans) */}
+      <input
+        type="text"
+        name="user_homepage_hp"
+        value={honeypot}
+        onChange={(e) => setHoneypot(e.target.value)}
+        tabIndex="-1"
+        autoComplete="off"
+        style={{ display: "none", opacity: 0, position: "absolute", left: "-9999px" }}
+        aria-hidden="true"
+      />
+
+      {/* Bot Protection / reCAPTCHA */}
+      <div>
+        <ReCaptcha
+          ref={recaptchaRef}
+          onVerify={(token) => setCaptchaToken(token)}
+          onExpire={() => setCaptchaToken(null)}
+        />
       </div>
 
       {error && (

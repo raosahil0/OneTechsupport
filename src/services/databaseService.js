@@ -494,7 +494,7 @@ export const updateTicketStatus = async (ticketId, status) => {
 export const getAllAccounts = async () => {
   // Helper: strip sensitive fields before returning user data
   const sanitizeUsers = (users) =>
-    users.map(({ password, ...safeFields }) => safeFields);
+    users.map(({ password, passwordHash, salt, ...safeFields }) => safeFields);
 
   if (!isSupabaseEnabled) {
     try {

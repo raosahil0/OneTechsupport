@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Phone, Mail, MapPin, Share2, Send, CheckCircle2, AlertCircle, Clock, AlertTriangle, MessageSquare } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { saveContact } from "../services/databaseService";
 import emailjs from "@emailjs/browser";
 import SEO from "../components/SEO";
 import { pageSeo } from "../seo/pageSeo";
+import ReCaptcha from "../components/ReCaptcha";
+import { checkRateLimit, recordAttempt, isBotSubmission } from "../utils/rateLimiter";
 
 const BUSINESS_HOURS = [
   { days: "Monday - Friday", hours: "9:00 AM - 6:00 PM" },
@@ -21,6 +23,9 @@ const Contact = () => {
     inquiryType: "",
     message: "",
   });
+  const [honeypot, setHoneypot] = useState("");
+  const [captchaToken, setCaptchaToken] = useState(null);
+  const recaptchaRef = useRef(null);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -31,17 +36,41 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setError("");
 
+    // 1. Honeypot check for bots
+    if (isBotSubmission(honeypot)) {
+      setSubmitted(true);
+      return;
+    }
+
+    // 2. Client-side rate limiting check
+    const rateCheck = checkRateLimit("contact_form", {
+      minIntervalMs: 15000,
+      maxPerWindow: 4,
+      windowMs: 5 * 60 * 1000,
+    });
+    if (!rateCheck.allowed) {
+      setError(rateCheck.message);
+      return;
+    }
+
+    // 3. Bot verification check (reCAPTCHA)
+    if (!captchaToken) {
+      setError("Please complete the spam protection verification.");
+      return;
+    }
+
+    setLoading(true);
+
     try {
-      // 1. Save to Database
+      // 4. Save to Database
       await saveContact({
         ...formData,
         created_at: new Date().toISOString(),
       });
 
-      // 2. Send Auto-Reply Email via EmailJS (if credentials are set in .env)
+      // 5. Send Auto-Reply Email via EmailJS (if credentials are set in .env)
       const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
       const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
       const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
@@ -61,8 +90,13 @@ const Contact = () => {
         );
       }
 
+      // Record successful attempt for rate limiting
+      recordAttempt("contact_form");
+
       setSubmitted(true);
       setStep(1);
+      setCaptchaToken(null);
+      recaptchaRef.current?.reset();
       setFormData({
         name: "",
         email: "",
@@ -380,6 +414,27 @@ const Contact = () => {
                             />
                           </div>
                         </div>
+                      </div>
+
+                      {/* Honeypot field for bot trapping (invisible to humans) */}
+                      <input
+                        type="text"
+                        name="company_website_hp"
+                        value={honeypot}
+                        onChange={(e) => setHoneypot(e.target.value)}
+                        tabIndex="-1"
+                        autoComplete="off"
+                        style={{ display: "none", opacity: 0, position: "absolute", left: "-9999px" }}
+                        aria-hidden="true"
+                      />
+
+                      {/* Bot Protection / reCAPTCHA */}
+                      <div>
+                        <ReCaptcha
+                          ref={recaptchaRef}
+                          onVerify={(token) => setCaptchaToken(token)}
+                          onExpire={() => setCaptchaToken(null)}
+                        />
                       </div>
 
                       {error && (
