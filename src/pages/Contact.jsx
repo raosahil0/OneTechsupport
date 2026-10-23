@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Phone, Mail, MapPin, Share2, Send, CheckCircle2, AlertCircle, Clock, AlertTriangle, MessageSquare } from "lucide-react";
+import { Phone, Mail, MapPin, Share2, Send, CheckCircle2, AlertCircle, Clock, AlertTriangle, MessageSquare, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { saveContact } from "../services/databaseService";
 import emailjs from "@emailjs/browser";
@@ -113,24 +113,29 @@ const Contact = () => {
   };
 
   return (
-    <div className="bg-slate-50 min-h-screen pt-24 pb-28 font-sans">
+    <div className="bg-slate-50 min-h-screen pb-28 font-sans">
       <SEO 
         {...pageSeo.contact}
       />
       
-      <div className="max-w-6xl mx-auto px-6">
-        {/* Header Section */}
-        <div className="text-center mb-16 space-y-4">
-          <span className="text-brand-blue font-bold text-xs uppercase tracking-widest bg-blue-100/60 px-3.5 py-1.5 rounded-full">
-            Intake Center
+      {/* Executive Dark Hero Header */}
+      <section className="pt-32 pb-20 px-6 text-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(37,99,235,0.20),transparent_65%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
+        <div className="max-w-4xl mx-auto relative z-10 space-y-4">
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-blue-500/15 border border-blue-400/30 text-blue-300 uppercase tracking-widest shadow-sm">
+            <Sparkles className="w-3.5 h-3.5 text-blue-400" /> Intake Center &amp; Direct Dispatch
           </span>
-          <h1 className="text-5xl font-black bg-gradient-to-r from-brand-blue to-indigo-600 bg-clip-text text-transparent">
-            Guided Project Intake
+          <h1 className="text-4xl sm:text-6xl font-black text-white tracking-tight leading-[1.1]">
+            Guided <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-teal-300 bg-clip-text text-transparent drop-shadow-sm">Project Intake</span>
           </h1>
-          <p className="text-sm md:text-base text-slate-600 max-w-xl mx-auto leading-relaxed">
-            Fill out our guided wizard to specify engineering requirements, team scale, or support SLAs. Our architects will respond within 24 hours.
+          <p className="text-sm md:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto font-normal">
+            Specify your engineering requirements, team scale, or support SLAs. Our lead solution architects will respond within 24 hours.
           </p>
         </div>
+      </section>
+
+      <div className="max-w-6xl mx-auto px-6 -mt-6 relative z-20">
 
         {/* Emergency Outage Support Alert Banner */}
         <div className="mb-12 bg-amber-50 border border-amber-200/80 rounded-2xl p-5 flex items-start gap-4 shadow-sm">

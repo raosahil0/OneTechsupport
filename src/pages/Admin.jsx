@@ -289,16 +289,19 @@ const Admin = () => {
 
   if (!isAdmin) {
     return (
-      <div className="min-h-[80vh] flex items-center justify-center px-6 py-12 bg-slate-50">
+      <div className="min-h-screen flex flex-col justify-center items-center pt-28 pb-20 px-6 bg-slate-50 relative overflow-hidden">
         <SEO title="Admin Portal Authentication" noIndex={true} />
-        <div className="max-w-md w-full border rounded-3xl shadow-2xl p-8 text-center bg-white/90 border-gray-150 backdrop-blur-md">
-          <div className="inline-flex p-4 bg-gradient-to-tr from-brand-blue to-blue-600 text-white rounded-2xl shadow-md mb-6">
+        {/* Ambient background glow accent */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-blue/5 rounded-full blur-[120px] pointer-events-none" />
+
+        <div className="max-w-md w-full border rounded-3xl shadow-2xl p-8 sm:p-10 text-center bg-white border-slate-200/80 relative z-10 my-auto">
+          <div className="inline-flex p-4 bg-gradient-to-tr from-brand-blue to-blue-600 text-white rounded-2xl shadow-lg shadow-brand-blue/25 mb-5">
             <Lock className="w-8 h-8" />
           </div>
-          <h2 className="text-3xl font-black mb-2 tracking-tight text-gray-955">
+          <h2 className="text-3xl font-black mb-2 tracking-tight text-slate-900">
             Admin Portal
           </h2>
-          <p className="text-sm mb-6 text-gray-550">
+          <p className="text-xs sm:text-sm mb-6 text-slate-500">
             Sign in with your admin credentials to access the control center.
           </p>
 

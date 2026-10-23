@@ -154,24 +154,25 @@ const Services = () => {
       />
 
       {/* Hero Header Section */}
-      <section className="pt-28 pb-20 px-6 text-center bg-gradient-to-b from-brand-blue/5 to-slate-50 relative overflow-hidden">
-        <div className="absolute inset-0 bg-grid-slate-100 pointer-events-none"></div>
+      <section className="pt-32 pb-24 px-6 text-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(37,99,235,0.18),transparent_65%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
         <div className="max-w-4xl mx-auto relative z-10 space-y-4">
-          <span className="text-brand-blue font-bold text-xs uppercase tracking-widest bg-blue-100/60 px-3.5 py-1.5 rounded-full">
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-extrabold bg-blue-500/15 border border-blue-400/30 text-blue-300 uppercase tracking-widest shadow-sm">
             Technical Capabilities
           </span>
-          <h2 className="text-5xl md:text-6xl font-black bg-gradient-to-r from-brand-blue to-indigo-600 bg-clip-text text-transparent">
-            Managed IT & Solutions
-          </h2>
-          <p className="text-sm md:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto">
-            Providing enterprise-grade technical helpdesk infrastructure, software engineering, and strategic staffing pipelines designed for growth.
+          <h1 className="text-4xl sm:text-6xl font-black text-white tracking-tight leading-[1.1]">
+            Managed IT & <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-300 bg-clip-text text-transparent">Solutions</span>
+          </h1>
+          <p className="text-sm md:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto font-normal">
+            Providing enterprise-grade technical helpdesk infrastructure, software engineering, and strategic staffing pipelines designed for continuous scale.
           </p>
         </div>
       </section>
 
       {/* Interactive Category Filter Menu */}
-      <div className="max-w-6xl mx-auto px-6 mb-12 flex justify-center">
-        <div className="bg-white border border-gray-150 rounded-2xl p-2.5 shadow-sm flex flex-wrap gap-1.5 glass-panel">
+      <div className="max-w-6xl mx-auto px-6 -mt-8 relative z-20 mb-14 flex justify-center">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-2 shadow-xl flex flex-wrap gap-1.5">
           {SERVICE_CATEGORIES.map((cat) => (
             <button
               key={cat}
@@ -179,10 +180,10 @@ const Services = () => {
                 setActiveCategory(cat);
                 setActiveCard(null);
               }}
-              className={`px-6 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              className={`px-6 py-2.5 rounded-xl text-xs font-extrabold transition-all cursor-pointer ${
                 activeCategory === cat
-                  ? "bg-brand-blue text-white shadow-sm"
-                  : "text-slate-655 hover:text-slate-900 hover:bg-slate-50"
+                  ? "bg-brand-blue text-white shadow-md shadow-brand-blue/20"
+                  : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
               }`}
             >
               {cat === "All" ? "All Solutions" : `${cat} Solutions`}

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Search, Calendar, User, ArrowRight, BookOpen, Clock, Tag, X, ExternalLink, Share2 } from "lucide-react";
+import { Search, Calendar, User, ArrowRight, BookOpen, Clock, Tag, X, ExternalLink, Share2, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import SEO from "../components/SEO";
 import { BLOG_POSTS } from "../data/blogArticles";
@@ -38,27 +38,31 @@ const Blog = () => {
   };
 
   return (
-    <div className="bg-slate-50 min-h-screen pt-24 pb-28 font-sans">
+    <div className="bg-slate-50 min-h-screen pb-28 font-sans">
       <SEO 
         {...pageSeo.blog}
       />
 
-      <div className="max-w-6xl mx-auto px-6">
-        {/* Header Hero Section */}
-        <div className="text-center mb-16">
-          <span className="text-brand-blue font-bold text-xs uppercase tracking-widest bg-blue-100/60 px-3.5 py-1.5 rounded-full">
-            Knowledge Hub
+      {/* Executive Dark Hero Header */}
+      <section className="pt-32 pb-20 px-6 text-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(37,99,235,0.20),transparent_65%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
+        <div className="max-w-4xl mx-auto relative z-10 space-y-4">
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-blue-500/15 border border-blue-400/30 text-blue-300 uppercase tracking-widest shadow-sm">
+            <Sparkles className="w-3.5 h-3.5 text-blue-400" /> Knowledge &amp; Analysis
           </span>
-          <h1 className="text-5xl font-black mt-4 mb-4 bg-gradient-to-r from-brand-blue to-indigo-600 bg-clip-text text-transparent">
-            Latest Insights
+          <h1 className="text-4xl sm:text-6xl font-black text-white tracking-tight leading-[1.1]">
+            Engineering &amp; <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-teal-300 bg-clip-text text-transparent drop-shadow-sm">Tech Insights</span>
           </h1>
-          <p className="text-lg text-slate-600 max-w-xl mx-auto leading-relaxed">
+          <p className="text-sm md:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto font-normal">
             Case studies, technical analysis, and security updates compiled by the senior architects at SKONE Tech Support.
           </p>
         </div>
+      </section>
 
-        {/* Filters Controls Panel */}
-        <div className="bg-white border border-gray-150 rounded-3xl p-5 shadow-sm mb-12 flex flex-col md:flex-row items-center justify-between gap-5 glass-panel">
+      <div className="max-w-6xl mx-auto px-6">
+        {/* Floating Filters Controls Panel */}
+        <div className="bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-3xl p-5 shadow-xl -mt-8 relative z-20 mb-12 flex flex-col md:flex-row items-center justify-between gap-5">
           {/* Categories Tab Group */}
           <div className="flex flex-wrap gap-2">
             {CATEGORIES.map((cat) => (

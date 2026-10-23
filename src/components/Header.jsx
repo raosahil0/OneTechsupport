@@ -9,6 +9,11 @@ import logoDarkBgPng from "../assets/logo-dark-bg.png";
 // Routes that feature a dark slate-950 hero section
 const DARK_HERO_ROUTES = [
   "/",
+  "/services",
+  "/projects",
+  "/about",
+  "/blog",
+  "/contact",
   "/it-support",
   "/managed-it-services",
   "/network-support",

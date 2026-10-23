@@ -69,43 +69,48 @@ const Projects = () => {
   );
 
   return (
-    <div className="bg-slate-50 min-h-screen pt-24 pb-28 font-sans">
+    <div className="bg-slate-50 min-h-screen pb-28 font-sans">
       <SEO 
         {...pageSeo.projects}
       />
 
-      <div className="max-w-6xl mx-auto px-6">
-        {/* Header Section */}
-        <div className="text-center mb-16 space-y-4">
-          <span className="text-brand-blue font-bold text-xs uppercase tracking-widest bg-blue-100/60 px-3.5 py-1.5 rounded-full">
-            Our Work
+      {/* Executive Dark Hero Header */}
+      <section className="pt-32 pb-20 px-6 text-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(37,99,235,0.20),transparent_65%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
+        <div className="max-w-4xl mx-auto relative z-10 space-y-4">
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-blue-500/15 border border-blue-400/30 text-blue-300 uppercase tracking-widest shadow-sm">
+            <Sparkles className="w-3.5 h-3.5 text-blue-400" /> Proven Track Record
           </span>
-          <h1 className="text-5xl font-black bg-gradient-to-r from-brand-blue to-indigo-600 bg-clip-text text-transparent">
-            Case Studies
+          <h1 className="text-4xl sm:text-6xl font-black text-white tracking-tight leading-[1.1]">
+            Case Studies &amp; <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-teal-300 bg-clip-text text-transparent drop-shadow-sm">Delivered Systems</span>
           </h1>
-          <p className="text-sm md:text-base text-slate-600 max-w-xl mx-auto leading-relaxed">
-            A comprehensive look at migration tasks, network optimizations, and software engineering builds completed by SKONE Tech Support.
+          <p className="text-sm md:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto font-normal">
+            A comprehensive look at enterprise migrations, high-security network architectures, and dedicated IT staffing solutions deployed by SKONE Tech Support.
           </p>
         </div>
+      </section>
 
-        {/* Filter Navigation */}
-        <div className="mb-12 flex justify-center">
-          <div className="bg-white border border-gray-150 rounded-2xl p-2 shadow-sm flex flex-wrap gap-1.5 glass-panel">
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                  activeCategory === cat
-                    ? "bg-brand-blue text-white shadow-sm"
-                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+      {/* Floating Filter Navigation */}
+      <div className="max-w-6xl mx-auto px-6 -mt-7 relative z-20 mb-12 flex justify-center">
+        <div className="bg-white/95 backdrop-blur-md border border-slate-200/80 rounded-2xl p-1.5 shadow-xl flex flex-wrap gap-1.5">
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`px-5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                activeCategory === cat
+                  ? "bg-brand-blue text-white shadow-md shadow-blue-500/20"
+                  : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/80"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
         </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-6">
 
         {/* Case Studies Grid */}
         <motion.div 

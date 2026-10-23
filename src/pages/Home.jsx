@@ -138,11 +138,11 @@ const Home = () => {
             transition={{ duration: 0.8 }}
             className="space-y-6"
           >
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-brand-blue/10 border border-brand-blue/20 text-brand-blue uppercase tracking-widest">
-              <Award className="w-3.5 h-3.5 animate-pulse" /> Vetted Enterprise IT Consulting
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-extrabold bg-blue-500/15 border border-blue-400/30 text-blue-300 uppercase tracking-widest shadow-sm">
+              <Award className="w-3.5 h-3.5 text-blue-400 animate-pulse" /> Vetted Enterprise IT Consulting
             </span>
             <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight leading-[1.05] max-w-3xl mx-auto">
-              Secure Cloud. Secure Tech. <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-teal-350 bg-clip-text text-transparent">Continuous Scale.</span>
+              Secure Cloud. Secure Tech. <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-300 bg-clip-text text-transparent drop-shadow-sm">Continuous Scale.</span>
             </h1>
             <p className="text-sm md:text-base text-slate-300 font-bold uppercase tracking-wider">
               High-Velocity App Engineering | Cisco Infrastructure | Backup Developer Staffing
@@ -155,13 +155,13 @@ const Home = () => {
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-6 max-w-md mx-auto sm:max-w-none">
               <Link
                 to="/contact"
-                className="w-full sm:w-auto bg-brand-blue hover:bg-blue-700 text-white font-extrabold px-8 py-4 rounded-xl shadow-lg shadow-brand-blue/20 hover:shadow-brand-blue/40 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full sm:w-auto bg-brand-blue hover:bg-blue-600 text-white font-extrabold px-8 py-4 rounded-xl shadow-lg shadow-brand-blue/30 hover:shadow-brand-blue/50 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
               >
                 Book Free Assessment <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 to="/services"
-                className="w-full sm:w-auto border border-slate-800 bg-slate-900/30 hover:bg-slate-800/80 text-slate-200 hover:text-white hover:-translate-y-1 font-bold px-8 py-4 rounded-xl transition-all duration-300 flex items-center justify-center cursor-pointer"
+                className="w-full sm:w-auto border border-slate-700/80 bg-slate-900/80 hover:bg-slate-800 text-slate-100 hover:text-white hover:border-slate-500 hover:-translate-y-1 font-extrabold px-8 py-4 rounded-xl shadow-lg transition-all duration-300 flex items-center justify-center cursor-pointer"
               >
                 Explore IT Catalogue
               </Link>
