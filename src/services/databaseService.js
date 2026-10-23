@@ -334,6 +334,18 @@ export const getTicketsForClient = async (clientId) => {
 
 // ─── Authentication Helpers ───────────────────────────────────────────────────
 
+// Native Web Crypto password hashing for demo fallback (never store plaintext)
+const _hashPassword = async (password, salt) => {
+  if (typeof crypto !== "undefined" && crypto.subtle) {
+    const enc = new TextEncoder();
+    const data = enc.encode(`${salt}:${password}`);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+  }
+  return btoa(`${salt}:${password}`);
+};
+
 export const signUpClient = async (email, password) => {
   if (!isSupabaseEnabled) {
     try {
@@ -341,10 +353,13 @@ export const signUpClient = async (email, password) => {
       if (users.some((u) => u.email.toLowerCase() === email.toLowerCase())) {
         throw new Error("User already exists with this email.");
       }
+      const salt = typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2);
+      const passwordHash = await _hashPassword(password, salt);
       const newUser = {
         id: "usr_" + Math.random().toString(36).substring(2, 11) + Date.now().toString(36),
         email: email.toLowerCase(),
-        password, // Simple plaintext for demo fallback
+        passwordHash,
+        salt,
       };
       users.push(newUser);
       localStorage.setItem("demo_users", JSON.stringify(users));
@@ -365,11 +380,32 @@ export const signInClient = async (email, password) => {
     try {
       const users = JSON.parse(localStorage.getItem("demo_users") || "[]");
       const user = users.find(
-        (u) => u.email.toLowerCase() === email.toLowerCase() && u.password === password
+        (u) => u.email.toLowerCase() === email.toLowerCase()
       );
       if (!user) {
         throw new Error("Invalid email or password.");
       }
+
+      let passwordMatches = false;
+      if (user.passwordHash && user.salt) {
+        const computedHash = await _hashPassword(password, user.salt);
+        passwordMatches = computedHash === user.passwordHash;
+      } else if (user.password) {
+        // Migration: match legacy plaintext once, then upgrade immediately to hash
+        passwordMatches = user.password === password;
+        if (passwordMatches) {
+          const salt = typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2);
+          user.salt = salt;
+          user.passwordHash = await _hashPassword(password, salt);
+          delete user.password;
+          localStorage.setItem("demo_users", JSON.stringify(users));
+        }
+      }
+
+      if (!passwordMatches) {
+        throw new Error("Invalid email or password.");
+      }
+
       const session = { id: user.id, email: user.email };
       localStorage.setItem("demo_session", JSON.stringify(session));
       return { data: { user: session }, error: null };
