@@ -31,7 +31,7 @@ const About = () => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(37,99,235,0.18),transparent_65%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
         <div className="max-w-4xl mx-auto relative z-10 space-y-5">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-brand-blue/15 border border-brand-blue/30 text-blue-400 uppercase tracking-widest shadow-sm">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-black bg-white text-brand-blue border border-white shadow-lg shadow-white/10 uppercase tracking-widest">
             <Sparkles className="w-3.5 h-3.5 text-brand-blue" /> Corporate Identity & Leadership
           </span>
           <h1 className="text-4xl sm:text-6xl font-black text-white tracking-tight leading-[1.1]">

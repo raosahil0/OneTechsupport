@@ -63,7 +63,7 @@ export default function ServicePageTemplate({
           </div>
 
           <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-brand-blue/10 border border-brand-blue/30 text-blue-400 uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-black bg-white text-brand-blue border border-white shadow-lg shadow-white/10 uppercase tracking-widest">
               <Icon className="w-4 h-4 text-brand-blue" />
               <span>Enterprise IT Services</span>
             </div>

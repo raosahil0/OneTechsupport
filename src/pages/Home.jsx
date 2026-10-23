@@ -138,8 +138,8 @@ const Home = () => {
             transition={{ duration: 0.8 }}
             className="space-y-6"
           >
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-extrabold bg-blue-500/15 border border-blue-400/30 text-blue-300 uppercase tracking-widest shadow-sm">
-              <Award className="w-3.5 h-3.5 text-blue-400 animate-pulse" /> Vetted Enterprise IT Consulting
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-black bg-white text-brand-blue border border-white shadow-lg shadow-white/10 uppercase tracking-widest">
+              <Award className="w-3.5 h-3.5 text-brand-blue" /> Vetted Enterprise IT Consulting
             </span>
             <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight leading-[1.05] max-w-3xl mx-auto">
               Secure Cloud. Secure Tech. <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-300 bg-clip-text text-transparent drop-shadow-sm">Continuous Scale.</span>
