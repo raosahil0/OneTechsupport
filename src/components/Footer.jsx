@@ -1,22 +1,44 @@
-import { Mail, Phone, MapPin, Share2, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Share2, Send, ShieldCheck } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import logoDarkWebp from "../assets/logo-dark-bg.webp";
 import logoDarkPng from "../assets/logo-dark-bg.png";
+import { checkRateLimit, recordAttempt, isBotSubmission } from "../utils/rateLimiter";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
+  const [honeypot, setHoneypot] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [newsletterMessage, setNewsletterMessage] = useState("");
 
   const handleNewsletterSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
     setNewsletterMessage("");
+
+    // 1. Honeypot check for bots
+    if (isBotSubmission(honeypot)) {
+      setNewsletterMessage("Subscribed successfully! Thank you.");
+      setEmail("");
+      return;
+    }
+
+    // 2. Client-side rate limiting check
+    const rateCheck = checkRateLimit("newsletter_form", {
+      minIntervalMs: 20000,
+      maxPerWindow: 3,
+      windowMs: 5 * 60 * 1000,
+    });
+    if (!rateCheck.allowed) {
+      setNewsletterMessage(rateCheck.message);
+      return;
+    }
+
+    setIsSubmitting(true);
 
     try {
       const { saveLead } = await import("../services/databaseService");
-      await saveLead({ email, source: "newsletter" });
+      await saveLead({ email: email.trim().toLowerCase(), source: "newsletter" });
+      recordAttempt("newsletter_form");
       setNewsletterMessage("Subscribed successfully! Thank you.");
       setEmail("");
     } catch (error) {
@@ -142,29 +164,46 @@ const Footer = () => {
           
           <form 
             onSubmit={handleNewsletterSubmit}
-            className="w-full md:max-w-sm flex items-center gap-2"
+            className="w-full md:max-w-sm flex flex-col gap-2"
           >
-            <label htmlFor="newsletter-email" className="sr-only">
-              Email address for newsletter
-            </label>
-            <input 
-              id="newsletter-email"
-              name="email"
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="name@company.com"
-              aria-label="Email address for newsletter"
-              className="flex-1 px-4 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-brand-blue"
+            {/* Honeypot field for bot trapping */}
+            <input
+              type="text"
+              name="user_subscribe_hp"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+              tabIndex="-1"
+              autoComplete="off"
+              style={{ display: "none", opacity: 0, position: "absolute", left: "-9999px" }}
+              aria-hidden="true"
             />
-            <button 
-              type="submit"
-              disabled={isSubmitting}
-              className="px-5 py-2.5 bg-brand-blue hover:bg-blue-700 text-white font-extrabold rounded-xl text-xs transition-colors cursor-pointer disabled:opacity-50"
-            >
-              {isSubmitting ? "Syncing..." : "Subscribe"}
-            </button>
+            <div className="flex items-center gap-2">
+              <label htmlFor="newsletter-email" className="sr-only">
+                Email address for newsletter
+              </label>
+              <input 
+                id="newsletter-email"
+                name="email"
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="name@company.com"
+                aria-label="Email address for newsletter"
+                className="flex-1 px-4 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-brand-blue"
+              />
+              <button 
+                type="submit"
+                disabled={isSubmitting}
+                className="px-5 py-2.5 bg-brand-blue hover:bg-blue-700 text-white font-extrabold rounded-xl text-xs transition-colors cursor-pointer disabled:opacity-50"
+              >
+                {isSubmitting ? "Syncing..." : "Subscribe"}
+              </button>
+            </div>
+            <div className="flex items-center gap-1.5 text-[10px] text-slate-500">
+              <ShieldCheck className="w-3 h-3 text-brand-blue" />
+              <span>Protected by anti-spam rate limiting</span>
+            </div>
           </form>
         </div>
         
