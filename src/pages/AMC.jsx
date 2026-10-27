@@ -77,7 +77,7 @@ export default function AMC() {
         },
         {
           q: "What regions do your on-site AMC engineers cover?",
-          a: "Our field service network covers all major commercial hubs including Delhi NCR, Gurugram, Noida, Greater Noida, Ghaziabad, Faridabad, Jaipur, and Neemrana."
+          a: "Our field service network covers all major commercial and industrial hubs including Gurugram, Delhi, Noida, Jaipur, Bhiwadi, Dharuhera, Rewari, Chandigarh, Neemrana, Behror, and Delhi NCR."
         }
       ]}
       relatedServices={[

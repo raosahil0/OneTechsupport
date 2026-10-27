@@ -77,7 +77,7 @@ export default function PrinterSupport() {
         },
         {
           q: "Do you offer on-site replacement of rollers and fusers?",
-          a: "Yes. Our field engineers service mechanical components on-site across Delhi NCR, Gurugram, Jaipur, and Noida."
+          a: "Yes. Our field engineers service mechanical components on-site across Gurugram, Delhi, Noida, Jaipur, Bhiwadi, Dharuhera, Rewari, Chandigarh, Neemrana, Behror, and Delhi NCR."
         }
       ]}
       relatedServices={[

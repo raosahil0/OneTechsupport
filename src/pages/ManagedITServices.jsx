@@ -18,8 +18,8 @@ export default function ManagedITServices() {
           desc: "Live synthetic transactions, CPU/RAM utilization monitoring, disk health alerts, and instant automated failover triggers across cloud and bare-metal environments."
         },
         {
-          title: "Automated Backup & Disaster Recovery (BDR)",
-          desc: "Encrypted, immutable off-site backups with automated sandbox restoration tests. RTO under 1 hour and RPO under 15 minutes."
+          title: "IT Backup Support & Disaster Recovery (Backupsupport)",
+          desc: "Full-spectrum enterprise IT backup support (backupsupport) with encrypted, immutable off-site cloud backups, automated file verification, and rapid disaster recovery. RTO under 1 hour and RPO under 15 minutes."
         },
         {
           title: "Patch Management & Vulnerability Mitigation",

@@ -8,9 +8,9 @@ export default function ITSupport() {
       seo={pageSeo.itSupport}
       serviceName="IT Support Services"
       icon={Monitor}
-      h1Title="Professional IT Support & On-Site Technical Troubleshooting"
-      h1Subtitle="Reliable, SLA-backed technical support for corporate workstations, software ecosystems, employee devices, and corporate IT operations across Delhi NCR, Gurugram, Jaipur, and Noida."
-      overviewText="S'K ONE Tech Support provides dedicated business IT support designed to eliminate costly employee downtime. Whether your workforce operates on-premise, remote, or across hybrid environments, our certified engineers troubleshoot desktop OS bottlenecks, configure business email servers, manage Active Directory permissions, and resolve network dropouts with an average emergency response time under 30 minutes."
+      h1Title="Business IT Support & 24/7 Remote Support Services"
+      h1Subtitle="Reliable, SLA-backed business IT support, remote support, workstation diagnostics, IT backup support, and enterprise IT infrastructure operations across Gurugram, Delhi, Noida, Jaipur, Bhiwadi, Dharuhera, Rewari, Chandigarh, Neemrana, and Behror."
+      overviewText="S'K ONE Tech Support provides dedicated business IT support and 24/7 remote support designed to eliminate costly employee downtime. Whether your workforce operates on-premise or remotely, our certified engineers troubleshoot desktop OS bottlenecks, configure business email servers, provide enterprise IT backup support (backupsupport), and resolve network dropouts with an average emergency response time under 30 minutes across Gurugram, Delhi, Noida, Jaipur, Bhiwadi, Dharuhera, Rewari, Neemrana, and Behror."
       featuresTitle="Comprehensive Business IT Support Deliverables"
       features={[
         {
@@ -18,31 +18,31 @@ export default function ITSupport() {
           desc: "Complete hardware diagnostics, operating system patching (Windows 11/10 & macOS), disk defragmentation, driver updates, and thermal paste servicing."
         },
         {
+          title: "Instant 24/7 Remote Support Helpdesk",
+          desc: "Instant remote support diagnostics via secure encrypted sessions. Fast resolution of system crashes, user permissions, and network access issues."
+        },
+        {
+          title: "Enterprise IT Backup Support (Backupsupport)",
+          desc: "Automated daily workstation and server backup solutions, immutable cloud snapshot replication, and rapid disaster recovery to prevent business data loss."
+        },
+        {
           title: "Business Software & OS Troubleshooting",
           desc: "Resolving software crashes, ERP/CRM client connectivity, Microsoft Office 365 migrations, Google Workspace provisioning, and license compliance."
         },
         {
-          title: "24/7 SLA Remote Helpdesk",
-          desc: "Instant remote access diagnostics via secure encrypted sessions. Tickets are tracked, assigned, and resolved with root-cause reports."
-        },
-        {
           title: "On-Site Emergency Dispatch",
-          desc: "Rapid field engineer deployment across Delhi NCR, Gurugram, Noida, and Jaipur for physical hardware failures and motherboard/RAM replacements."
+          desc: "Rapid field engineer deployment across Gurugram, Delhi, Noida, Jaipur, Bhiwadi, Dharuhera, Rewari, Chandigarh, Neemrana, and Behror for physical hardware failures."
         },
         {
           title: "Endpoint Security & Anti-Malware",
           desc: "Deployment of business-grade endpoint detection and response (EDR), removal of spyware, ransomware shielding, and USB port restrictions."
-        },
-        {
-          title: "Hardware Lifecycle & Vendor Liaison",
-          desc: "Managing OEM warranties (Dell, HP, Lenovo), processing RMA replacements, and executing scheduled workstation procurement for team expansions."
         }
       ]}
       specifications={[
         { label: "Supported OS", value: "Windows 11/10, macOS, Ubuntu Linux" },
         { label: "SLA Response", value: "< 30 Minutes for P1 Critical Outages" },
-        { label: "Coverage", value: "Delhi NCR, Gurugram, Jaipur, Noida" },
-        { label: "Support Types", value: "Remote Helpdesk & On-Premise Dispatch" }
+        { label: "Coverage", value: "Gurugram, Delhi, Noida, Jaipur, Bhiwadi, Dharuhera, Rewari, Neemrana, Behror" },
+        { label: "Support Types", value: "Remote Support & On-Premise Dispatch" }
       ]}
       processSteps={[
         {
@@ -69,7 +69,7 @@ export default function ITSupport() {
         },
         {
           q: "Do you offer on-site physical support or only remote helpdesk?",
-          a: "We provide both. Routine software glitches are resolved instantly via remote secure access, while hardware failures, network cabling, and server issues receive on-site dispatch across Delhi NCR, Gurugram, Noida, and Jaipur."
+          a: "We provide both. Routine software glitches are resolved instantly via remote secure access, while hardware failures, network cabling, and server issues receive on-site dispatch across Gurugram, Delhi, Noida, Jaipur, Bhiwadi, Dharuhera, Rewari, Chandigarh, Neemrana, Behror, and Delhi NCR."
         },
         {
           q: "Can you support hybrid and work-from-home (WFH) employees?",

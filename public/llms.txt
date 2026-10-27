@@ -2,11 +2,14 @@
 
 > Enterprise Managed IT Services, Cloud Infrastructure Migration, Custom Software Engineering & 24/7 SLA-Backed Tech Helpdesk.
 
-SK ONE Tech Support (SKONE) delivers SLA-backed enterprise IT infrastructure management, zero-trust cybersecurity, custom full-stack software development, and dedicated developer staffing across India (Delhi NCR, Gurugram, Jaipur, Noida) and international enterprises.
+SK ONE Tech Support (SKONE) delivers SLA-backed enterprise IT infrastructure management, zero-trust cybersecurity, custom full-stack software development, and dedicated developer staffing across India (Gurugram, Delhi NCR, Noida, Jaipur, Bhiwadi, Dharuhera, Rewari, Chandigarh, Neemrana, Behror) and international enterprises.
 
 ## Core Capabilities
 
-- [Managed IT Support](https://skonetechsupport.com/services): Enterprise Cisco network setups, firewall routing, workstation provisioning, server database maintenance, and 24/7 helpdesk support.
+- [IT Support & Tech Support](https://skonetechsupport.com/it-support): Enterprise business IT support and tech support, corporate hardware diagnostics, workstation maintenance, and 30-minute critical response.
+- [Remote Support & Helpdesk](https://skonetechsupport.com/tech-support): Instant 24/7 remote technical support, encrypted screen share troubleshooting, business email recovery, and software glitch fixes.
+- [IT Backup Support & Disaster Recovery](https://skonetechsupport.com/managed-it-services): Full-spectrum IT backup support (backupsupport), 3-2-1 automated cloud and local backups, immutable snapshot replication, and rapid RTO/RPO disaster recovery.
+- [Managed IT Support](https://skonetechsupport.com/managed-it-services): Enterprise Cisco network setups, firewall routing, workstation provisioning, server database maintenance, and 24/7 helpdesk support.
 - [Cloud Infrastructure & Migration](https://skonetechsupport.com/services): End-to-end cloud migrations across AWS, Microsoft Azure, and Google Cloud (GCP) with Kubernetes container orchestration.
 - [Custom Software Development](https://skonetechsupport.com/services): Bespoke React, Node.js, and Python web applications, CRM/ERP platforms, mobile apps, and database engineering.
 - [Dedicated Developer Staffing](https://skonetechsupport.com/services): Pre-vetted contract software engineers and sysadmins with rapid 15-day scaling.

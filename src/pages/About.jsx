@@ -170,8 +170,8 @@ const About = () => {
           <p className="text-slate-600 mb-10 max-w-xl mx-auto text-xs md:text-sm">
             We operate helpdesk clusters and support squads across multiple corporate regions to provide immediate on-site coverage.
           </p>
-          <div className="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto">
-            {["Jaipur", "Gurugram", "Delhi", "Noida", "Chandigarh", "Neemrana"].map((city) => (
+          <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+            {["Gurugram", "Delhi", "Noida", "Jaipur", "Bhiwadi", "Dharuhera", "Rewari", "Chandigarh", "Neemrana", "Behror"].map((city) => (
               <span
                 key={city}
                 className="bg-white border border-slate-200 text-slate-700 hover:border-brand-blue px-6 py-3 rounded-full font-bold shadow-sm hover:shadow transition-all duration-200 cursor-default flex items-center gap-2 text-xs"

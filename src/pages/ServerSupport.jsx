@@ -8,8 +8,8 @@ export default function ServerSupport() {
       seo={pageSeo.server}
       serviceName="Server Support Services"
       icon={Server}
-      h1Title="Enterprise Server Support, Maintenance & Cloud Migration Services"
-      h1Subtitle="Dedicated administration for Windows Server, RedHat/Ubuntu Linux, Active Directory, virtualization clusters, database performance tuning, and automated disaster recovery."
+      h1Title="Enterprise Server Support, Maintenance & IT Backup Support Services"
+      h1Subtitle="Dedicated administration for Windows Server, RedHat/Ubuntu Linux, Active Directory, virtualization clusters, enterprise IT backup support (backupsupport), and automated disaster recovery."
       overviewText="Corporate servers are the backbone of your business operations, housing essential databases, ERP platforms, and authentication directories. S'K ONE server engineers deliver rigorous server provisioning, storage array RAID management, patch compliance, and database clustering. We maintain both on-premise hardware (Dell PowerEdge, HPE ProLiant) and cloud compute instances across AWS EC2, Azure VMs, and GCP Compute Engine."
       featuresTitle="Server Engineering & Management Capabilities"
       features={[

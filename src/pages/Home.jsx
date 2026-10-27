@@ -40,6 +40,10 @@ const FAQ_ITEMS = [
   {
     q: "Do you offer emergency 24/7 technical troubleshooting support?",
     a: "Yes, our managed SLA agreements feature dedicated escalation support engineers who maintain response metrics under 30 minutes for critical server incidents."
+  },
+  {
+    q: "Do you provide remote support and enterprise IT backup support?",
+    a: "Yes! S'K ONE Tech Support provides instant 24/7 remote support for rapid issue resolution alongside comprehensive IT backup support (backupsupport). Our automated 3-2-1 backup solutions protect your servers, databases, and workstations with encrypted off-site replication and verified disaster recovery."
   }
 ];
 
@@ -145,10 +149,10 @@ const Home = () => {
               Secure Cloud. Secure Tech. <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-300 bg-clip-text text-transparent drop-shadow-sm">Continuous Scale.</span>
             </h1>
             <p className="text-sm md:text-base text-slate-300 font-bold uppercase tracking-wider">
-              High-Velocity App Engineering | Cisco Infrastructure | Backup Developer Staffing
+              24/7 IT Support | Remote Support Helpdesk | Enterprise IT Backup Support
             </p>
             <p className="text-slate-400 max-w-2xl mx-auto leading-relaxed text-xs md:text-base">
-              SK ONE Tech Support (SKONE) builds, secures, and maintains modern software apps and server infrastructure. From cloud migration pipelines to dedicated tech helpdesks, our engineering SLAs are structured to ensure business velocity.
+              SK ONE Tech Support (SKONE) delivers SLA-backed business IT support, 24/7 on-demand tech support, remote support, and resilient IT backup support (backupsupport). From cloud migration to dedicated helpdesks, our certified engineers eliminate downtime and secure your enterprise.
             </p>
             
             {/* Dual CTAs */}

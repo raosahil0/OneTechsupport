@@ -23,6 +23,21 @@ export function getOrganizationSchema() {
       name: area
     })),
     sameAs: siteConfig.social,
+    knowsAbout: [
+      "IT Support",
+      "Tech Support",
+      "Remote Support",
+      "Remote IT Support",
+      "IT Backup Support",
+      "Backup Support",
+      "Backupsupport",
+      "Data Backup and Disaster Recovery",
+      "Managed IT Services",
+      "Network Engineering",
+      "Computer Repair",
+      "Cybersecurity",
+      "Custom Software Development"
+    ],
     contactPoint: [
       {
         "@type": "ContactPoint",

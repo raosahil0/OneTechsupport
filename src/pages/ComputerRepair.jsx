@@ -73,7 +73,7 @@ export default function ComputerRepair() {
         },
         {
           q: "Do you repair commercial business laptops on-site?",
-          a: "Yes. For corporate clients in Delhi NCR, Gurugram, Jaipur, and Noida, our certified engineers perform on-site diagnosis and repair at your office to minimize logistics downtime."
+          a: "Yes. For corporate clients in Gurugram, Delhi, Noida, Jaipur, Bhiwadi, Dharuhera, Rewari, Chandigarh, Neemrana, Behror, and Delhi NCR, our certified engineers perform on-site diagnosis and repair at your office to minimize logistics downtime."
         },
         {
           q: "What warranty do you provide on replacement hardware parts?",

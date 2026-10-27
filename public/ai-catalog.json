@@ -14,24 +14,40 @@
       "description": "Enterprise Managed IT Services, Cloud Infrastructure Migration, Zero-Trust Cybersecurity & 24/7 SLA-Backed Tech Helpdesk.",
       "tags": [
         "it-support",
+        "tech-support",
+        "remote-support",
+        "it-backup-support",
+        "backupsupport",
+        "backup-support",
         "cloud-migration",
         "cybersecurity",
         "staffing"
       ],
       "capabilities": [
+        "ITSupport",
+        "TechSupport",
+        "RemoteSupport",
+        "ITBackupSupport",
+        "BackupSupport",
         "NetworkArchitecture",
         "CloudMigration",
         "CustomSoftwareEngineering",
         "DedicatedStaffing"
       ],
       "representativeQueries": [
+        "it support near me",
+        "tech support 24/7",
+        "remote support for business",
+        "it backup support",
+        "backupsupport disaster recovery",
+        "remote it support helpdesk",
         "hire managed IT support team India",
         "enterprise cloud migration AWS Azure GCP",
         "contract software developers staffing",
         "Cisco firewall zero trust cybersecurity"
       ],
-      "version": "1.0.0",
-      "updatedAt": "2026-09-22T00:00:00Z"
+      "version": "1.1.0",
+      "updatedAt": "2026-10-27T00:00:00Z"
     }
   ]
 }

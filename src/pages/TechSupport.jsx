@@ -8,18 +8,22 @@ export default function TechSupport() {
       seo={pageSeo.techSupport}
       serviceName="Tech Support"
       icon={Headphones}
-      h1Title="24/7 Tech Support Services | On-Demand Remote & On-Site Helpdesk"
-      h1Subtitle="Rapid technical troubleshooting, operating system error fixes, software installations, malware removal, and SLA-backed corporate helpdesk support."
-      overviewText="When computers freeze, emails fail to sync, or critical software crashes, every minute of delay impacts employee performance and client deliverables. S'K ONE Tech Support delivers immediate, on-demand technical assistance for businesses and enterprises. With certified support engineers accessible via direct phone, WhatsApp dispatch, or our encrypted ticket portal, we guarantee rapid triage and root-cause resolution."
-      featuresTitle="On-Demand Tech Support Deliverables"
+      h1Title="24/7 Tech Support & Remote Support Services | On-Demand Helpdesk"
+      h1Subtitle="Rapid tech support troubleshooting, 24/7 remote support diagnostics, IT backup support, operating system error fixes, and SLA-backed corporate helpdesk assistance."
+      overviewText="When computers freeze, emails fail to sync, or critical software crashes, every minute of delay impacts employee performance and client deliverables. S'K ONE Tech Support delivers immediate, on-demand tech support, 24/7 remote support, and robust IT backup support (backupsupport) for businesses and enterprises. With certified support engineers accessible via direct phone, WhatsApp dispatch, or our encrypted ticket portal, we guarantee rapid triage and root-cause resolution."
+      featuresTitle="On-Demand Tech Support & Remote Support Deliverables"
       features={[
         {
           title: "Instant Remote Technical Assistance",
           desc: "Secure encrypted remote screen-share sessions to diagnose software conflicts, configuration errors, and slow computer performance in minutes."
         },
         {
+          title: "IT Backup Support & Data Recovery (Backupsupport)",
+          desc: "Fast restoration of accidentally deleted or corrupted files, automated cloud backup synchronization, and disaster recovery safeguard for vital documents."
+        },
+        {
           title: "Emergency On-Site Engineer Dispatch",
-          desc: "Fast field deployment across Delhi NCR, Gurugram, Jaipur, and Noida for physical workstation breakdowns, cabling failures, and hardware swaps."
+          desc: "Fast field deployment across Gurugram, Delhi, Noida, Jaipur, Bhiwadi, Dharuhera, Rewari, Chandigarh, Neemrana, and Behror for physical workstation breakdowns, cabling failures, and hardware swaps."
         },
         {
           title: "Business Email & Account Recovery",
@@ -32,16 +36,12 @@ export default function TechSupport() {
         {
           title: "Malware & Virus Disinfection",
           desc: "Deep-cleaning spyware, unwanted adware popups, Trojan infections, and restoring corrupted system files to pristine factory health."
-        },
-        {
-          title: "Hardware Peripheral Diagnostics",
-          desc: "Configuring external monitors, docking stations, webcams, barcode scanners, and VoIP desk phones for error-free workplace communication."
         }
       ]}
       specifications={[
         { label: "Dispatch SLA", value: "< 30 Minutes for Priority 1 Emergencies" },
         { label: "Availability", value: "24/7/365 Tier 1 to Tier 3 Engineers" },
-        { label: "Support Channels", value: "Phone, WhatsApp, Web Portal, On-Site" },
+        { label: "Support Channels", value: "Remote Support, Phone, WhatsApp, On-Site" },
         { label: "Operating Systems", value: "Windows 11/10, macOS, Linux, Android, iOS" }
       ]}
       processSteps={[
@@ -65,7 +65,7 @@ export default function TechSupport() {
       faqs={[
         {
           q: "How quickly can an engineer help when our system is down?",
-          a: "For remote technical assistance, our engineers connect within 10 to 15 minutes. For on-site hardware emergencies across Delhi NCR, Gurugram, Noida, and Jaipur, dispatches arrive in under 1 to 2 hours."
+          a: "For remote technical assistance, our engineers connect within 10 to 15 minutes. For on-site hardware emergencies across Gurugram, Delhi, Noida, Jaipur, Bhiwadi, Dharuhera, Rewari, Chandigarh, Neemrana, Behror, and Delhi NCR, dispatches arrive in under 1 to 2 hours."
         },
         {
           q: "Is remote support safe and secure for our company data?",
