@@ -562,10 +562,10 @@ const Admin = () => {
 
   // ─── AUTHENTICATED DASHBOARD (REAL-TIME LIVE LIGHT THEME) ───────────────────
   return (
-    <div className="min-h-screen pt-28 pb-20 px-4 sm:px-6 lg:px-8 bg-slate-50 text-slate-900 font-sans selection:bg-brand-blue selection:text-white">
+    <div className="min-h-screen pt-24 sm:pt-28 pb-16 sm:pb-20 px-3 sm:px-6 lg:px-8 xl:px-12 bg-slate-50 text-slate-900 font-sans selection:bg-brand-blue selection:text-white">
       <SEO title="Live Real-Time Dashboard | S'K One Tech Support Admin" noIndex={true} />
 
-      <div className="max-w-7xl mx-auto space-y-8">
+      <div className="w-full max-w-[98%] 2xl:max-w-[1750px] mx-auto space-y-6 sm:space-y-8">
 
         {/* 🌟 EXECUTIVE TOP COMMAND BANNER (REAL-TIME CONNECTED) */}
         <div className="relative rounded-3xl p-6 sm:p-8 bg-white border border-slate-200 shadow-sm overflow-hidden">
@@ -617,56 +617,56 @@ const Admin = () => {
             </div>
 
             {/* Quick Action Toolbar */}
-            <div className="flex flex-wrap items-center gap-2.5">
+            <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2 sm:gap-2.5 w-full lg:w-auto">
               {/* Connect Supabase Cloud Button */}
               <button
                 onClick={() => setSupabaseModalOpen(true)}
-                className="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 rounded-xl text-xs font-bold transition-all shadow-sm active:scale-95 cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 rounded-xl text-xs font-bold transition-all shadow-sm active:scale-95 cursor-pointer text-center"
                 title="Connect or configure live Supabase database"
               >
-                <Database className="w-4 h-4 text-blue-600" />
-                {isSupabaseEnabled ? "Database Config" : "Connect Cloud DB"}
+                <Database className="w-4 h-4 text-blue-600 flex-shrink-0" />
+                <span className="truncate">{isSupabaseEnabled ? "DB Config" : "Connect DB"}</span>
               </button>
 
               {/* Refresh Button */}
               <button
                 onClick={() => loadDashboardData(false)}
                 disabled={loading}
-                className="inline-flex items-center gap-2 px-4 py-2.5 border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-bold transition-all shadow-sm active:scale-95 disabled:opacity-50 cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-bold transition-all shadow-sm active:scale-95 disabled:opacity-50 cursor-pointer text-center"
                 title="Force refresh database records"
               >
-                <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-brand-blue" : "text-slate-500"}`} />
-                Sync Now
+                <RefreshCw className={`w-3.5 h-3.5 flex-shrink-0 ${loading ? "animate-spin text-brand-blue" : "text-slate-500"}`} />
+                <span>Sync Now</span>
               </button>
 
               {/* Export CSV Button */}
               <button
                 onClick={handleExportCSV}
-                className="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-blue hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-all shadow-sm hover:shadow-md active:scale-95 cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 bg-brand-blue hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-all shadow-sm hover:shadow-md active:scale-95 cursor-pointer text-center"
                 title="Export currently selected tab data to CSV"
               >
-                <Download className="w-3.5 h-3.5" />
-                Export CSV
+                <Download className="w-3.5 h-3.5 flex-shrink-0" />
+                <span>Export CSV</span>
               </button>
 
               {/* Sign Out Button */}
               <button
                 onClick={signOut}
-                className="inline-flex items-center gap-2 px-4 py-2.5 border border-red-200 bg-red-50 hover:bg-red-100 text-red-600 rounded-xl text-xs font-bold transition-all shadow-sm active:scale-95 cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 border border-red-200 bg-red-50 hover:bg-red-100 text-red-600 rounded-xl text-xs font-bold transition-all shadow-sm active:scale-95 cursor-pointer text-center"
                 title="Sign out of Admin Portal"
               >
-                <LogOut className="w-3.5 h-3.5" />
-                Sign Out
+                <LogOut className="w-3.5 h-3.5 flex-shrink-0" />
+                <span>Sign Out</span>
               </button>
             </div>
           </div>
         </div>
 
         {/* 📊 5-COLUMN CLEAN EXECUTIVE METRICS TILES */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
 
           {/* Card 1: Inquiries */}
-          <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-slate-300 transition-all">
+          <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-slate-300 transition-all">
             <div className="flex items-center justify-between mb-3">
               <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600 border border-blue-100">
                 <Inbox className="w-5 h-5" />
@@ -744,7 +744,7 @@ const Admin = () => {
           </div>
 
           {/* Card 5: Registered Accounts */}
-          <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-slate-300 transition-all">
+          <div className="col-span-2 sm:col-span-2 md:col-span-1 lg:col-span-1 p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-slate-300 transition-all">
             <div className="flex items-center justify-between mb-3">
               <div className="p-2.5 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100">
                 <ShieldCheck className="w-5 h-5" />
@@ -849,12 +849,12 @@ const Admin = () => {
         </div>
 
         {/* 🗂️ TAB NAVIGATION & SEARCH CONTROLS */}
-        <div className="p-4 rounded-3xl bg-white border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="p-3 sm:p-4 rounded-3xl bg-white border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
           {/* Segmented Navigation Tabs */}
-          <div className="flex flex-wrap p-1 rounded-2xl bg-slate-100 border border-slate-200 gap-1">
+          <div className="flex overflow-x-auto no-scrollbar scroll-smooth p-1 rounded-2xl bg-slate-100 border border-slate-200 gap-1 w-full md:w-auto">
             <button
               onClick={() => setActiveTab("inquiries")}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
+              className={`whitespace-nowrap flex-shrink-0 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer ${
                 activeTab === "inquiries"
                   ? "bg-white text-brand-blue shadow-sm border border-slate-200/80"
                   : "text-slate-600 hover:text-slate-900 hover:bg-white/50"
@@ -869,7 +869,7 @@ const Admin = () => {
 
             <button
               onClick={() => setActiveTab("reviews")}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
+              className={`whitespace-nowrap flex-shrink-0 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer ${
                 activeTab === "reviews"
                   ? "bg-white text-brand-blue shadow-sm border border-slate-200/80"
                   : "text-slate-600 hover:text-slate-900 hover:bg-white/50"
@@ -884,7 +884,7 @@ const Admin = () => {
 
             <button
               onClick={() => setActiveTab("leads")}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
+              className={`whitespace-nowrap flex-shrink-0 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer ${
                 activeTab === "leads"
                   ? "bg-white text-brand-blue shadow-sm border border-slate-200/80"
                   : "text-slate-600 hover:text-slate-900 hover:bg-white/50"
@@ -899,7 +899,7 @@ const Admin = () => {
 
             <button
               onClick={() => setActiveTab("tickets")}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
+              className={`whitespace-nowrap flex-shrink-0 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer ${
                 activeTab === "tickets"
                   ? "bg-white text-brand-blue shadow-sm border border-slate-200/80"
                   : "text-slate-600 hover:text-slate-900 hover:bg-white/50"
@@ -914,7 +914,7 @@ const Admin = () => {
 
             <button
               onClick={() => setActiveTab("accounts")}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
+              className={`whitespace-nowrap flex-shrink-0 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer ${
                 activeTab === "accounts"
                   ? "bg-white text-brand-blue shadow-sm border border-slate-200/80"
                   : "text-slate-600 hover:text-slate-900 hover:bg-white/50"
@@ -929,7 +929,7 @@ const Admin = () => {
           </div>
 
           {/* Search Bar */}
-          <div className="relative max-w-md w-full">
+          <div className="relative w-full md:w-72 lg:w-80">
             <Search className="absolute left-4 top-3.5 w-4 h-4 text-slate-400" />
             <input
               type="text"

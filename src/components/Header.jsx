@@ -78,7 +78,7 @@ const Header = () => {
         style={{ width: `${scrollProgress}%` }}
       />
 
-      <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
+      <div className="w-full max-w-[98%] 2xl:max-w-[1750px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 flex justify-between items-center">
         {/* Brand Logo - Crisp original logo for clean white header */}
         <Link to="/" className="flex items-center group py-0.5" aria-label="SKONE Tech Support Home">
           <picture>

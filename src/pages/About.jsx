@@ -143,23 +143,57 @@ const About = () => {
           <div className="w-16 h-1 bg-brand-blue mx-auto rounded-full"></div>
         </div>
 
-        <div className="relative border-l-2 border-slate-200 ml-4 md:ml-12 space-y-12">
-          {TIMELINE_MILESTONES.map((ms, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, x: -10 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="relative pl-8 md:pl-12"
-            >
-              {/* Bullet circle */}
-              <div className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full border-4 border-slate-50 bg-brand-blue z-10 shadow-sm" />
+        <div className="max-w-4xl mx-auto">
+          <div className="relative">
+            {/* Center line on desktop, left line on mobile */}
+            <div className="absolute left-6 md:left-1/2 top-4 bottom-4 w-0.5 -translate-x-1/2 bg-gradient-to-b from-brand-blue via-indigo-500 to-blue-200" />
 
-              <span className="text-brand-blue font-black text-xl tracking-tight block">{ms.year}</span>
-              <h4 className="text-base font-bold text-slate-900 mt-1">{ms.title}</h4>
-              <p className="text-slate-555 text-xs md:text-sm mt-1 leading-relaxed max-w-xl">{ms.desc}</p>
-            </motion.div>
-          ))}
+            <div className="space-y-8 md:space-y-12">
+              {TIMELINE_MILESTONES.map((ms, idx) => {
+                const isEven = idx % 2 === 0;
+                return (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: idx * 0.1 }}
+                    className={`relative flex flex-col md:flex-row items-center ${
+                      isEven ? "md:flex-row-reverse" : ""
+                    }`}
+                  >
+                    {/* Content Card */}
+                    <div className="w-full md:w-1/2 pl-14 md:pl-0">
+                      <div className={`bg-white p-6 sm:p-7 rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-xl transition-all duration-300 hover:border-brand-blue/40 group ${
+                        isEven ? "md:mr-10 md:text-right" : "md:ml-10 md:text-left"
+                      }`}>
+                        <div className={`flex items-center gap-2 mb-3 ${isEven ? "md:justify-end" : "md:justify-start"}`}>
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-blue-50 text-brand-blue border border-blue-100 shadow-xs">
+                            <Calendar className="w-3.5 h-3.5" />
+                            {ms.year}
+                          </span>
+                        </div>
+                        <h4 className="text-lg font-bold text-slate-900 group-hover:text-brand-blue transition-colors">
+                          {ms.title}
+                        </h4>
+                        <p className="text-slate-600 text-xs sm:text-sm mt-2 leading-relaxed">
+                          {ms.desc}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Timeline Center Node */}
+                    <div className="absolute left-6 md:left-1/2 -translate-x-1/2 top-6 md:top-1/2 md:-translate-y-1/2 w-9 h-9 rounded-full bg-white border-4 border-brand-blue shadow-md flex items-center justify-center z-10">
+                      <div className="w-2.5 h-2.5 rounded-full bg-brand-blue animate-pulse" />
+                    </div>
+
+                    {/* Opposite side spacer */}
+                    <div className="hidden md:block w-1/2" />
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -197,8 +231,8 @@ const About = () => {
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {[
             { name: "Sahil Yadav", role: "Founder & CEO", init: "SY", desc: "Drives corporate strategy, SLA-compliance guidelines, and client onboarding pipelines." },
-            { name: "Kapil Sharma", role: "Technical Lead", init: "KS", desc: "Oversees cloud architectures deployments, container configurations, and cybersecurity." },
-            { name: "Bhunesh Kumar", role: "Talent Specialist", init: "BK", desc: "Manages developer sourcing arrays, code assessments, and client placement matrices." }
+            { name: "Technical Lead", role: "Engineering & Cloud Architecture", init: "TL", desc: "Oversees cloud architectures deployments, container configurations, and cybersecurity." },
+            { name: "Talent Specialist", role: "Technical Staffing & Recruitment", init: "TS", desc: "Manages developer sourcing arrays, code assessments, and client placement matrices." }
           ].map((t, idx) => (
             <div key={idx} className="bg-white border border-gray-150 hover:border-brand-blue/30 p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col justify-between hover:-translate-y-1">
               <div>

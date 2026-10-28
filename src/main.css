@@ -88,3 +88,19 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* 🌟 Global Wide Desktop Container Expansion:
+   Removes excessive left/right empty gutters on 1080p and widescreen monitors
+   across the complete website while keeping mobile & tablet layouts perfect. */
+@media (min-width: 1280px) {
+  .max-w-6xl {
+    max-width: 1440px !important;
+  }
+}
+
+@media (min-width: 1536px) {
+  .max-w-6xl {
+    max-width: 1650px !important;
+  }
+}
+

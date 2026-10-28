@@ -52,7 +52,7 @@ const Footer = () => {
   return (
     <footer className="bg-slate-950 text-white pt-20 border-t border-slate-900 font-sans">
       {/* Main Footer Grid */}
-      <div className="max-w-6xl mx-auto px-6 pb-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+      <div className="w-full max-w-[98%] 2xl:max-w-[1750px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 pb-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
         
         {/* Column 1: Company Profile */}
         <div className="lg:col-span-2 space-y-5">
@@ -214,7 +214,7 @@ const Footer = () => {
 
       {/* Copyright Footer */}
       <div className="border-t border-slate-950/20 py-6 bg-slate-950 text-center">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] font-semibold text-slate-500">
+        <div className="w-full max-w-[98%] 2xl:max-w-[1750px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] font-semibold text-slate-500">
           <p>&copy; 2026 SKONE Tech Support. All rights reserved.</p>
           <div className="flex gap-4">
             <Link to="/about" className="hover:text-white transition-colors">Privacy Policy</Link>
