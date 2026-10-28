@@ -19,6 +19,9 @@ import { supabase, isSupabaseEnabled } from "../services/supabaseClient";
 // This runs server-side via Supabase Auth, NOT exposed in the JS bundle.
 const ADMIN_EMAILS = ["skonetechsupport@gmail.com"];
 
+// Fallback password for offline / local mode when Supabase is not configured
+const FALLBACK_ADMIN_PASSWORD = "Yadav@32!";
+
 export function useAdminAuth() {
   const [user, setUser] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -36,7 +39,20 @@ export function useAdminAuth() {
 
   useEffect(() => {
     if (!isSupabaseEnabled) {
-      setLoading(false);
+      try {
+        const stored = sessionStorage.getItem("admin_session");
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (parsed && ADMIN_EMAILS.includes(parsed.email?.toLowerCase())) {
+            setUser(parsed);
+            setIsAdmin(true);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load local admin session:", err);
+      } finally {
+        setLoading(false);
+      }
       return;
     }
 
@@ -74,8 +90,39 @@ export function useAdminAuth() {
 
   const signIn = async (email, password) => {
     if (!isSupabaseEnabled) {
-      setError("Supabase is not configured. Cannot authenticate.");
-      return false;
+      setError("");
+      setLoading(true);
+
+      const normalizedEmail = (email || "").trim().toLowerCase();
+      const isEmailValid = ADMIN_EMAILS.includes(normalizedEmail);
+      const isPasswordValid = password === FALLBACK_ADMIN_PASSWORD;
+
+      if (isEmailValid && isPasswordValid) {
+        const mockAdminUser = {
+          id: "local-admin-id",
+          email: normalizedEmail,
+          app_metadata: { role: "admin" },
+          user_metadata: { name: "System Administrator" },
+        };
+        try {
+          sessionStorage.setItem("admin_session", JSON.stringify(mockAdminUser));
+        } catch (e) {
+          console.warn("Could not save admin session:", e);
+        }
+        setUser(mockAdminUser);
+        setIsAdmin(true);
+        setError("");
+        setLoading(false);
+        return true;
+      } else {
+        setError(
+          !isEmailValid
+            ? "Access denied. Unrecognized admin email."
+            : "Incorrect password. Please try again."
+        );
+        setLoading(false);
+        return false;
+      }
     }
 
     setError("");
@@ -124,7 +171,11 @@ export function useAdminAuth() {
   };
 
   const signOut = async () => {
-    if (isSupabaseEnabled) {
+    try {
+      sessionStorage.removeItem("admin_session");
+    } catch (_) {}
+
+    if (isSupabaseEnabled && supabase) {
       await supabase.auth.signOut();
     }
     setUser(null);
