@@ -20,7 +20,7 @@ const Toast = ({ message, type = "success", onClose, duration = 4000 }) => {
   if (type === "error") {
     bgClass = "bg-red-50/90 border-red-200 text-red-800";
     Icon = AlertCircle;
-    iconClass = "text-red-650";
+    iconClass = "text-red-600";
   } else if (type === "info") {
     bgClass = "bg-blue-50/90 border-blue-200 text-blue-800";
     Icon = Info;

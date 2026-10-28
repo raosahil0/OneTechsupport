@@ -544,3 +544,203 @@ export const deleteAccount = async (accountId) => {
     return [];
   }
 };
+
+export const deleteTicket = async (ticketId) => {
+  if (!isSupabaseEnabled) {
+    try {
+      const tickets = JSON.parse(localStorage.getItem("tickets") || "[]");
+      const filtered = tickets.filter(
+        (t) => String(t.ticket_id) !== String(ticketId) && String(t.id) !== String(ticketId)
+      );
+      localStorage.setItem("tickets", JSON.stringify(filtered));
+      return filtered;
+    } catch (e) {
+      console.error("Error deleting ticket from localStorage:", e);
+      throw new Error("Local storage delete failed.");
+    }
+  }
+
+  const { data, error } = await supabase
+    .from("tickets")
+    .delete()
+    .eq("ticket_id", ticketId)
+    .select();
+
+  _throwIfError(error);
+  return data;
+};
+
+export const seedDemoData = () => {
+  const sampleContacts = [
+    {
+      id: "cnt_101",
+      name: "Rajesh Malhotra",
+      email: "rajesh.malhotra@zenithcorps.com",
+      phone: "+91 98112 34567",
+      inquiryType: "managed-it",
+      message: "Looking for an annual maintenance contract (AMC) and 24/7 server monitoring for our Gurugram corporate office (50+ workstations).",
+      created_at: new Date(Date.now() - 3600000 * 4).toISOString(),
+    },
+    {
+      id: "cnt_102",
+      name: "Sneha Kapoor",
+      email: "sneha.k@novatechsolutions.in",
+      phone: "+91 98200 87654",
+      inquiryType: "network-support",
+      message: "Urgent need for Cisco firewall reconfiguration and dual-WAN load balancing setup after recent office expansion.",
+      created_at: new Date(Date.now() - 3600000 * 18).toISOString(),
+    },
+    {
+      id: "cnt_103",
+      name: "Vikram Singhania",
+      email: "vikram@apexlogistics.co.in",
+      phone: "+91 99101 23456",
+      inquiryType: "server-support",
+      message: "Need dedicated on-site IT engineers for server migration from local hardware to private cloud setup.",
+      created_at: new Date(Date.now() - 3600000 * 48).toISOString(),
+    },
+    {
+      id: "cnt_104",
+      name: "Ananya Deshmukh",
+      email: "ananya.d@fintechinnovate.com",
+      phone: "+91 98450 11223",
+      inquiryType: "consulting",
+      message: "Requesting IT compliance audit and cybersecurity hardening before our external ISO certification.",
+      created_at: new Date(Date.now() - 3600000 * 72).toISOString(),
+    },
+  ];
+
+  const sampleFeedbacks = [
+    {
+      id: "fb_101",
+      name: "Rahul Sharma",
+      rating: 5,
+      message: "Excellent IT support and incredibly fast turnaround times. Resolved our server downtime within 30 minutes!",
+      created_at: new Date(Date.now() - 3600000 * 12).toISOString(),
+    },
+    {
+      id: "fb_102",
+      name: "Priya Verma",
+      rating: 5,
+      message: "Very reliable manpower support. The technical staffing they provided integrated seamlessly into our engineering team.",
+      created_at: new Date(Date.now() - 3600000 * 36).toISOString(),
+    },
+    {
+      id: "fb_103",
+      name: "Amit Singh",
+      rating: 4,
+      message: "Great hiring service for IT and non-IT talent. They understood our requirements and provided candidates quickly.",
+      created_at: new Date(Date.now() - 3600000 * 60).toISOString(),
+    },
+    {
+      id: "fb_104",
+      name: "Karan Mehta",
+      rating: 5,
+      message: "The AMC contract has saved us both cost and headaches. Proactive printer and computer maintenance across our Jaipur branch.",
+      created_at: new Date(Date.now() - 3600000 * 96).toISOString(),
+    },
+  ];
+
+  const sampleLeads = [
+    {
+      id: "lead_101",
+      email: "itdirector@alphacorp.in",
+      source: "footer-newsletter",
+      created_at: new Date(Date.now() - 3600000 * 6).toISOString(),
+    },
+    {
+      id: "lead_102",
+      email: "operations@zenlogistics.com",
+      source: "footer-newsletter",
+      created_at: new Date(Date.now() - 3600000 * 30).toISOString(),
+    },
+    {
+      id: "lead_103",
+      email: "procurement@himalayanexports.com",
+      source: "footer-newsletter",
+      created_at: new Date(Date.now() - 3600000 * 80).toISOString(),
+    },
+  ];
+
+  const sampleTickets = [
+    {
+      ticket_id: "tkt_9021a4",
+      client_email: "rajesh.malhotra@zenithcorps.com",
+      client_id: "client_usr_01",
+      title: "Active Directory user sync failing on branch DC",
+      description: "Users created at the head office are not replicating to the Jaipur branch domain controller. Error 1722 RPC server unavailable.",
+      attachment_url: null,
+      attachment_name: null,
+      status: "In Progress",
+      created_at: new Date(Date.now() - 3600000 * 5).toISOString(),
+    },
+    {
+      ticket_id: "tkt_481b0c",
+      client_email: "sneha.k@novatechsolutions.in",
+      client_id: "client_usr_02",
+      title: "VPN connection dropping intermittently for remote staff",
+      description: "Employees on FortiClient reporting connection drops every 20-30 minutes during video conferencing.",
+      attachment_url: null,
+      attachment_name: null,
+      status: "Open",
+      created_at: new Date(Date.now() - 3600000 * 14).toISOString(),
+    },
+    {
+      ticket_id: "tkt_37c9f1",
+      client_email: "vikram@apexlogistics.co.in",
+      client_id: "client_usr_03",
+      title: "Thermal printer setup in dispatch warehouse",
+      description: "Configured 4 Zebra ZT230 barcode printers over static IP network. Testing completed successfully.",
+      attachment_url: null,
+      attachment_name: null,
+      status: "Resolved",
+      created_at: new Date(Date.now() - 3600000 * 52).toISOString(),
+    },
+  ];
+
+  const sampleAccounts = [
+    {
+      id: "client_usr_01",
+      email: "rajesh.malhotra@zenithcorps.com",
+      name: "Rajesh Malhotra",
+      created_at: new Date(Date.now() - 3600000 * 120).toISOString(),
+    },
+    {
+      id: "client_usr_02",
+      email: "sneha.k@novatechsolutions.in",
+      name: "Sneha Kapoor",
+      created_at: new Date(Date.now() - 3600000 * 100).toISOString(),
+    },
+  ];
+
+  try {
+    localStorage.setItem("contacts", JSON.stringify(sampleContacts));
+    localStorage.setItem("feedbacks", JSON.stringify(sampleFeedbacks));
+    localStorage.setItem("leads", JSON.stringify(sampleLeads));
+    localStorage.setItem("tickets", JSON.stringify(sampleTickets));
+    localStorage.setItem("demo_users", JSON.stringify(sampleAccounts));
+  } catch (e) {
+    console.error("Failed to seed sample data to localStorage:", e);
+  }
+
+  return {
+    contacts: sampleContacts,
+    feedbacks: sampleFeedbacks,
+    leads: sampleLeads,
+    tickets: sampleTickets,
+    accounts: sampleAccounts,
+  };
+};
+
+export const clearAllLocalData = () => {
+  try {
+    localStorage.removeItem("contacts");
+    localStorage.removeItem("feedbacks");
+    localStorage.removeItem("leads");
+    localStorage.removeItem("tickets");
+    localStorage.removeItem("demo_users");
+  } catch (e) {
+    console.error("Failed to clear local data:", e);
+  }
+};
+
