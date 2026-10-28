@@ -25,6 +25,12 @@ const _throwIfError = (error) => {
   throw new Error(msg || "An unknown database error occurred.");
 };
 
+export const notifyDbUpdate = (table) => {
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new CustomEvent("database_updated", { detail: { table } }));
+  }
+};
+
 // ─── LocalStorage Fallback ────────────────────────────────────────────────────
 const getLocalStorageItem = (key) => {
   try {
@@ -41,6 +47,7 @@ const saveLocalStorageItem = (key, item) => {
     const newItem = { ...item, id: item.id || Date.now().toString() };
     items.push(newItem);
     localStorage.setItem(key, JSON.stringify(items));
+    notifyDbUpdate(key);
     return [newItem];
   } catch (e) {
     console.error(`Error writing to localStorage key "${key}":`, e);
@@ -53,6 +60,7 @@ const deleteLocalStorageItem = (key, id) => {
     const items = getLocalStorageItem(key);
     const filtered = items.filter((item) => String(item.id) !== String(id));
     localStorage.setItem(key, JSON.stringify(filtered));
+    notifyDbUpdate(key);
     return filtered;
   } catch (e) {
     console.error(`Error deleting from localStorage key "${key}":`, e);
@@ -739,8 +747,44 @@ export const clearAllLocalData = () => {
     localStorage.removeItem("leads");
     localStorage.removeItem("tickets");
     localStorage.removeItem("demo_users");
+    notifyDbUpdate("all");
   } catch (e) {
     console.error("Failed to clear local data:", e);
   }
 };
+
+export const clearDemoData = () => {
+  const demoContactIds = ["cnt_101", "cnt_102", "cnt_103", "cnt_104", "cnt_01", "cnt_02", "cnt_03"];
+  const demoFeedbackIds = ["fb_101", "fb_102", "fb_103", "fb_104", "rev_01", "rev_02", "rev_03"];
+  const demoLeadIds = ["lead_101", "lead_102", "lead_103"];
+  const demoTicketIds = ["tkt_9021a4", "tkt_481b0c", "tkt_37c9f1"];
+  const demoUserIds = ["client_usr_01", "client_usr_02"];
+
+  try {
+    const contacts = JSON.parse(localStorage.getItem("contacts") || "[]")
+      .filter((c) => !demoContactIds.includes(c.id));
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+
+    const feedbacks = JSON.parse(localStorage.getItem("feedbacks") || "[]")
+      .filter((f) => !demoFeedbackIds.includes(f.id));
+    localStorage.setItem("feedbacks", JSON.stringify(feedbacks));
+
+    const leads = JSON.parse(localStorage.getItem("leads") || "[]")
+      .filter((l) => !demoLeadIds.includes(l.id));
+    localStorage.setItem("leads", JSON.stringify(leads));
+
+    const tickets = JSON.parse(localStorage.getItem("tickets") || "[]")
+      .filter((t) => !demoTicketIds.includes(t.ticket_id) && !demoTicketIds.includes(t.id));
+    localStorage.setItem("tickets", JSON.stringify(tickets));
+
+    const users = JSON.parse(localStorage.getItem("demo_users") || "[]")
+      .filter((u) => !demoUserIds.includes(u.id));
+    localStorage.setItem("demo_users", JSON.stringify(users));
+
+    notifyDbUpdate("all");
+  } catch (e) {
+    console.error("Failed to clear demo data:", e);
+  }
+};
+
 

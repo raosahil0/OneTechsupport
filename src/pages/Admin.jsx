@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useAdminAuth } from "../hooks/useAdminAuth";
 import {
   getContacts,
@@ -12,10 +12,14 @@ import {
   deleteTicket,
   getAllAccounts,
   deleteAccount,
-  seedDemoData,
   clearAllLocalData,
+  clearDemoData,
 } from "../services/databaseService";
-import { isSupabaseEnabled } from "../services/supabaseClient";
+import {
+  supabase,
+  isSupabaseEnabled,
+  saveCustomSupabaseConfig,
+} from "../services/supabaseClient";
 import {
   Mail,
   Phone,
@@ -42,6 +46,9 @@ import {
   Clock,
   Eye,
   EyeOff,
+  Radio,
+  Settings,
+  Check,
 } from "lucide-react";
 import SEO from "../components/SEO";
 
@@ -52,7 +59,7 @@ const Admin = () => {
   const [loginPassword, setLoginPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  // Database Records
+  // Database Records (Pure Real-Time)
   const [contacts, setContacts] = useState([]);
   const [feedbacks, setFeedbacks] = useState([]);
   const [leads, setLeads] = useState([]);
@@ -61,6 +68,8 @@ const Admin = () => {
 
   // UI State
   const [loading, setLoading] = useState(false);
+  const [isRealtimeActive, setIsRealtimeActive] = useState(false);
+  const [lastSyncTime, setLastSyncTime] = useState(new Date());
   const [activeTab, setActiveTab] = useState("inquiries");
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -69,11 +78,21 @@ const Admin = () => {
   const [selectedInquiry, setSelectedInquiry] = useState(null);
   const [emailSubject, setEmailSubject] = useState("");
   const [emailBody, setEmailBody] = useState("");
-  const [copiedText, setCopiedText] = useState(""); // Track copy success state
+  const [copiedText, setCopiedText] = useState("");
+
+  // Supabase Connection Modal
+  const [supabaseModalOpen, setSupabaseModalOpen] = useState(false);
+  const [customUrl, setCustomUrl] = useState(
+    localStorage.getItem("custom_supabase_url") || ""
+  );
+  const [customKey, setCustomKey] = useState(
+    localStorage.getItem("custom_supabase_anon_key") || ""
+  );
+  const [supabaseSavedMsg, setSupabaseSavedMsg] = useState("");
 
   // Delete confirmation
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
-  const [recordToDelete, setRecordToDelete] = useState(null); // { id, type }
+  const [recordToDelete, setRecordToDelete] = useState(null);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -83,15 +102,12 @@ const Admin = () => {
     }
   };
 
-  const handleAutofillCredentials = () => {
-    setLoginEmail("skonetechsupport@gmail.com");
-    setLoginPassword("Yadav@32!");
-  };
 
-  const loadDashboardData = async (forceRefresh = false) => {
-    setLoading(true);
+  // ─── LOAD REAL-TIME DATABASE RECORDS (NO DEMO DATA) ────────────────────────
+  const loadDashboardData = async (silent = false) => {
+    if (!silent) setLoading(true);
     try {
-      let [contactsData, feedbacksData, leadsData, ticketsData, accountsData] = await Promise.all([
+      const [contactsData, feedbacksData, leadsData, ticketsData, accountsData] = await Promise.all([
         getContacts(),
         getFeedbacks(),
         getLeads(),
@@ -99,46 +115,89 @@ const Admin = () => {
         getAllAccounts(),
       ]);
 
-      // If in local/offline storage mode and all tables are currently empty on initial load, auto-seed with sample records
-      if (
-        !isSupabaseEnabled &&
-        !forceRefresh &&
-        (!contactsData || contactsData.length === 0) &&
-        (!feedbacksData || feedbacksData.length === 0) &&
-        (!leadsData || leadsData.length === 0) &&
-        (!ticketsData || ticketsData.length === 0)
-      ) {
-        const seeded = seedDemoData();
-        contactsData = seeded.contacts;
-        feedbacksData = seeded.feedbacks;
-        leadsData = seeded.leads;
-        ticketsData = seeded.tickets;
-        accountsData = seeded.accounts;
-      }
+      // Demo data IDs filter to ensure any old sample data is removed
+      const demoContactIds = ["cnt_101", "cnt_102", "cnt_103", "cnt_104", "cnt_01", "cnt_02", "cnt_03"];
+      const demoFeedbackIds = ["fb_101", "fb_102", "fb_103", "fb_104", "rev_01", "rev_02", "rev_03"];
+      const demoLeadIds = ["lead_101", "lead_102", "lead_103"];
+      const demoTicketIds = ["tkt_9021a4", "tkt_481b0c", "tkt_37c9f1"];
+      const demoUserIds = ["client_usr_01", "client_usr_02"];
 
-      setContacts(contactsData || []);
-      setFeedbacks(feedbacksData || []);
-      setLeads(leadsData || []);
-      setTickets(ticketsData || []);
-      setAccounts(accountsData || []);
+      setContacts((contactsData || []).filter((c) => !demoContactIds.includes(c.id)));
+      setFeedbacks((feedbacksData || []).filter((f) => !demoFeedbackIds.includes(f.id)));
+      setLeads((leadsData || []).filter((l) => !demoLeadIds.includes(l.id)));
+      setTickets((ticketsData || []).filter((t) => !demoTicketIds.includes(t.ticket_id) && !demoTicketIds.includes(t.id)));
+      setAccounts((accountsData || []).filter((u) => !demoUserIds.includes(u.id)));
+
+      setLastSyncTime(new Date());
+      setIsRealtimeActive(true);
     } catch (err) {
-      console.error("Failed to load dashboard data:", err);
+      console.error("Failed to load real-time database records:", err);
     } finally {
-      setLoading(false);
+      if (!silent) setLoading(false);
     }
   };
 
-  const handleSeedData = () => {
-    const seeded = seedDemoData();
-    setContacts(seeded.contacts);
-    setFeedbacks(seeded.feedbacks);
-    setLeads(seeded.leads);
-    setTickets(seeded.tickets);
-    setAccounts(seeded.accounts);
-  };
+  // ─── REAL-TIME SUBSCRIPTIONS & EVENT LISTENERS ────────────────────────────
+  useEffect(() => {
+    if (!isAdmin) return;
 
+    // 1. Purge any leftover mock demo data immediately on startup
+    clearDemoData();
+
+    // 2. Fetch fresh real-time records
+    loadDashboardData(false);
+
+    // 3. Supabase Realtime Channels (PostgreSQL Replication)
+    let channel = null;
+    if (isSupabaseEnabled && supabase) {
+      try {
+        channel = supabase
+          .channel("realtime-admin-dashboard")
+          .on("postgres_changes", { event: "*", schema: "public" }, () => {
+            loadDashboardData(true);
+          })
+          .subscribe((status) => {
+            if (status === "SUBSCRIBED") {
+              setIsRealtimeActive(true);
+            }
+          });
+      } catch (err) {
+        console.warn("Supabase Realtime not subscribed:", err);
+      }
+    }
+
+    // 4. Cross-tab real-time event sync (When visitor submits contact/ticket in another tab)
+    const handleStorageChange = (e) => {
+      if (["contacts", "feedbacks", "leads", "tickets", "demo_users"].includes(e.key)) {
+        loadDashboardData(true);
+      }
+    };
+    window.addEventListener("storage", handleStorageChange);
+
+    // 5. In-app real-time event sync (Internal action events)
+    const handleDbUpdate = () => {
+      loadDashboardData(true);
+    };
+    window.addEventListener("database_updated", handleDbUpdate);
+
+    // 6. Real-time background sync interval (Every 5 seconds)
+    const syncInterval = setInterval(() => {
+      loadDashboardData(true);
+    }, 5000);
+
+    return () => {
+      if (channel && supabase) {
+        supabase.removeChannel(channel);
+      }
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("database_updated", handleDbUpdate);
+      clearInterval(syncInterval);
+    };
+  }, [isAdmin]);
+
+  // ─── CLEAR LOCAL CACHE / DATABASE ─────────────────────────────────────────
   const handleClearData = () => {
-    if (window.confirm("Are you sure you want to clear all locally stored demo records?")) {
+    if (window.confirm("Are you sure you want to clear all stored records?")) {
       clearAllLocalData();
       setContacts([]);
       setFeedbacks([]);
@@ -148,11 +207,15 @@ const Admin = () => {
     }
   };
 
-  useEffect(() => {
-    if (isAdmin) {
-      loadDashboardData();
-    }
-  }, [isAdmin]);
+  // ─── SAVE CUSTOM SUPABASE REAL-TIME CONFIGURATION ──────────────────────────
+  const handleSaveSupabaseConfig = (e) => {
+    e.preventDefault();
+    saveCustomSupabaseConfig(customUrl, customKey);
+    setSupabaseSavedMsg("Configuration saved! Reloading real-time connection...");
+    setTimeout(() => {
+      window.location.reload();
+    }, 1200);
+  };
 
   // ─── COPY TO CLIPBOARD ───────────────────────────────────────────────────
   const copyToClipboard = (text, type) => {
@@ -362,7 +425,7 @@ const Admin = () => {
       const r = f.rating || 5;
       ratings[r] = (ratings[r] || 0) + 1;
     });
-    return Object.entries(ratings).reverse(); // 5 down to 1
+    return Object.entries(ratings).reverse();
   };
 
   const calculateAverageRating = () => {
@@ -491,88 +554,89 @@ const Admin = () => {
               {authLoading ? "Authenticating..." : "Unlock Dashboard"}
             </button>
 
-            {/* Autofill Demo Credentials Shortcut */}
-            <div className="pt-2 text-center">
-              <button
-                type="button"
-                onClick={handleAutofillCredentials}
-                className="text-xs text-slate-600 hover:text-brand-blue transition-colors inline-flex items-center gap-1.5 font-medium underline underline-offset-4 decoration-slate-300 cursor-pointer"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-brand-blue" />
-                Autofill Default Admin Credentials
-              </button>
-            </div>
           </form>
         </div>
       </div>
     );
   }
 
-  // ─── AUTHENTICATED DASHBOARD (CLEAN LIGHT THEME) ───────────────────────────
+  // ─── AUTHENTICATED DASHBOARD (REAL-TIME LIVE LIGHT THEME) ───────────────────
   return (
     <div className="min-h-screen pt-28 pb-20 px-4 sm:px-6 lg:px-8 bg-slate-50 text-slate-900 font-sans selection:bg-brand-blue selection:text-white">
-      <SEO title="Command Center | S'K One Tech Support Admin" noIndex={true} />
+      <SEO title="Live Real-Time Dashboard | S'K One Tech Support Admin" noIndex={true} />
 
       <div className="max-w-7xl mx-auto space-y-8">
 
-        {/* 🌟 EXECUTIVE TOP COMMAND BANNER */}
+        {/* 🌟 EXECUTIVE TOP COMMAND BANNER (REAL-TIME CONNECTED) */}
         <div className="relative rounded-3xl p-6 sm:p-8 bg-white border border-slate-200 shadow-sm overflow-hidden">
-          {/* Subtle Ambient Decorative Gradient in Corner */}
+          {/* Subtle Ambient Decorative Gradients */}
           <div className="absolute right-0 top-0 w-80 h-80 bg-blue-100/40 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute left-1/3 bottom-0 w-64 h-64 bg-emerald-100/40 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
 
-            {/* Title & Status */}
+            {/* Title & Real-Time Status */}
             <div>
               <div className="flex flex-wrap items-center gap-2.5 mb-3">
-                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  Live Operational Hub
+                {/* Real-time Heartbeat Pulsing Badge */}
+                <span className="inline-flex items-center gap-2 text-xs font-bold text-emerald-800 bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200 shadow-sm">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                  </span>
+                  Real-Time Live Connected
                 </span>
 
+                {/* Cloud vs Browser Sync Indicator */}
                 {isSupabaseEnabled ? (
-                  <span className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+                  <span className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-700 bg-blue-50 px-3 py-1.5 rounded-full border border-blue-200">
                     <Database className="w-3.5 h-3.5 text-blue-600" />
-                    Supabase Cloud Connected
+                    Supabase PostgreSQL Live
                   </span>
                 ) : (
-                  <span className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-800 bg-amber-50 px-3 py-1 rounded-full border border-amber-200" title="Running with local storage persistence">
-                    <Database className="w-3.5 h-3.5 text-amber-600" />
-                    Local Sandbox Storage
-                  </span>
+                  <button
+                    onClick={() => setSupabaseModalOpen(true)}
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-full border border-slate-300 transition-colors cursor-pointer"
+                    title="Click to connect Supabase Cloud URL & Key"
+                  >
+                    <Settings className="w-3.5 h-3.5 text-slate-500" />
+                    Browser Real-Time Sync (Configure Supabase)
+                  </button>
                 )}
               </div>
 
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900">
                 Database Dashboard
               </h1>
-              <p className="text-xs sm:text-sm text-slate-600 mt-2 max-w-2xl leading-relaxed">
-                Centralized management for customer inquiries, verified reviews, subscriber leads, and technical support ticketing.
+              <p className="text-xs sm:text-sm text-slate-600 mt-2 max-w-2xl leading-relaxed flex items-center gap-2">
+                <span>Real-time telemetry for customer inquiries, verified reviews, subscriber leads, and tickets.</span>
+                <span className="text-[11px] text-slate-400 font-mono hidden sm:inline">
+                  (Synced: {lastSyncTime.toLocaleTimeString()})
+                </span>
               </p>
             </div>
 
             {/* Quick Action Toolbar */}
             <div className="flex flex-wrap items-center gap-2.5">
-              {/* Seed Demo Data Button */}
+              {/* Connect Supabase Cloud Button */}
               <button
-                onClick={handleSeedData}
-                className="inline-flex items-center gap-2 px-4 py-2.5 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-700 rounded-xl text-xs font-bold transition-all shadow-sm active:scale-95 cursor-pointer"
-                title="Populate realistic demo records into the dashboard"
+                onClick={() => setSupabaseModalOpen(true)}
+                className="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 rounded-xl text-xs font-bold transition-all shadow-sm active:scale-95 cursor-pointer"
+                title="Connect or configure live Supabase database"
               >
-                <Sparkles className="w-4 h-4 text-indigo-600" />
-                Seed Demo Data
+                <Database className="w-4 h-4 text-blue-600" />
+                {isSupabaseEnabled ? "Database Config" : "Connect Cloud DB"}
               </button>
 
               {/* Refresh Button */}
               <button
-                onClick={() => loadDashboardData(true)}
+                onClick={() => loadDashboardData(false)}
                 disabled={loading}
                 className="inline-flex items-center gap-2 px-4 py-2.5 border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-bold transition-all shadow-sm active:scale-95 disabled:opacity-50 cursor-pointer"
-                title="Refresh database records"
+                title="Force refresh database records"
               >
                 <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-brand-blue" : "text-slate-500"}`} />
-                Refresh
+                Sync Now
               </button>
 
               {/* Export CSV Button */}
@@ -718,7 +782,7 @@ const Admin = () => {
             <div className="space-y-4">
               {getInquiryTypeStats().length === 0 ? (
                 <div className="py-8 text-center text-slate-400 text-xs font-medium">
-                  No inquiries received yet. Click "Seed Demo Data" above to preview analytics.
+                  No real inquiries received yet. When visitors submit the Contact Us form, they will appear here instantly in real time.
                 </div>
               ) : (
                 getInquiryTypeStats().map(([type, count]) => {
@@ -757,23 +821,29 @@ const Admin = () => {
             </div>
 
             <div className="space-y-3">
-              {getRatingStats().map(([rating, count]) => {
-                const percentage = Math.round((count / (feedbacks.length || 1)) * 100) || 0;
-                return (
-                  <div key={rating} className="flex items-center gap-3 text-xs font-bold">
-                    <span className="w-8 text-right text-amber-600 font-mono flex items-center justify-end gap-0.5">
-                      {rating}★
-                    </span>
-                    <div className="h-2.5 flex-1 rounded-full overflow-hidden bg-slate-100">
-                      <div
-                        className="h-2.5 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 transition-all duration-500"
-                        style={{ width: `${percentage}%` }}
-                      />
+              {feedbacks.length === 0 ? (
+                <div className="py-8 text-center text-slate-400 text-xs font-medium">
+                  No reviews submitted yet. Client reviews will update here in real time.
+                </div>
+              ) : (
+                getRatingStats().map(([rating, count]) => {
+                  const percentage = Math.round((count / (feedbacks.length || 1)) * 100) || 0;
+                  return (
+                    <div key={rating} className="flex items-center gap-3 text-xs font-bold">
+                      <span className="w-8 text-right text-amber-600 font-mono flex items-center justify-end gap-0.5">
+                        {rating}★
+                      </span>
+                      <div className="h-2.5 flex-1 rounded-full overflow-hidden bg-slate-100">
+                        <div
+                          className="h-2.5 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 transition-all duration-500"
+                          style={{ width: `${percentage}%` }}
+                        />
+                      </div>
+                      <span className="w-14 text-right text-slate-500 font-mono">{count} ({percentage}%)</span>
                     </div>
-                    <span className="w-14 text-right text-slate-500 font-mono">{count} ({percentage}%)</span>
-                  </div>
-                );
-              })}
+                  );
+                })
+              )}
             </div>
           </div>
         </div>
@@ -885,7 +955,7 @@ const Admin = () => {
           {loading ? (
             <div className="py-24 text-center text-slate-500">
               <RefreshCw className="w-10 h-10 animate-spin mx-auto mb-4 text-brand-blue" />
-              <p className="text-sm font-semibold">Synchronizing database records...</p>
+              <p className="text-sm font-semibold">Synchronizing real-time database records...</p>
             </div>
           ) : (
             <div>
@@ -896,17 +966,10 @@ const Admin = () => {
                   {filteredContacts.length === 0 ? (
                     <div className="py-20 text-center">
                       <Inbox className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-                      <p className="text-slate-800 font-bold text-base">No inquiries found</p>
+                      <p className="text-slate-800 font-bold text-base">No real inquiries found</p>
                       <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
-                        Inquiries submitted through the Contact Us form will appear here in real time.
+                        Inquiries submitted through the public Contact Us form will appear here instantly in real time.
                       </p>
-                      <button
-                        onClick={handleSeedData}
-                        className="mt-4 px-4 py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-xl text-xs font-bold border border-blue-200 transition-all cursor-pointer inline-flex items-center gap-1.5"
-                      >
-                        <Sparkles className="w-3.5 h-3.5" />
-                        Load Sample Inquiries
-                      </button>
                     </div>
                   ) : (
                     <table className="w-full text-left border-collapse">
@@ -995,17 +1058,10 @@ const Admin = () => {
                   {filteredFeedbacks.length === 0 ? (
                     <div className="py-20 text-center">
                       <Star className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-                      <p className="text-slate-800 font-bold text-base">No client reviews found</p>
+                      <p className="text-slate-800 font-bold text-base">No real reviews found</p>
                       <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
-                        Feedback gathered from client reviews will be logged and displayed here.
+                        Feedback gathered from client reviews will be logged and displayed here in real time.
                       </p>
-                      <button
-                        onClick={handleSeedData}
-                        className="mt-4 px-4 py-2 bg-amber-50 hover:bg-amber-100 text-amber-800 rounded-xl text-xs font-bold border border-amber-200 transition-all cursor-pointer inline-flex items-center gap-1.5"
-                      >
-                        <Sparkles className="w-3.5 h-3.5" />
-                        Load Sample Reviews
-                      </button>
                     </div>
                   ) : (
                     <table className="w-full text-left border-collapse">
@@ -1078,9 +1134,9 @@ const Admin = () => {
                   {filteredLeads.length === 0 ? (
                     <div className="py-20 text-center">
                       <Users className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-                      <p className="text-slate-800 font-bold text-base">No subscriber leads found</p>
+                      <p className="text-slate-800 font-bold text-base">No real subscriber leads found</p>
                       <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
-                        Website visitors subscribing through the footer newsletter will appear here.
+                        Website visitors subscribing through the footer newsletter will appear here in real time.
                       </p>
                     </div>
                   ) : (
@@ -1138,7 +1194,7 @@ const Admin = () => {
                       <ClipboardList className="w-12 h-12 text-slate-300 mx-auto mb-3" />
                       <p className="text-slate-800 font-bold text-base">No support tickets found</p>
                       <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
-                        Tickets submitted by registered clients through their portal will be logged here.
+                        Tickets submitted by registered clients through their portal will be logged here in real time.
                       </p>
                     </div>
                   ) : (
@@ -1260,7 +1316,7 @@ const Admin = () => {
                       <ShieldCheck className="w-12 h-12 text-slate-300 mx-auto mb-3" />
                       <p className="text-slate-800 font-bold text-base">No registered client accounts found</p>
                       <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
-                        Clients who create an account in the Client Portal will appear here.
+                        Clients who create an account in the Client Portal will appear here in real time.
                       </p>
                     </div>
                   ) : (
@@ -1296,7 +1352,7 @@ const Admin = () => {
                               </div>
                             </td>
                             <td className="p-5 text-xs text-slate-500 font-mono">
-                              {u.created_at ? new Date(u.created_at).toLocaleString() : "Pre-configured"}
+                              {u.created_at ? new Date(u.created_at).toLocaleString() : "Real-time registration"}
                             </td>
                             <td className="p-5 text-right">
                               <button
@@ -1319,19 +1375,92 @@ const Admin = () => {
           )}
         </div>
 
-        {/* Local Sandbox Quick-Reset Footer Option (Visible when not Supabase connected) */}
-        {!isSupabaseEnabled && (
-          <div className="text-center pt-2">
-            <button
-              onClick={handleClearData}
-              className="text-xs text-slate-400 hover:text-rose-600 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
-            >
-              <Trash2 className="w-3.5 h-3.5" />
-              Reset / Clear Local Sandbox Database
-            </button>
-          </div>
-        )}
+        {/* Clear/Reset Local Data option */}
+        <div className="text-center pt-2">
+          <button
+            onClick={handleClearData}
+            className="text-xs text-slate-400 hover:text-rose-600 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+          >
+            <Trash2 className="w-3.5 h-3.5" />
+            Wipe / Reset Local Database
+          </button>
+        </div>
       </div>
+
+      {/* ⚙️ SUPABASE CLOUD DATABASE CONFIGURATION MODAL */}
+      {supabaseModalOpen && (
+        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-all duration-300">
+          <div className="max-w-xl w-full rounded-3xl shadow-2xl p-6 sm:p-8 border border-slate-200 bg-white text-slate-900 animate-scaleIn">
+            <div className="flex justify-between items-center pb-4 border-b border-slate-200 mb-6">
+              <h3 className="text-xl font-black flex items-center gap-2.5 text-slate-900">
+                <Database className="w-5 h-5 text-brand-blue" />
+                Connect Supabase Live Cloud
+              </h3>
+              <button
+                onClick={() => setSupabaseModalOpen(false)}
+                className="p-1.5 rounded-xl hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <p className="text-xs text-slate-600 mb-5 leading-relaxed">
+              To connect your real-time cloud PostgreSQL database, paste your Supabase Project URL and Public Anon Key below. Alternatively, configure <code className="bg-slate-100 px-1 py-0.5 rounded text-brand-blue">VITE_SUPABASE_URL</code> in your <code className="bg-slate-100 px-1 py-0.5 rounded">.env</code> file.
+            </p>
+
+            <form onSubmit={handleSaveSupabaseConfig} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                  Supabase Project URL
+                </label>
+                <input
+                  type="url"
+                  placeholder="https://xyzcompany.supabase.co"
+                  value={customUrl}
+                  onChange={(e) => setCustomUrl(e.target.value)}
+                  className="w-full p-3.5 rounded-xl border border-slate-300 bg-slate-50 focus:bg-white text-slate-900 focus:border-brand-blue focus:outline-none text-xs font-mono"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                  Supabase Anon Public Key
+                </label>
+                <input
+                  type="text"
+                  placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  value={customKey}
+                  onChange={(e) => setCustomKey(e.target.value)}
+                  className="w-full p-3.5 rounded-xl border border-slate-300 bg-slate-50 focus:bg-white text-slate-900 focus:border-brand-blue focus:outline-none text-xs font-mono"
+                />
+              </div>
+
+              {supabaseSavedMsg && (
+                <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold flex items-center gap-2">
+                  <Check className="w-4 h-4 text-emerald-600" />
+                  {supabaseSavedMsg}
+                </div>
+              )}
+
+              <div className="flex gap-3 justify-end pt-4 border-t border-slate-200">
+                <button
+                  type="button"
+                  onClick={() => setSupabaseModalOpen(false)}
+                  className="px-5 py-2.5 text-xs font-bold rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-blue hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-brand-blue/20 cursor-pointer"
+                >
+                  Save & Connect Live
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* ✉️ QUICK REPLY COMPOSER MODAL (LIGHT THEME) */}
       {replyModalOpen && selectedInquiry && (

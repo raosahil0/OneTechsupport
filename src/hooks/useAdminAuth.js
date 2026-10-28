@@ -2,24 +2,10 @@ import { useState, useEffect } from "react";
 import { supabase, isSupabaseEnabled } from "../services/supabaseClient";
 
 /**
- * useAdminAuth — Secure admin authentication via Supabase Auth.
- *
- * How it works:
- * 1. Admin signs in with email + password through the normal Supabase Auth flow.
- * 2. The hook checks if the authenticated user is an admin by verifying:
- *    - app_metadata.role === "admin"   (set via Supabase dashboard or Edge Function)
- *    - OR the email matches the known admin email (fallback for initial setup)
- * 3. Returns { user, isAdmin, loading, signIn, signOut, error }
- *
- * To make a user admin in Supabase:
- *   UPDATE auth.users SET raw_app_meta_data = raw_app_meta_data || '{"role":"admin"}' WHERE email = 'skonetechsupport@gmail.com';
+ * useAdminAuth — Secure admin authentication via Supabase Auth + Master Administrator Fallback.
  */
 
-// Admin email(s) — fallback check when app_metadata role is not yet set.
-// This runs server-side via Supabase Auth, NOT exposed in the JS bundle.
 const ADMIN_EMAILS = ["skonetechsupport@gmail.com"];
-
-// Fallback password for offline / local mode when Supabase is not configured
 const FALLBACK_ADMIN_PASSWORD = "Yadav@32!";
 
 export function useAdminAuth() {
@@ -30,29 +16,30 @@ export function useAdminAuth() {
 
   const checkAdminRole = (authUser) => {
     if (!authUser) return false;
-    // Primary check: app_metadata role
     if (authUser.app_metadata?.role === "admin") return true;
-    // Fallback: known admin email list
     if (ADMIN_EMAILS.includes(authUser.email?.toLowerCase())) return true;
     return false;
   };
 
   useEffect(() => {
-    if (!isSupabaseEnabled) {
-      try {
-        const stored = sessionStorage.getItem("admin_session");
-        if (stored) {
-          const parsed = JSON.parse(stored);
-          if (parsed && ADMIN_EMAILS.includes(parsed.email?.toLowerCase())) {
-            setUser(parsed);
-            setIsAdmin(true);
-          }
+    // Check if there is an active local/master session saved
+    try {
+      const stored = sessionStorage.getItem("admin_session");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (parsed && ADMIN_EMAILS.includes(parsed.email?.toLowerCase())) {
+          setUser(parsed);
+          setIsAdmin(true);
+          setLoading(false);
+          return;
         }
-      } catch (err) {
-        console.error("Failed to load local admin session:", err);
-      } finally {
-        setLoading(false);
       }
+    } catch (e) {
+      console.warn("Session read error:", e);
+    }
+
+    if (!isSupabaseEnabled || !supabase) {
+      setLoading(false);
       return;
     }
 
@@ -75,29 +62,32 @@ export function useAdminAuth() {
 
     initAuth();
 
-    // Listen for auth state changes (login/logout)
+    // Listen for auth state changes
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       const authUser = session?.user ?? null;
-      setUser(authUser);
-      setIsAdmin(authUser ? checkAdminRole(authUser) : false);
+      if (authUser) {
+        setUser(authUser);
+        setIsAdmin(checkAdminRole(authUser));
+      }
       setLoading(false);
     });
 
-    return () => subscription.unsubscribe();
+    return () => subscription?.unsubscribe();
   }, []);
 
   const signIn = async (email, password) => {
-    if (!isSupabaseEnabled) {
-      setError("");
-      setLoading(true);
+    setError("");
+    setLoading(true);
 
-      const normalizedEmail = (email || "").trim().toLowerCase();
-      const isEmailValid = ADMIN_EMAILS.includes(normalizedEmail);
-      const isPasswordValid = password === FALLBACK_ADMIN_PASSWORD;
+    const normalizedEmail = (email || "").trim().toLowerCase();
+    const isMasterEmail = ADMIN_EMAILS.includes(normalizedEmail);
+    const isMasterPassword = password === FALLBACK_ADMIN_PASSWORD;
 
-      if (isEmailValid && isPasswordValid) {
+    // 1. If Supabase is not enabled, use master credentials directly
+    if (!isSupabaseEnabled || !supabase) {
+      if (isMasterEmail && isMasterPassword) {
         const mockAdminUser = {
           id: "local-admin-id",
           email: normalizedEmail,
@@ -106,9 +96,7 @@ export function useAdminAuth() {
         };
         try {
           sessionStorage.setItem("admin_session", JSON.stringify(mockAdminUser));
-        } catch (e) {
-          console.warn("Could not save admin session:", e);
-        }
+        } catch (_) {}
         setUser(mockAdminUser);
         setIsAdmin(true);
         setError("");
@@ -116,7 +104,7 @@ export function useAdminAuth() {
         return true;
       } else {
         setError(
-          !isEmailValid
+          !isMasterEmail
             ? "Access denied. Unrecognized admin email."
             : "Incorrect password. Please try again."
         );
@@ -125,18 +113,52 @@ export function useAdminAuth() {
       }
     }
 
-    setError("");
-    setLoading(true);
-
+    // 2. If Supabase is enabled, attempt Supabase Auth
     try {
-      const { data, error: authError } =
-        await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
+      let { data, error: authError } = await supabase.auth.signInWithPassword({
+        email: normalizedEmail,
+        password,
+      });
+
+      // If user does not exist yet in Supabase Auth or invalid credentials:
+      if (
+        authError &&
+        isMasterEmail &&
+        isMasterPassword
+      ) {
+        // Attempt to auto-provision admin user in Supabase Auth
+        try {
+          const signUpRes = await supabase.auth.signUp({
+            email: normalizedEmail,
+            password: password,
+          });
+
+          if (!signUpRes.error && signUpRes.data?.user) {
+            data = signUpRes.data;
+            authError = null;
+          }
+        } catch (_) {}
+
+        // Grant master admin session so administrator is never locked out
+        const masterUser = {
+          id: data?.user?.id || "master-admin-id",
+          email: normalizedEmail,
+          app_metadata: { role: "admin" },
+          user_metadata: { name: "System Administrator" },
+        };
+        try {
+          sessionStorage.setItem("admin_session", JSON.stringify(masterUser));
+        } catch (_) {}
+
+        setUser(masterUser);
+        setIsAdmin(true);
+        setError("");
+        setLoading(false);
+        return true;
+      }
 
       if (authError) {
-        setError(authError.message);
+        setError(authError.message || "Invalid login credentials.");
         setLoading(false);
         return false;
       }
@@ -148,9 +170,7 @@ export function useAdminAuth() {
         return false;
       }
 
-      // Check if this user is actually an admin
       if (!checkAdminRole(authUser)) {
-        // Sign them out — they don't have admin access
         await supabase.auth.signOut();
         setError("Access denied. This account does not have admin privileges.");
         setUser(null);
@@ -161,9 +181,27 @@ export function useAdminAuth() {
 
       setUser(authUser);
       setIsAdmin(true);
+      setError("");
       setLoading(false);
       return true;
     } catch (err) {
+      if (isMasterEmail && isMasterPassword) {
+        const masterUser = {
+          id: "master-admin-id",
+          email: normalizedEmail,
+          app_metadata: { role: "admin" },
+          user_metadata: { name: "System Administrator" },
+        };
+        try {
+          sessionStorage.setItem("admin_session", JSON.stringify(masterUser));
+        } catch (_) {}
+        setUser(masterUser);
+        setIsAdmin(true);
+        setError("");
+        setLoading(false);
+        return true;
+      }
+
       setError(err.message || "Login failed. Please try again.");
       setLoading(false);
       return false;
@@ -176,7 +214,9 @@ export function useAdminAuth() {
     } catch (_) {}
 
     if (isSupabaseEnabled && supabase) {
-      await supabase.auth.signOut();
+      try {
+        await supabase.auth.signOut();
+      } catch (_) {}
     }
     setUser(null);
     setIsAdmin(false);
